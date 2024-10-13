@@ -1,4 +1,6 @@
 #include <cassert>
+#include "float.h"
+#include "math.h"
 #include "buffer.h"
 
 using namespace cortex;
@@ -16,29 +18,28 @@ template <typename T>
 Buffer<T>::~Buffer() { }
 
 template <typename T>
-void Buffer<T>::apply(Sample (*fn)(Sample)) {
-    assert(m_data.size() > 0);
+void Buffer<T>::zero() {
+    assert(!m_data.empty());
 
-    for (int idx = 0; idx < m_data.size(); idx++) {
-        m_data[idx] = fn(m_data[idx]);
+    for (float & data : m_data) {
+        data = ZERO;
+    }
+}
+
+template <typename T>
+void Buffer<T>::apply(Sample (*fn)(Sample)) {
+    assert(!m_data.empty());
+
+    for (float& data : m_data) {
+        data = fn(data);
     }
 }
 
 template <typename T>
 void Buffer<T>::gain(float factor) {
-    assert(m_data.size() > 0);
+    assert(!m_data.empty());
 
-    auto fn = [factor](Sample s) {
-        return s * factor;
-    };
-    this->apply(fn);
-}
-
-template <typename T>
-void Buffer<T>::zero() {
-    assert(m_data.size() > 0);
-
-    for (int idx = 0; idx < m_data.size(); idx++) {
-
+    for (float& data : m_data) {
+        data *= clamp(factor, 0.0f, 1.0f);
     }
 }

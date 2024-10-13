@@ -12,11 +12,11 @@ namespace cortex {
             Buffer(uint32_t capacity);
             ~Buffer();
 
+            void zero();
+
             void apply(Sample (*fn)(Sample));
 
             void gain(float factor);
-
-            void zero();
 
         private:
             std::vector<Sample> m_data;
