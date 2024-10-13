@@ -1,7 +1,7 @@
 #pragma once
 
-#include <stdint.h>
+#include <cstddef>
 
 struct Context {
-    uint32_t sampleRate;
+    size_t sampleRate;
 };

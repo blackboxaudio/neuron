@@ -1,15 +1,10 @@
 #pragma once
 
 namespace cortex {
-    class Sample {
-        public:
-            Sample(float value);
-            ~Sample();
+    typedef float SampleType;
 
-            float equilibrium();
-            float gain(float factor);
-
-        private:
-            float m_value;
-    };
+    const SampleType ZERO = 0.0f;
+    const SampleType IDENTITY = 1.0f;
+    const SampleType MIN = -1.0f;
+    const SampleType MAX = 1.0f;
 }
