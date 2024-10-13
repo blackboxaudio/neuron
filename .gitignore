@@ -2,8 +2,8 @@
 #### C++
 #### #### #### ####
 
-# CMake
-cmake-build-*/
+# Build outputs
+**/target
 
 #### #### #### ####
 #### IDEs
