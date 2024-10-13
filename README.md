@@ -1,3 +1,15 @@
-# template
+# `cortex`
 
-This is a generic template repository to be used for any future project.
+> Collection of C++ audio DSP components 🧠
+
+## Overview
+
+...
+
+## Setup
+
+...
+
+## Usage
+
+...
