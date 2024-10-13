@@ -10,16 +10,16 @@ namespace cortex {
             Oscillator(Context& context, float frequency);
             ~Oscillator() {}
 
-            SampleType Generate();
+            Sample Generate();
 
             void SetFrequency(float frequency);
 
         private:
             void PopulateWavetable();
-            SampleType Lerp();
+            Sample Lerp();
 
             Context& m_context;
-            SampleType m_wavetable[WAVETABLE_SIZE];
+            Sample m_wavetable[WAVETABLE_SIZE];
             float m_phase = 0.0f;
             float m_phaseIncrement = 0.0f;
     };
