@@ -4,6 +4,7 @@ project(CORTEX VERSION 0.1.0 LANGUAGES CXX)
 
 add_library(cortex STATIC
         src/cortex.h
+        src/buffer.cpp
         src/sample.cpp
 )
 

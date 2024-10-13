@@ -1,3 +1,5 @@
+#pragma once
+
 namespace cortex {
     class Sample {
         public:
