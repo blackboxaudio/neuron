@@ -1,8 +1,8 @@
 #pragma once
 
-#include <algorithm>
+#include "cortex.h"
 
 namespace cortex {
     template <typename T>
-    T clamp(const T n, const T lower, const T upper);
+    T clamp(T n, T lower, T upper);
 }
