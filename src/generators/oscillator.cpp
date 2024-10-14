@@ -7,10 +7,15 @@ Oscillator::Oscillator(Context &context, float frequency = 110.0f) : m_context(c
     SetFrequency(frequency);
 }
 
-Sample Oscillator::ProcessSample() {
-    Sample value = Lerp();
-    m_phase = fmod(m_phase + m_phaseIncrement, (float) WAVETABLE_SIZE);
-    return value;
+void Oscillator::Process(OutputBuffer output, size_t size) {
+    for (int sampleIdx = 0; sampleIdx < size; sampleIdx++) {
+        Sample value = Lerp();
+        m_phase = fmod(m_phase + m_phaseIncrement, (float) WAVETABLE_SIZE);
+
+        for (int channelIdx = 0; channelIdx < m_context.numChannels; channelIdx++) {
+            output[channelIdx][sampleIdx] = value;
+        }
+    }
 }
 
 void Oscillator::SetFrequency(float frequency) {

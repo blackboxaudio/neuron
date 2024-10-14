@@ -10,7 +10,7 @@ namespace cortex {
             Oscillator(Context& context, float frequency);
             ~Oscillator() {}
 
-            Sample ProcessSample();
+            void Process(OutputBuffer output, size_t size);
 
             void SetFrequency(float frequency);
 

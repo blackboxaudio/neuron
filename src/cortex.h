@@ -11,6 +11,7 @@
 #include <cmath>
 
 #include "arithmetic.h"
+#include "buffer.h"
 #include "context.h"
 #include "sample.h"
 
