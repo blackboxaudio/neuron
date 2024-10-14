@@ -7,7 +7,7 @@ Oscillator::Oscillator(Context &context, float frequency = 110.0f) : m_context(c
     SetFrequency(frequency);
 }
 
-Sample Oscillator::Generate() {
+Sample Oscillator::ProcessSample() {
     Sample value = Lerp();
     m_phase = fmod(m_phase + m_phaseIncrement, (float) WAVETABLE_SIZE);
     return value;
@@ -19,7 +19,7 @@ void Oscillator::SetFrequency(float frequency) {
 
 void Oscillator::PopulateWavetable() {
     for (int idx = 0; idx < WAVETABLE_SIZE; idx++) {
-        float phase = (float) idx * M_PI * 2.0f / (float) WAVETABLE_SIZE;
+        float phase = (float) idx * PI * 2.0f / (float) WAVETABLE_SIZE;
         Sample value = sin(phase);
         m_wavetable[idx] = value;
     }

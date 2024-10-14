@@ -9,7 +9,6 @@
 
 #include <algorithm>
 #include <cmath>
-#include <cstddef>
 
 #include "arithmetic.h"
 #include "context.h"
