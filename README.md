@@ -13,17 +13,52 @@
 It can be used for a variety of applications, including:
 
 - [JUCE](https://juce.com/) audio plugins
-- Embedded hardware such as the [Electrosmith Daisy](https://electro-smith.com/collections/daisy)
+- Embedded hardware such as the [Electrosmith Daisy](https://electro-smith.com/collections/daisy) (see [Flora](https://github.com/blackboxdsp/flora))
 - [VCV Rack](https://vcvrack.com/) modules
 
 ## Features
 
-...
+`cortex` currently lacks wide support for features because it is in early stages, however the following are in its immediate roadmap:
+
+- Dynamics
+- Effects
+- Filters
+- Synthesis
 
 ## Getting Started
 
-...
+Clone this repository:
+```bash 
+git clone https://github.com/blackboxdsp/cortex
+cd cortex/
+```
 
-## Usage
+Build the library:
+```bash 
+make
+```
 
-...
+## Using the Library
+
+```c++
+#include "cortex.h"
+
+// Create a DSP context (sample rate,
+// number of channels, buffer size).
+static Context context {
+    44100,
+    1,
+    128,
+};
+
+// Create an oscillator with an initial
+// frequency of 440Hz.
+static Oscillator osc(context, 440.0f);
+
+// Write to the buffer with samples
+// generated from the oscillator
+for(size_t idx = 0; idx < 128; idx++) {
+    auto sample = (float)osc.Generate()
+    buffer[idx] = sample
+}
+```
