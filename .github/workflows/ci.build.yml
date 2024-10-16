@@ -35,8 +35,11 @@ jobs:
         os: [ ubuntu-latest, macos-latest, windows-latest ]
 
     steps:
-      -   name: "Checkout"
-          uses: actions/checkout@v4
+      - name: "Checkout"
+        uses: actions/checkout@v4
 
-      -   name: "Build"
-          run: make
+      - name: "Install ARM Toolchain"
+        uses: carlosperate/arm-none-eabi-gcc-action@v1
+
+      - name: "Build"
+        run: make
