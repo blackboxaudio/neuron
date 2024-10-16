@@ -1,6 +1,6 @@
 #pragma once
 
-#include "cortex.h"
+#include <algorithm>
 
 namespace cortex {
     const float ZERO = 0.0f;

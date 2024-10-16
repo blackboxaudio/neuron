@@ -1,6 +1,10 @@
 #pragma once
 
-#include "cortex.h"
+#include <cmath>
+
+#include "arithmetic.h"
+#include "context.h"
+#include "sample.h"
 
 namespace cortex {
     const size_t WAVETABLE_SIZE = 256;
