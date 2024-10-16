@@ -14,4 +14,9 @@ set_target_properties(cortex PROPERTIES PUBLIC
 
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++14")
 
-target_include_directories(cortex PUBLIC src)
+target_include_directories(cortex PUBLIC
+        ${CMAKE_CURRENT_LIST_DIR}/src
+        PRIVATE
+        "src"
+        "src/generators"
+)
