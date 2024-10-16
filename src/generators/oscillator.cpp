@@ -18,7 +18,7 @@ void Oscillator::SetFrequency(float frequency) {
 }
 
 void Oscillator::PopulateWavetable() {
-    for (int idx = 0; idx < WAVETABLE_SIZE; idx++) {
+    for (size_t idx = 0; idx < WAVETABLE_SIZE; idx++) {
         float phase = (float) idx * PI * 2.0f / (float) WAVETABLE_SIZE;
         Sample value = sin(phase);
         m_wavetable[idx] = value;
