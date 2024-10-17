@@ -10,11 +10,16 @@ GENERATOR_MOD_DIR = generators
 GENERATOR_MODULES = \
 oscillator \
 
+PROCESSOR_MOD_DIR = processors
+PROCESSOR_MODULES = \
+saturator \
+
 ######################################
 # source
 ######################################
 
 CPP_SOURCES += $(addsuffix .cpp, $(MODULE_DIR)/$(GENERATOR_MOD_DIR)/$(GENERATOR_MODULES))
+CPP_SOURCES += $(addsuffix .cpp, $(MODULE_DIR)/$(PROCESSOR_MOD_DIR)/$(PROCESSOR_MODULES))
 
 ######################################
 # building variables
@@ -89,6 +94,7 @@ C_DEFS =  \
 C_INCLUDES = \
 -I$(MODULE_DIR) \
 -I$(MODULE_DIR)/$(GENERATOR_MOD_DIR) \
+-I$(MODULE_DIR)/$(PROCESSOR_MOD_DIR) \
 
 # compile gcc flags
 ASFLAGS = $(MCU) $(AS_DEFS) $(AS_INCLUDES) $(OPT) -Wall -fdata-sections -ffunction-sections
