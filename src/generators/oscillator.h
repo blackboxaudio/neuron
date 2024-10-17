@@ -11,7 +11,7 @@ const size_t WAVETABLE_SIZE = 256;
 
 class Oscillator {
 public:
-    Oscillator(Context& context, float frequency);
+    Oscillator(Context& context = DEFAULT_CONTEXT, float frequency = 440.0f);
     ~Oscillator() { }
 
     Sample Generate();
