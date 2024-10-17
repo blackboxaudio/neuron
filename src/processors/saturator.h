@@ -1,18 +1,19 @@
 #pragma once
 
-#include <cmath>
 #include "sample.h"
+#include <cmath>
 
 namespace cortex {
 class Saturator {
-    public:
-        Saturator();
-        ~Saturator();
+public:
+    Saturator();
+    ~Saturator();
 
-        Sample Process(const Sample& input);
+    Sample Process(const Sample& input);
 
-        void SetSaturationLevel(float level);
-    private:
-        float m_saturationLevel = 1.0f;
+    void SetSaturationLevel(float level);
+
+private:
+    float m_saturationLevel = 1.0f;
 };
 }

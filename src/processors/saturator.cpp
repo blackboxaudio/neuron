@@ -2,10 +2,12 @@
 
 using namespace cortex;
 
-Sample Saturator::Process(const Sample& input) {
+Sample Saturator::Process(const Sample& input)
+{
     return std::tanh((float)input * m_saturationLevel);
 }
 
-void Saturator::SetSaturationLevel(float level) {
+void Saturator::SetSaturationLevel(float level)
+{
     m_saturationLevel = level;
 }
