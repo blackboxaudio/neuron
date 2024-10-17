@@ -1,7 +1,17 @@
 #pragma once
 
-struct Context {
-    size_t sampleRate;
-    size_t numChannels;
-    size_t blockSize;
-};
+#include <cmath>
+
+namespace cortex {
+    struct Context {
+        size_t sampleRate;
+        size_t numChannels;
+        size_t blockSize;
+    };
+
+    Context DEFAULT_CONTEXT = {
+        44100,
+        2,
+        16
+    };
+}
