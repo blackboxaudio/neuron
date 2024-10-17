@@ -12,9 +12,9 @@ public:
 
     Sample Process(const Sample& input);
 
-    void SetSaturationLevel(float level);
+    void SetSaturation(float level);
 
 private:
-    float m_saturationLevel = 1.0f;
+    float m_saturation = 1.0f;
 };
 }

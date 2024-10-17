@@ -8,10 +8,10 @@ Saturator::~Saturator() { }
 
 Sample Saturator::Process(const Sample& input)
 {
-    return std::tanh((float)input * m_saturationLevel);
+    return (Sample)std::tanh((float)input * m_saturation);
 }
 
-void Saturator::SetSaturationLevel(float level)
+void Saturator::SetSaturation(float level)
 {
-    m_saturationLevel = level;
+    m_saturation = level;
 }
