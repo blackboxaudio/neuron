@@ -2,7 +2,7 @@
 
 using namespace cortex;
 
-Oscillator::Oscillator(Context& context, float frequency = 110.0f)
+Oscillator::Oscillator(Context& context = DEFAULT_CONTEXT, float frequency = 110.0f)
     : m_context(context)
 {
     PopulateWavetable();
