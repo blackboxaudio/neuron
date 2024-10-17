@@ -94,6 +94,7 @@ C_DEFS =  \
 C_INCLUDES = \
 -I$(MODULE_DIR) \
 -I$(MODULE_DIR)/$(GENERATOR_MOD_DIR) \
+-I$(MODULE_DIR)/$(UTILITY_MOD_DIR) \
 
 # compile gcc flags
 ASFLAGS = $(MCU) $(AS_DEFS) $(AS_INCLUDES) $(OPT) -Wall -fdata-sections -ffunction-sections
