@@ -9,7 +9,7 @@ namespace cortex {
         size_t blockSize;
     };
 
-    Context DEFAULT_CONTEXT = {
+    static Context DEFAULT_CONTEXT = {
         44100,
         2,
         16
