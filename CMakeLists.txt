@@ -4,7 +4,6 @@ project(CORTEX VERSION 0.1.0 LANGUAGES CXX)
 
 add_library(cortex STATIC
         src/generators/oscillator.cpp
-        src/utilities/arithmetic.cpp
 )
 
 set_target_properties(cortex PROPERTIES PUBLIC
