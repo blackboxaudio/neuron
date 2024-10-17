@@ -1,7 +1,8 @@
 #pragma once
 
-#include "sample.h"
 #include <cmath>
+
+#include "sample.h"
 
 namespace cortex {
 class Saturator {
