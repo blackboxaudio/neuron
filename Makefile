@@ -10,11 +10,16 @@ GENERATOR_MOD_DIR = generators
 GENERATOR_MODULES = \
 oscillator \
 
+UTILITY_MOD_DIR = utilities
+UTILITY_MODULES = \
+arithmetic \
+
 ######################################
 # source
 ######################################
 
 CPP_SOURCES += $(addsuffix .cpp, $(MODULE_DIR)/$(GENERATOR_MOD_DIR)/$(GENERATOR_MODULES))
+CPP_SOURCES += $(addsuffix .cpp, $(MODULE_DIR)/$(UTILITY_MOD_DIR)/$(UTILITY_MODULES))
 
 ######################################
 # building variables

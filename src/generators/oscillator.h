@@ -2,7 +2,7 @@
 
 #include <cmath>
 
-#include "arithmetic.h"
+#include "../utilities/arithmetic.h"
 #include "context.h"
 #include "sample.h"
 

@@ -7,9 +7,9 @@
 #ifndef CORTEX_LIB_H
 #define CORTEX_LIB_H
 
-#include "arithmetic.h"
 #include "context.h"
 #include "generators/oscillator.h"
 #include "sample.h"
+#include "utilities/arithmetic.h"
 
 #endif

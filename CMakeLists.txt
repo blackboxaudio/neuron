@@ -3,8 +3,8 @@ cmake_minimum_required(VERSION 3.14)
 project(CORTEX VERSION 0.1.0 LANGUAGES CXX)
 
 add_library(cortex STATIC
-        src/arithmetic.cpp
         src/generators/oscillator.cpp
+        src/utilities/arithmetic.cpp
 )
 
 set_target_properties(cortex PROPERTIES PUBLIC
@@ -19,4 +19,5 @@ target_include_directories(cortex PUBLIC
         PRIVATE
         "src"
         "src/generators"
+        "src/utilities"
 )
