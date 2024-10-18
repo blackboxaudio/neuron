@@ -11,6 +11,7 @@
 #include "generators/oscillator.h"
 #include "processors/filter.h"
 #include "processors/saturator.h"
+#include "processors/wavefolder.h"
 #include "sample.h"
 #include "utilities/arithmetic.h"
 

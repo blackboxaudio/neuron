@@ -58,7 +58,6 @@ static Oscillator osc(context, 440.0f);
 // Write to the buffer with samples
 // generated from the oscillator
 for(size_t idx = 0; idx < 128; idx++) {
-    auto sample = (float)osc.Generate()
-    buffer[idx] = sample
+    buffer[idx] = (float)osc.Generate();
 }
 ```

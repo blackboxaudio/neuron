@@ -14,6 +14,7 @@ PROCESSOR_MOD_DIR = processors
 PROCESSOR_MODULES = \
 filter \
 saturator \
+wavefolder \
 
 UTILITY_MOD_DIR = utilities
 UTILITY_MODULES = \

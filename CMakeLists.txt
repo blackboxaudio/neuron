@@ -6,6 +6,7 @@ add_library(cortex STATIC
         src/generators/oscillator.cpp
         src/processors/filter.cpp
         src/processors/saturator.cpp
+        src/processors/wavefolder.cpp
 )
 
 set_target_properties(cortex PROPERTIES PUBLIC
