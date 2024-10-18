@@ -7,12 +7,19 @@
 #ifndef CORTEX_LIB_H
 #define CORTEX_LIB_H
 
-#include "context.h"
+// AUDIO
+#include "audio/context.h"
+#include "audio/sample.h"
+
+// GENERATORS
 #include "generators/oscillator.h"
+
+// PROCESSORS
 #include "processors/filter.h"
 #include "processors/saturator.h"
 #include "processors/wavefolder.h"
-#include "sample.h"
+
+// UTILITIES
 #include "utilities/arithmetic.h"
 
 #endif

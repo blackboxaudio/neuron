@@ -6,6 +6,9 @@ MODULE_DIR = src
 # Header only modules are listed commented out
 # below the others.
 
+AUDIO_MOD_DIR = audio
+AUDIO_MODULES = \
+
 GENERATOR_MOD_DIR = generators
 GENERATOR_MODULES = \
 oscillator \
@@ -98,6 +101,7 @@ C_DEFS =  \
 
 C_INCLUDES = \
 -I$(MODULE_DIR) \
+-I$(MODULE_DIR)/$(AUDIO_MOD_DIR) \
 -I$(MODULE_DIR)/$(GENERATOR_MOD_DIR) \
 -I$(MODULE_DIR)/$(PROCESSOR_MOD_DIR) \
 -I$(MODULE_DIR)/$(UTILITY_MOD_DIR) \

@@ -20,6 +20,7 @@ target_include_directories(cortex PUBLIC
         ${CMAKE_CURRENT_LIST_DIR}/src
         PRIVATE
         "src"
+        "src/audio"
         "src/generators"
         "src/processors"
         "src/utilities"

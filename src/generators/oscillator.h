@@ -2,9 +2,9 @@
 
 #include <cmath>
 
+#include "../audio/context.h"
+#include "../audio/sample.h"
 #include "../utilities/arithmetic.h"
-#include "context.h"
-#include "sample.h"
 
 namespace cortex {
 const size_t WAVETABLE_SIZE = 256;
