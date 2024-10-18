@@ -16,8 +16,8 @@ const float ZERO = 0.0f;
 const float IDENTITY = 1.0f;
 
 /**
- * An irrational number that represents the ratio of the circumference of a circle
- * to its diameter.
+ * An irrational number that represents the ratio of the circumference of a
+ * circle to its diameter.
  */
 const float PI = 3.14159265358979323846264338327950288f;
 
@@ -56,11 +56,13 @@ inline T clamp(const T n, const T min, const T max)
  * @param n The number to scale.
  * @param min The lower bound of the range to scale n.
  * @param max The upper bound of the range to scale n.
- * @param curve The curve in which to scale n (e.g. linear, exponential, logarithmic)
+ * @param curve The curve in which to scale n (e.g. linear, exponential,
+ * logarithmic)
  * @return T
  */
 template <typename T>
-inline T map(const T n, const T min, const T max, const Mapping curve = Mapping::LINEAR)
+inline T map(const T n, const T min, const T max,
+    const Mapping curve = Mapping::LINEAR)
 {
     switch (curve) {
     case Mapping::EXP:
@@ -86,7 +88,7 @@ inline T midi_to_frequency(T n)
 {
     return powf(2, (n - 69.0f) / 12.0f) * 440.0f;
 }
-}
+} // namespace cortex
 
 /**
  * A fast approximation of the hyperbolic tangent function, or `tanh`.

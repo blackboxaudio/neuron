@@ -12,6 +12,7 @@ oscillator \
 
 PROCESSOR_MOD_DIR = processors
 PROCESSOR_MODULES = \
+filter \
 saturator \
 
 UTILITY_MOD_DIR = utilities

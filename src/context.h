@@ -18,9 +18,5 @@ struct Context {
  * The common default context, using a sample rate of 44.1kHz, stereo
  * channel configuration, and a buffer size of 16 samples.
  */
-static Context DEFAULT_CONTEXT = {
-    44100,
-    2,
-    16
-};
-}
+static Context DEFAULT_CONTEXT = { 44100, 2, 16 };
+} // namespace cortex

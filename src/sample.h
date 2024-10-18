@@ -16,4 +16,4 @@ const Sample MIN = -1.0f;
  * The maximum possible value for a sample.
  */
 const Sample MAX = 1.0f;
-}
+} // namespace cortex

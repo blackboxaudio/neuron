@@ -9,6 +9,7 @@
 
 #include "context.h"
 #include "generators/oscillator.h"
+#include "processors/filter.h"
 #include "processors/saturator.h"
 #include "sample.h"
 #include "utilities/arithmetic.h"
