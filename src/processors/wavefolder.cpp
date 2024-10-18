@@ -2,15 +2,9 @@
 
 using namespace cortex;
 
-Wavefolder::Wavefolder(float threshold, float inputGain)
-    : m_threshold(threshold)
-    , m_inputGain(inputGain)
-{
-}
-
 Sample Wavefolder::Process(const Sample input)
 {
-    Sample output = input * m_inputGain;
+    float output = (float)input * m_inputGain;
     while (output > m_threshold || output < -m_threshold) {
         if (output > m_threshold) {
             output = m_threshold - (output - m_threshold);
@@ -18,7 +12,17 @@ Sample Wavefolder::Process(const Sample input)
             output = -m_threshold - (output + m_threshold);
         }
     }
-    return output;
+
+    if (input < 0.0f) {
+        return (Sample)output;
+    } else {
+        return (Sample)(input * (1.0f - m_symmetry)) + (output * m_symmetry);
+    }
+}
+
+void Wavefolder::SetInputGain(float gain)
+{
+    m_inputGain = gain;
 }
 
 void Wavefolder::SetThreshold(float threshold)
@@ -26,7 +30,7 @@ void Wavefolder::SetThreshold(float threshold)
     m_threshold = threshold;
 }
 
-void Wavefolder::SetInputGain(float gain)
+void Wavefolder::SetSymmetry(float symmetry)
 {
-    m_inputGain = gain;
+    m_symmetry = clamp(symmetry, 0.0f, 1.0f);
 }
