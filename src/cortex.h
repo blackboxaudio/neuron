@@ -22,5 +22,6 @@
 
 // UTILITIES
 #include "utilities/arithmetic.h"
+#include "utilities/midi.h"
 
 #endif
