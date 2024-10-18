@@ -1,6 +1,7 @@
 /**
- * Cortex is a lightweight audio DSP library, initially intended for use with
- * Electrosmith Daisy devices.
+ * Cortex is a lightweight audio DSP library intended for use
+ * in any relevant application e.g. Electrosmith Daisy patches,
+ * JUCE plugins, VCV Rack modules.
  *
  * Author: Matthew Maxwell, 2024
  */
