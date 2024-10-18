@@ -88,7 +88,6 @@ inline T midi_to_frequency(T n)
 {
     return powf(2, (n - 69.0f) / 12.0f) * 440.0f;
 }
-} // namespace cortex
 
 /**
  * A fast approximation of the hyperbolic tangent function, or `tanh`.
@@ -102,3 +101,4 @@ inline T fast_tanh(T n)
     T n2 = n * n;
     return n * (n2 + 27) / (n2 * 9 + 27);
 }
+} // namespace cortex
