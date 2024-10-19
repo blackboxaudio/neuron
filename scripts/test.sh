@@ -29,8 +29,5 @@ else
     cd "$TARGET_DIR" || exit 1
 fi
 
-if [ $OUTPUT_FAILURE == "true" ]; then
-    ctest --rerun-failed --output-on-failure
-else
-    ctest
-fi
+CTEST_FLAGS=$([ $OUTPUT_FAILURE == "true" ] && echo "--rerun-failed --output-on-failure")
+ctest $CTEST_FLAGS

@@ -9,4 +9,10 @@ TEST(arithmetic_test, clamp_test)
     EXPECT_EQ(0.0f, clamp<float>(0.0f, -1.0f, 1.0f));
     EXPECT_EQ(1.0f, clamp<float>(2.0f, -1.0f, 1.0f));
     EXPECT_EQ(-1.0f, clamp<float>(-2.0f, -1.0f, 1.0f));
+
+    EXPECT_EQ(1, clamp<int>(1, -1, 1));
+    EXPECT_EQ(-1, clamp<int>(-1, -1, 1));
+
+    EXPECT_EQ(1, clamp<double>(1, 1, 1));
+    EXPECT_EQ(1, clamp<double>(0, 1, -1));
 }
