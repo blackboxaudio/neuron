@@ -6,7 +6,7 @@ on:
     branches: ['main', 'develop']
 
 jobs:
-  cmake:
+  CMake:
     runs-on: ${{matrix.os}}
     strategy:
       matrix:
@@ -28,7 +28,7 @@ jobs:
         working-directory: ${{runner.workspace}}/cortex/target
         run: cmake --build .
 
-  make:
+  Make:
     runs-on: ${{matrix.os}}
     strategy:
       matrix:

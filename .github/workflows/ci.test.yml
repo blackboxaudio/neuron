@@ -6,7 +6,7 @@ on:
         branches: ['main', 'develop']
 
 jobs:
-    test:
+    GoogleTest:
         runs-on: ubuntu-latest
         steps:
             - name: "Checkout"
