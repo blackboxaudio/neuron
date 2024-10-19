@@ -28,7 +28,7 @@ set_target_properties(cortex PROPERTIES PUBLIC
 
 if(BUILD_TESTS)
     function(add_cortex_test name src)
-        add_executable("${name}_test_exe" src)
+        add_executable("${name}_test_exe" ${src})
         target_include_directories("${name}_test_exe" PRIVATE ${INCLUDE_DIR})
         target_link_libraries("${name}_test_exe" gtest gtest_main)
         add_test(NAME "${name}_test" COMMAND "${name}_test_exe")
