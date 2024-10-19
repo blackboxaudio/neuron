@@ -27,16 +27,19 @@ set_target_properties(cortex PROPERTIES PUBLIC
 )
 
 if(BUILD_TESTS)
-    list(APPEND TEST
-            tests/utilities/arithmetic_test.cpp
-            tests/utilities/midi_test.cpp
-    )
+    function(add_cortex_test name src)
+        add_executable("${name}_test_exe" src)
+        target_include_directories("${name}_test_exe" PRIVATE ${INCLUDE_DIR})
+        target_link_libraries("${name}_test_exe" gtest gtest_main)
+        add_test(NAME "${name}_test" COMMAND "${name}_test_exe")
+    endfunction()
+
     add_subdirectory(vendor/googletest)
-    add_executable(cortex_tests ${TEST})
-    target_include_directories(cortex_tests PRIVATE ${INCLUDE_DIR})
-    target_link_libraries(cortex_tests gtest gtest_main)
+
+    add_cortex_test(arithmetic tests/utilities/arithmetic_test.cpp)
+    add_cortex_test(midi tests/utilities/midi_test.cpp)
+
     enable_testing()
-    add_test(NAME arithmetic_test COMMAND cortex_tests)
 endif()
 
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++14")
