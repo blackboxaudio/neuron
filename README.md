@@ -22,9 +22,36 @@ It can be used for a variety of applications, including:
 `cortex` currently lacks wide support for features because it is in early stages, however the following are in its immediate roadmap:
 
 - Dynamics
+  - Compressor
+  - Limiter
 - Effects
+  - Chorus
+  - Delay
+  - Echo
+  - Flanger
+  - Phaser
+  - Reverb
+  - Saturation
+  - Wavefolding
 - Filters
+  - LP/HP/BP Filter
+  - Ladder Filter
+- Modulators
+  - ADSR Envelope Generator
+  - AHD Envelope Generator
+  - Envelope Follower
+  - Low-Frequency Oscillator
 - Synthesis
+  - Amplitude Modulation
+  - Frequency-Modulation
+  - Granular
+  - Phase Distortion
+- Utilities
+  - Clock 
+  - DC Block
+  - Delay Line
+  - Sampler
+  - Wavetable
 
 ## Getting Started
 
