@@ -13,42 +13,42 @@ namespace cortex {
 class Saturator {
 public:
     /**
-   * Creates a default saturator processor.
-   *
-   * @return Saturator
-   */
+     * Creates a default saturator processor.
+     *
+     * @return Saturator
+     */
     Saturator() {};
 
     /**
-   * Frees any memory allocated by the saturator.
-   */
+     * Frees any memory allocated by the saturator.
+     */
     ~Saturator() {};
 
     /**
-   * Applies a saturation algorithm to an input sample.
-   *
-   * @param input The input sample to be processed.
-   * @return Sample
-   */
+     * Applies a saturation algorithm to an input sample.
+     *
+     * @param input The input sample to be processed.
+     * @return Sample
+     */
     Sample Process(const Sample input);
 
     /**
-   * Sets the saturation level, which boosts the signal before
-   * distortion is applied.
-   *
-   * @param saturation The multiplier of the audio signal going into the
-   * distortion algorithm.
-   */
+     * Sets the saturation level, which boosts the signal before
+     * distortion is applied.
+     *
+     * @param saturation The multiplier of the audio signal going into the
+     * distortion algorithm.
+     */
     void SetSaturation(float saturation);
 
     /**
-   * Sets the symmetry of the algorithm, determining how much
-   * distortion to apply to the positive and negative parts
-   * of the signal separately.
-   *
-   * @param symmetry A value between 0.0 and 1.0, ranging from asymmetrical
-   * (one-sided) to symmetrical respectively.
-   */
+     * Sets the symmetry of the algorithm, determining how much
+     * distortion to apply to the positive and negative parts
+     * of the signal separately.
+     *
+     * @param symmetry A value between 0.0 and 1.0, ranging from asymmetrical
+     * (one-sided) to symmetrical respectively.
+     */
     void SetSymmetry(float symmetry);
 
 private:

@@ -16,25 +16,25 @@ const size_t WAVETABLE_SIZE = 256;
 class Oscillator {
 public:
     /**
-   * Creates an oscillator generator.
-   *
-   * @param context The DSP context to be used by the oscillator.
-   * @param frequency The initial frequency of the oscillator.
-   * @return Oscillator
-   */
+     * Creates an oscillator generator.
+     *
+     * @param context The DSP context to be used by the oscillator.
+     * @param frequency The initial frequency of the oscillator.
+     * @return Oscillator
+     */
     Oscillator(Context& context = DEFAULT_CONTEXT, float frequency = 440.0f);
 
     /**
-   * Frees any memory allocated by the oscillator.
-   */
+     * Frees any memory allocated by the oscillator.
+     */
     ~Oscillator() { }
 
     /**
-   * Generates a sample of an audio signal with a
-   * basic waveform.
-   *
-   * @return Sample
-   */
+     * Generates a sample of an audio signal with a
+     * basic waveform.
+     *
+     * @return Sample
+     */
     Sample Generate();
 
     void SetFrequency(float frequency);

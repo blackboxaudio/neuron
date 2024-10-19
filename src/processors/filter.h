@@ -15,33 +15,33 @@ const float FILTER_CUTOFF_FREQ_MAX = 20000.0f;
 class Filter {
 public:
     /**
-   * Creates a filter processor.
-   *
-   * @param context The DSP context to be used by the filter.
-   * @param cutoffFrequency The initial cutoff frequency of the filter.
-   * @return Filter
-   */
+     * Creates a filter processor.
+     *
+     * @param context The DSP context to be used by the filter.
+     * @param cutoffFrequency The initial cutoff frequency of the filter.
+     * @return Filter
+     */
     Filter(Context& context = DEFAULT_CONTEXT,
         float cutoffFrequency = FILTER_CUTOFF_FREQ_MAX);
 
     /**
-   * Frees any memory allocated by the oscillator.
-   */
+     * Frees any memory allocated by the oscillator.
+     */
     ~Filter() { }
 
     /**
-   * Applies a low-pass filter to an input sample.
-   *
-   * @param input The input sample to be processed.
-   * @return Sample
-   */
+     * Applies a low-pass filter to an input sample.
+     *
+     * @param input The input sample to be processed.
+     * @return Sample
+     */
     Sample Process(const Sample input);
 
     /**
-   * Sets the filter's cutoff frequency.
-   *
-   * @param frequency The new cutoff frequency.
-   */
+     * Sets the filter's cutoff frequency.
+     *
+     * @param frequency The new cutoff frequency.
+     */
     void SetCutoffFrequency(float frequency);
 
 private:
