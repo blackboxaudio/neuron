@@ -30,12 +30,14 @@ if(BUILD_TESTS)
     function(add_cortex_test name src)
         add_executable("${name}_test_exe" ${src})
         target_include_directories("${name}_test_exe" PRIVATE ${INCLUDE_DIR})
+        target_link_libraries("${name}_test_exe" cortex)
         target_link_libraries("${name}_test_exe" gtest gtest_main)
         add_test(NAME "${name}_test" COMMAND "${name}_test_exe")
     endfunction()
 
     add_subdirectory(vendor/googletest)
 
+    add_cortex_test(oscillator tests/generators/oscillator_test.cpp)
     add_cortex_test(arithmetic tests/utilities/arithmetic_test.cpp)
     add_cortex_test(midi tests/utilities/midi_test.cpp)
 

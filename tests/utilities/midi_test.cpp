@@ -4,7 +4,7 @@
 
 using namespace cortex;
 
-TEST(midi_test, midi_to_frequency_test)
+TEST(midi_tests, midi_to_frequency_test)
 {
     EXPECT_EQ(8.17579842f, midi_to_frequency<float>(0)); // C-1
     EXPECT_EQ(27.5f, midi_to_frequency<float>(21)); // A0

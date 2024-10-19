@@ -16,6 +16,11 @@ Sample Oscillator::Generate()
     return value;
 }
 
+void Oscillator::Reset()
+{
+    m_phase = 0.0f;
+}
+
 void Oscillator::SetFrequency(float frequency)
 {
     m_phaseIncrement = frequency * (float)WAVETABLE_SIZE / (float)m_context.sampleRate;

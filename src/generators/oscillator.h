@@ -37,6 +37,17 @@ public:
      */
     Sample Generate();
 
+    /**
+     * Resets the phase of the oscillator, starting it at the beginning
+     * waveform position.
+     */
+    void Reset();
+
+    /**
+     * Sets the frequency of the oscillator,
+     *
+     * @param frequency The new oscillator output frequency.
+     */
     void SetFrequency(float frequency);
 
 private:
