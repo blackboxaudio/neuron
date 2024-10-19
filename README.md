@@ -1,5 +1,6 @@
 # `cortex`
 
+[![Test](https://github.com/blackboxdsp/cortex/actions/workflows/ci.test.yml/badge.svg)](https://github.com/blackboxdsp/cortex/actions/workflows/ci.test.yml)
 [![Build](https://github.com/blackboxdsp/cortex/actions/workflows/ci.build.yml/badge.svg)](https://github.com/blackboxdsp/cortex/actions/workflows/ci.build.yml)
 [![cortex: v0.1.0](https://img.shields.io/badge/Version-v0.1.0-blue.svg)](https://github.com/blackboxdsp/cortex)
 [![License](https://img.shields.io/badge/License-MIT-yellow)](https://github.com/blackboxdsp/cortex/blob/develop/LICENSE)
