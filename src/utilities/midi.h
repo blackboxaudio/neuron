@@ -1,5 +1,7 @@
 #pragma once
 
+#include <cmath>
+
 namespace cortex {
 /**
  * Converts a MIDI note number to a (floating-point) frequency.

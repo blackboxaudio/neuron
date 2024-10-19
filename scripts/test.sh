@@ -4,11 +4,16 @@
 TARGET_DIR=$PWD/target/test
 
 BUILD_TESTS=false
+OUTPUT_FAILURE=false
 
 for i in "$@"; do
     case $i in
         -b|--build)
             BUILD_TESTS=true
+            shift
+            ;;
+        -o|--output-failure)
+            OUTPUT_FAILURE=true
             shift
             ;;
     esac
@@ -24,4 +29,8 @@ else
     cd "$TARGET_DIR" || exit 1
 fi
 
-ctest
+if [ $OUTPUT_FAILURE == "true" ]; then
+    ctest --rerun-failed --output-on-failure
+else
+    ctest
+fi

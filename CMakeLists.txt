@@ -19,7 +19,8 @@ set_target_properties(cortex PROPERTIES PUBLIC
 if(BUILD_TESTS)
     add_subdirectory(vendor/googletest)
     add_executable(cortex_tests
-            tests/arithmetic_test.cpp
+            tests/utilities/arithmetic_test.cpp
+            tests/utilities/midi_test.cpp
     )
     target_include_directories(cortex_tests PRIVATE
             "src"
