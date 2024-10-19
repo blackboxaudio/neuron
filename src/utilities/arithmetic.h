@@ -66,14 +66,14 @@ inline T map(const T n, const T min, const T max,
 {
     switch (curve) {
     case Mapping::EXP:
-        return clamp(min + (n * n) * (max - min), min, max);
+        return clamp<T>(min + (n * n) * (max - min), min, max);
     case Mapping::LOG: {
         const float a = 1.f / log10f(max / min);
-        return clamp(min * powf(10, n / a), min, max);
+        return clamp<T>(min * powf(10, n / a), min, max);
     }
     case Mapping::LINEAR:
     default:
-        return clamp(min + n * (max - min), min, max);
+        return clamp<T>(min + n * (max - min), min, max);
     }
 }
 
