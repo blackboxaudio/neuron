@@ -4,5 +4,7 @@
 using namespace cortex;
 
 TEST(arithmetic_test, BasicTest) {
+    EXPECT_EQ(0.0f, clamp(0.0f, -1.0f, 1.0f));
     EXPECT_EQ(1.0f, clamp(2.0f, -1.0f, 1.0f));
+    EXPECT_EQ(-1.0f, clamp(-2.0f, -1.0f, 1.0f));
 }
