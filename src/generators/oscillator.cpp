@@ -45,7 +45,7 @@ void Oscillator::SetWaveform(Waveform waveform)
 
 void Oscillator::AttachFollower(Oscillator* follower)
 {
-    if (follower != nullptr) {
+    if (follower == nullptr) {
         m_follower = follower;
     }
 }
@@ -59,8 +59,7 @@ void Oscillator::PopulateWavetable()
 {
     for (size_t idx = 0; idx < WAVETABLE_SIZE; idx++) {
         float phase = (float)idx * PI * 2.0f / (float)WAVETABLE_SIZE;
-        Sample value = sin(phase);
-        m_wavetable[idx] = value;
+        m_wavetable[idx] = (Sample)sin(phase);
     }
 }
 
