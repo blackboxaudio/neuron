@@ -1,6 +1,6 @@
 #pragma once
 
-#include "arithmetic.h"
+#include "../utilities/arithmetic.h"
 #include "sample.h"
 
 namespace cortex {
