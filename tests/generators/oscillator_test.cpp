@@ -14,7 +14,7 @@ TEST(oscillator_suite, generate_test)
     Oscillator osc(context, 440.0f);
 
     EXPECT_FLOAT_EQ(osc.Generate(), 0.0f);
-    EXPECT_FLOAT_EQ(osc.Generate(), 0.062643729f);
+    EXPECT_FLOAT_EQ(osc.Generate(), 0.06264372f);
     EXPECT_FLOAT_EQ(osc.Generate(), 0.1250467f);
 }
 
@@ -28,12 +28,12 @@ TEST(oscillator_suite, reset_test)
     Oscillator osc(context, 440.0f);
 
     EXPECT_FLOAT_EQ(osc.Generate(), 0.0f);
-    EXPECT_FLOAT_EQ(osc.Generate(), 0.062643729f);
+    EXPECT_FLOAT_EQ(osc.Generate(), 0.06264372f);
 
     osc.Reset();
 
     EXPECT_FLOAT_EQ(osc.Generate(), 0.0f);
-    EXPECT_FLOAT_EQ(osc.Generate(), 0.062643729f);
+    EXPECT_FLOAT_EQ(osc.Generate(), 0.06264372f);
 }
 
 TEST(oscillator_suite, set_frequency_test)
@@ -46,11 +46,11 @@ TEST(oscillator_suite, set_frequency_test)
     Oscillator osc(context, 440.0f);
 
     EXPECT_FLOAT_EQ(osc.Generate(), 0.0f);
-    EXPECT_FLOAT_EQ(osc.Generate(), 0.062643729f);
+    EXPECT_FLOAT_EQ(osc.Generate(), 0.06264372f);
 
     osc.Reset();
     osc.SetFrequency(220.0f);
 
     EXPECT_FLOAT_EQ(osc.Generate(), 0.0f);
-    EXPECT_FLOAT_EQ(osc.Generate(), 0.031337444f);
+    EXPECT_FLOAT_EQ(osc.Generate(), 0.03133744f);
 }
