@@ -93,3 +93,21 @@ TEST(oscillator_suite, set_frequency_test)
     EXPECT_FLOAT_EQ(osc.Generate(), 0.0f);
     EXPECT_FLOAT_EQ(osc.Generate(), 0.03133744f);
 }
+
+TEST(oscillator_suite, set_waveform_test)
+{
+    Context context {
+        44100,
+        2,
+        16
+    };
+    Oscillator osc(context, 440.0f);
+
+    EXPECT_FLOAT_EQ(osc.Generate(), 0.0f);
+    EXPECT_FLOAT_EQ(osc.Generate(), 0.06264372f);
+
+    osc.SetWaveform(Waveform::SQUARE);
+
+    EXPECT_FLOAT_EQ(osc.Generate(), 1.0f);
+    EXPECT_FLOAT_EQ(osc.Generate(), 1.0f);
+}

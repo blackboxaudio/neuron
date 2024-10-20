@@ -11,6 +11,7 @@
 // AUDIO
 #include "audio/context.h"
 #include "audio/sample.h"
+#include "audio/waveform.h"
 
 // GENERATORS
 #include "generators/oscillator.h"

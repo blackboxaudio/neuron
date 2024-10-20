@@ -38,6 +38,7 @@ if(BUILD_TESTS)
 
     add_subdirectory(vendor/googletest)
 
+    add_cortex_test(waveform tests/audio/waveform_test.cpp)
     add_cortex_test(oscillator tests/generators/oscillator_test.cpp)
     add_cortex_test(saturator tests/processors/effects/saturator_test.cpp)
     add_cortex_test(wavefolder tests/processors/effects/wavefolder_test.cpp)
