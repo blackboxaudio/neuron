@@ -4,7 +4,7 @@
 
 using namespace cortex;
 
-TEST(oscillator_tests, generate_test)
+TEST(oscillator_suite, generate_test)
 {
     Context context {
         44100,
@@ -18,7 +18,7 @@ TEST(oscillator_tests, generate_test)
     EXPECT_FLOAT_EQ(osc.Generate(), 0.1250467f);
 }
 
-TEST(oscillator_tests, reset_test)
+TEST(oscillator_suite, reset_test)
 {
     Context context {
         44100,
@@ -36,7 +36,7 @@ TEST(oscillator_tests, reset_test)
     EXPECT_FLOAT_EQ(osc.Generate(), 0.062643729f);
 }
 
-TEST(oscillator_tests, set_frequency_test)
+TEST(oscillator_suite, set_frequency_test)
 {
     Context context {
         44100,

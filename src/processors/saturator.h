@@ -53,6 +53,6 @@ public:
 
 private:
     float m_saturation = 1.0f;
-    float m_symmetry = 0.0f;
+    float m_symmetry = 1.0f;
 };
 } // namespace cortex

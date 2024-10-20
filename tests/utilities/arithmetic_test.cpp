@@ -4,7 +4,7 @@
 
 using namespace cortex;
 
-TEST(arithmetic_tests, clamp_test)
+TEST(arithmetic_suite, clamp_test)
 {
     EXPECT_EQ(0.0f, clamp<float>(0.0f, -1.0f, 1.0f));
     EXPECT_EQ(1.0f, clamp<float>(2.0f, -1.0f, 1.0f));
@@ -17,7 +17,7 @@ TEST(arithmetic_tests, clamp_test)
     EXPECT_EQ(1, clamp<double>(0, 1, -1));
 }
 
-TEST(arithmetic_tests, map_test)
+TEST(arithmetic_suite, map_test)
 {
     EXPECT_EQ(5.5f, map<float>(0.5f, 1.0f, 10.0f));
 
@@ -33,7 +33,7 @@ TEST(arithmetic_tests, map_test)
     EXPECT_EQ(0.0f, map(0.5f, 0.0f, 10.0f, Mapping::LOG));
 }
 
-TEST(arithmetic_tests, fast_tanh_test)
+TEST(arithmetic_suite, fast_tanh_test)
 {
     EXPECT_NEAR(fast_tanh(0.0f), 0.0f, 1e-5f);
 
