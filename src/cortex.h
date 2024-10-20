@@ -16,9 +16,9 @@
 #include "generators/oscillator.h"
 
 // PROCESSORS
-#include "processors/filter.h"
-#include "processors/saturator.h"
-#include "processors/wavefolder.h"
+#include "processors/effects/saturator.h"
+#include "processors/effects/wavefolder.h"
+#include "processors/filters/filter.h"
 
 // UTILITIES
 #include "utilities/arithmetic.h"
