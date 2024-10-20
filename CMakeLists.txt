@@ -6,16 +6,17 @@ project(cortex VERSION 0.1.0 LANGUAGES CXX)
 
 list(APPEND SOURCE
         src/generators/oscillator.cpp
-        src/processors/filter.cpp
-        src/processors/saturator.cpp
-        src/processors/wavefolder.cpp
+        src/processors/effects/saturator.cpp
+        src/processors/effects/wavefolder.cpp
+        src/processors/filters/filter.cpp
 )
 
 list(APPEND INCLUDE_DIR
         "src"
         "src/audio"
         "src/generators"
-        "src/processors"
+        "src/processors/effects"
+        "src/processors/filters"
         "src/utilities"
 )
 
@@ -38,7 +39,7 @@ if(BUILD_TESTS)
     add_subdirectory(vendor/googletest)
 
     add_cortex_test(oscillator tests/generators/oscillator_test.cpp)
-    add_cortex_test(saturator tests/processors/saturator_test.cpp)
+    add_cortex_test(saturator tests/processors/effects/saturator_test.cpp)
     add_cortex_test(arithmetic tests/utilities/arithmetic_test.cpp)
     add_cortex_test(midi tests/utilities/midi_test.cpp)
 

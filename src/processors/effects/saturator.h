@@ -2,8 +2,8 @@
 
 #include <cmath>
 
-#include "../audio/sample.h"
-#include "../utilities/arithmetic.h"
+#include "../../audio/sample.h"
+#include "../../utilities/arithmetic.h"
 
 namespace cortex {
 /**
@@ -34,7 +34,8 @@ public:
 
     /**
      * Sets the saturation level, which boosts the signal before
-     * distortion is applied.
+     * distortion is applied. This multiplier will always be greater than
+     * one.
      *
      * @param saturation The multiplier of the audio signal going into the
      * distortion algorithm.

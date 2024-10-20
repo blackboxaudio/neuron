@@ -5,11 +5,11 @@ using namespace cortex;
 Sample Saturator::Process(const Sample input)
 {
     float output = fast_tanh((float)input * m_saturation);
-    if (input >= 0.0f) {
-        return (Sample)output;
-    } else {
-        return (Sample)(input * (1.0f - m_symmetry)) + (output * m_symmetry);
+    if (input < 0.0f) {
+        output = (Sample)(input * (1.0f - m_symmetry)) + (output * m_symmetry);
     }
+
+    return clamp(output, -1.0f, 1.0f);
 }
 
 void Saturator::SetSaturation(float saturation)
