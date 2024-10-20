@@ -9,21 +9,50 @@ Oscillator::Oscillator(Context& context, float frequency)
     SetFrequency(frequency);
 }
 
+Oscillator::~Oscillator()
+{
+    m_follower = nullptr;
+}
+
 Sample Oscillator::Generate()
 {
     Sample value = Lerp();
-    m_phase = fmod(m_phase + m_phaseIncrement, (float)WAVETABLE_SIZE);
+
+    m_phase += m_phaseIncrement;
+    if (m_phase >= (float)WAVETABLE_SIZE) {
+        m_phase -= (float)WAVETABLE_SIZE;
+        if (m_follower != nullptr) {
+            m_follower->Reset(m_phase);
+        }
+    }
+
     return value;
 }
 
-void Oscillator::Reset()
+void Oscillator::Reset(float phase)
 {
-    m_phase = 0.0f;
+    float clampedPhase = clamp(phase, 0.0f, (float)WAVETABLE_SIZE);
+    m_phase = clampedPhase;
+    if (m_follower != nullptr) {
+        m_follower->Reset(clampedPhase);
+    }
 }
 
 void Oscillator::SetFrequency(float frequency)
 {
     m_phaseIncrement = frequency * (float)WAVETABLE_SIZE / (float)m_context.sampleRate;
+}
+
+void Oscillator::AttachFollower(Oscillator* follower)
+{
+    if (follower != nullptr) {
+        m_follower = follower;
+    }
+}
+
+void Oscillator::DetachFollower()
+{
+    m_follower = nullptr;
 }
 
 void Oscillator::PopulateWavetable()

@@ -27,7 +27,7 @@ public:
     /**
      * Frees any memory allocated by the oscillator.
      */
-    ~Oscillator() { }
+    ~Oscillator();
 
     /**
      * Generates a sample of an audio signal with a
@@ -40,15 +40,29 @@ public:
     /**
      * Resets the phase of the oscillator, starting it at the beginning
      * waveform position.
+     *
+     * @param
      */
-    void Reset();
+    void Reset(float phase = 0.0f);
 
     /**
-     * Sets the frequency of the oscillator,
+     * Sets the frequency of the oscillator.
      *
      * @param frequency The new oscillator output frequency.
      */
     void SetFrequency(float frequency);
+
+    /**
+     * Attaches a follower oscillator to be synced to this one.
+     *
+     * @param oscillator The oscillator that will be synced to this one.
+     */
+    void AttachFollower(Oscillator* oscillator);
+
+    /**
+     * Detaches the follower oscillator from this one.
+     */
+    void DetachFollower();
 
 private:
     void PopulateWavetable();
@@ -58,5 +72,7 @@ private:
     Sample m_wavetable[WAVETABLE_SIZE];
     float m_phase = 0.0f;
     float m_phaseIncrement = 0.0f;
+
+    Oscillator* m_follower = nullptr;
 };
 } // namespace cortex

@@ -43,7 +43,7 @@ It can be used for a variety of applications, including:
   - Low-Frequency Oscillator
 - Synthesis
   - Amplitude Modulation
-  - Frequency-Modulation
+  - Frequency Modulation
   - Granular
   - Phase Distortion
 - Utilities
