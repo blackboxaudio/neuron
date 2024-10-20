@@ -80,13 +80,33 @@ inline T map(const T n, const T min, const T max,
 /**
  * A fast approximation of the hyperbolic tangent function, or `tanh`.
  *
+ * NOTE: This function works best on a limited range from -5 to 5.
+ *
  * @param n The function input.
  * @return
  */
 template <typename T>
-inline T fast_tanh(T n)
+inline T tanh(T n)
 {
-    T n2 = n * n;
-    return n * (n2 + 27) / (n2 * 9 + 27);
+    auto n2 = n * n;
+    auto numerator = n * (135135 + n2 * (17325 + n2 * (378 + n2)));
+    auto denominator = 135135 + n2 * (62370 + n2 * (3150 + 28 * n2));
+    return numerator / denominator;
+}
+
+/**
+ * A fast approximation of the exponential function, or `exp`.
+ *
+ * NOTE: This function works best on a limited range from -6 to 4.
+ *
+ * @param n The function input.
+ * @return
+ */
+template <typename T>
+inline T exp(T n)
+{
+    auto numerator = 1680 + n * (840 + n * (180 + n * (20 + n)));
+    auto denominator = 1680 + n * (-840 + n * (180 + n * (-20 + n)));
+    return numerator / denominator;
 }
 } // namespace cortex

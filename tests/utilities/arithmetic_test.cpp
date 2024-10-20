@@ -33,15 +33,28 @@ TEST(arithmetic_suite, map_test)
     EXPECT_EQ(0.0f, map(0.5f, 0.0f, 10.0f, Mapping::LOG));
 }
 
-TEST(arithmetic_suite, fast_tanh_test)
+TEST(arithmetic_suite, tanh_test)
 {
-    EXPECT_NEAR(fast_tanh(0.0f), 0.0f, 1e-5f);
+    EXPECT_NEAR(tanh(0.0f), 0.0f, 1e-5f);
 
-    EXPECT_NEAR(fast_tanh(1.0f), std::tanh(1.0f), 1e-1f);
-    EXPECT_NEAR(fast_tanh(-1.0f), std::tanh(-1.0f), 1e-1f);
+    EXPECT_NEAR(tanh(1.0f), std::tanh(1.0f), 1e-1f);
+    EXPECT_NEAR(tanh(-1.0f), std::tanh(-1.0f), 1e-1f);
 
-    EXPECT_NEAR(fast_tanh(0.5f), std::tanh(0.5f), 1e-1f);
-    EXPECT_NEAR(fast_tanh(-0.5f), std::tanh(-0.5f), 1e-1f);
+    EXPECT_NEAR(tanh(0.5f), std::tanh(0.5f), 1e-1f);
+    EXPECT_NEAR(tanh(-0.5f), std::tanh(-0.5f), 1e-1f);
 
-    EXPECT_NEAR(fast_tanh(0.001f), std::tanh(0.001f), 1e-5f);
+    EXPECT_NEAR(tanh(0.001f), std::tanh(0.001f), 1e-5f);
+}
+
+TEST(arithmetic_suite, exp_test)
+{
+    EXPECT_NEAR(exp(0.5f), std::exp(0.5f), 1e-5f);
+    EXPECT_NEAR(exp(-0.5f), std::exp(-0.5f), 1e-5f);
+
+    EXPECT_NEAR(exp(0.0f), 1.0f, 1e-5f);
+
+    EXPECT_NEAR(exp(4.0f), std::exp(4.0f), 1.0f);
+    EXPECT_NEAR(exp(-6.0f), std::exp(-6.0f), 1e-2f);
+
+    EXPECT_NEAR(exp(1e-6), std::exp(1e-6f), 1e-5f);
 }
