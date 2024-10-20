@@ -1,7 +1,5 @@
 #pragma once
 
-#include <cmath>
-
 #include "../../audio/sample.h"
 #include "../../utilities/arithmetic.h"
 
