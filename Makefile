@@ -13,11 +13,14 @@ GENERATOR_MOD_DIR = generators
 GENERATOR_MODULES = \
 oscillator \
 
-PROCESSOR_MOD_DIR = processors
-PROCESSOR_MODULES = \
-filter \
+PROCESSOR_EFFECTS_MOD_DIR = processors/effects
+PROCESSOR_EFFECTS_MODULES = \
 saturator \
 wavefolder \
+
+PROCESSOR_FILTERS_MOD_DIR = processors/filters
+PROCESS_FILTERS_MODULES = \
+filter \
 
 UTILITY_MOD_DIR = utilities
 UTILITY_MODULES = \
@@ -27,7 +30,8 @@ UTILITY_MODULES = \
 ######################################
 
 CPP_SOURCES += $(addsuffix .cpp, $(MODULE_DIR)/$(GENERATOR_MOD_DIR)/$(GENERATOR_MODULES))
-CPP_SOURCES += $(addsuffix .cpp, $(MODULE_DIR)/$(PROCESSOR_MOD_DIR)/$(PROCESSOR_MODULES))
+CPP_SOURCES += $(addsuffix .cpp, $(MODULE_DIR)/$(PROCESSOR_EFFECTS_MOD_DIR)/$(PROCESSOR_EFFECTS_MODULES))
+CPP_SOURCES += $(addsuffix .cpp, $(MODULE_DIR)/$(PROCESSOR_FILTERS_MOD_DIR)/$(PROCESS_FILTERS_MODULES))
 
 ######################################
 # building variables
@@ -103,7 +107,8 @@ C_INCLUDES = \
 -I$(MODULE_DIR) \
 -I$(MODULE_DIR)/$(AUDIO_MOD_DIR) \
 -I$(MODULE_DIR)/$(GENERATOR_MOD_DIR) \
--I$(MODULE_DIR)/$(PROCESSOR_MOD_DIR) \
+-I$(MODULE_DIR)/$(PROCESSOR_EFFECTS_MOD_DIR) \
+-I$(MODULE_DIR)/$(PROCESSOR_FILTERS_MOD_DIR) \
 -I$(MODULE_DIR)/$(UTILITY_MOD_DIR) \
 
 # compile gcc flags
