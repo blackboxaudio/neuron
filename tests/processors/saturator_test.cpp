@@ -35,3 +35,10 @@ TEST(saturator_suite, set_saturation_test)
     saturator.SetSaturation(12.0f);
     EXPECT_NEAR(saturator.Process(0.5f), 1.076923131942749f, 1e-5);
 }
+
+TEST(saturator_suite, no_saturation_test)
+{
+    Saturator saturator;
+    saturator.SetSaturation(0.0f);
+    EXPECT_EQ(saturator.Process(0.5f), 0.465811968f);
+}

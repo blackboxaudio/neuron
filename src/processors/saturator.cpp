@@ -12,7 +12,10 @@ Sample Saturator::Process(const Sample input)
     }
 }
 
-void Saturator::SetSaturation(float saturation) { m_saturation = saturation; }
+void Saturator::SetSaturation(float saturation)
+{
+    m_saturation = saturation < 1.0f ? 1.0f : saturation;
+}
 
 void Saturator::SetSymmetry(float symmetry)
 {
