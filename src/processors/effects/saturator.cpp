@@ -9,7 +9,7 @@ Sample Saturator::Process(const Sample input)
         output = (Sample)(input * (1.0f - m_symmetry)) + (output * m_symmetry);
     }
 
-    return clamp(output, -1.0f, 1.0f);
+    return (Sample)clamp(output, -1.0f, 1.0f);
 }
 
 void Saturator::SetSaturation(float saturation)

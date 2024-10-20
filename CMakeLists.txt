@@ -40,6 +40,7 @@ if(BUILD_TESTS)
 
     add_cortex_test(oscillator tests/generators/oscillator_test.cpp)
     add_cortex_test(saturator tests/processors/effects/saturator_test.cpp)
+    add_cortex_test(wavefolder tests/processors/effects/wavefolder_test.cpp)
     add_cortex_test(arithmetic tests/utilities/arithmetic_test.cpp)
     add_cortex_test(midi tests/utilities/midi_test.cpp)
 

@@ -14,10 +14,10 @@ Sample Wavefolder::Process(const Sample input)
     }
 
     if (input < 0.0f) {
-        return (Sample)output;
-    } else {
-        return (Sample)(input * (1.0f - m_symmetry)) + (output * m_symmetry);
+        output = (Sample)(input * (1.0f - m_symmetry)) + (output * m_symmetry);
     }
+
+    return (Sample)clamp(output, -1.0f, 1.0f);
 }
 
 void Wavefolder::SetInputGain(float gain)
