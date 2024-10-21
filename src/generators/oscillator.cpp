@@ -45,7 +45,7 @@ void Oscillator::SetWaveform(Waveform waveform)
 
 void Oscillator::AttachFollower(Oscillator* follower)
 {
-    if (follower == nullptr) {
+    if (follower != nullptr) {
         m_follower = follower;
     }
 }
