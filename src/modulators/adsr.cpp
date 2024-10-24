@@ -1,0 +1,98 @@
+#include "adsr.h"
+
+using namespace cortex;
+
+AdsrEnvelopeModulator::AdsrEnvelopeModulator(Context& context, AdsrEnvelope envelope)
+    : m_context(context)
+    , m_envelope(envelope)
+{
+}
+
+AdsrEnvelopeModulator::~AdsrEnvelopeModulator()
+{
+}
+
+float AdsrEnvelopeModulator::Modulate()
+{
+    float position = (float)m_samplesSinceLastStage * (1000.0f / m_context.sampleRate);
+
+    float value;
+    switch (m_stage) {
+    case AdsrStage::ATTACK:
+        value = position / m_envelope.attack;
+        Update(m_envelope.attack, AdsrStage::DECAY);
+        break;
+    case AdsrStage::DECAY:
+        value = (((m_envelope.sustain - 1.0f) / m_envelope.decay) * position) + 1.0f;
+        Update(m_envelope.decay, AdsrStage::SUSTAIN);
+        break;
+    case AdsrStage::SUSTAIN:
+        value = m_envelope.sustain;
+        break;
+    case AdsrStage::RELEASE:
+        value = ((-m_envelope.sustain / m_envelope.release) * position) + m_envelope.sustain;
+        Update(m_envelope.release, AdsrStage::IDLE);
+        break;
+    case AdsrStage::IDLE:
+    default:
+        value = 0.0f;
+    }
+
+    return value;
+}
+
+void AdsrEnvelopeModulator::Trigger()
+{
+    m_stage = AdsrStage::ATTACK;
+    m_samplesSinceLastStage = 0;
+}
+
+void AdsrEnvelopeModulator::Release()
+{
+    m_stage = AdsrStage::RELEASE;
+    m_samplesSinceLastStage = 0;
+}
+
+void AdsrEnvelopeModulator::Reset()
+{
+    m_stage = AdsrStage::IDLE;
+    m_samplesSinceLastStage = 0;
+}
+
+void AdsrEnvelopeModulator::SetAttackTime(float attackTimeMs)
+{
+    m_envelope.attack = attackTimeMs;
+    CheckEnvelopePosition(m_envelope.attack, AdsrStage::DECAY);
+}
+
+void AdsrEnvelopeModulator::SetDecayTime(float decayTimeMs)
+{
+    m_envelope.decay = decayTimeMs;
+    CheckEnvelopePosition(m_envelope.decay, AdsrStage::SUSTAIN);
+}
+
+void AdsrEnvelopeModulator::SetSustainLevel(float sustainLevel)
+{
+    m_envelope.sustain = sustainLevel;
+}
+
+void AdsrEnvelopeModulator::SetReleaseTime(float releaseTimeMs)
+{
+    m_envelope.release = releaseTimeMs;
+    CheckEnvelopePosition(m_envelope.release, AdsrStage::IDLE);
+}
+
+void AdsrEnvelopeModulator::Update(float stageDuration, AdsrStage nextStage)
+{
+    m_samplesSinceLastStage++;
+    CheckEnvelopePosition(stageDuration, nextStage);
+}
+
+void AdsrEnvelopeModulator::CheckEnvelopePosition(float stageDuration, AdsrStage nextStage)
+{
+    float msPerSample = 1000.0f / (float)m_context.sampleRate;
+    if ((float)m_samplesSinceLastStage * msPerSample >= stageDuration) {
+        m_samplesSinceLastStage = 0;
+        m_stage = nextStage;
+    }
+}

@@ -6,6 +6,7 @@ project(cortex VERSION 0.1.0 LANGUAGES CXX)
 
 list(APPEND SOURCE
         src/generators/oscillator.cpp
+        src/modulators/adsr.cpp
         src/processors/effects/saturator.cpp
         src/processors/effects/wavefolder.cpp
         src/processors/filters/filter.cpp
@@ -15,6 +16,7 @@ list(APPEND INCLUDE_DIR
         "src"
         "src/audio"
         "src/generators"
+        "src/modulators"
         "src/processors/effects"
         "src/processors/filters"
         "src/utilities"
@@ -40,6 +42,7 @@ if(BUILD_TESTS)
 
     add_cortex_test(waveform tests/audio/waveform_test.cpp)
     add_cortex_test(oscillator tests/generators/oscillator_test.cpp)
+    add_cortex_test(adsr tests/modulators/adsr_test.cpp)
     add_cortex_test(saturator tests/processors/effects/saturator_test.cpp)
     add_cortex_test(wavefolder tests/processors/effects/wavefolder_test.cpp)
     add_cortex_test(filter tests/processors/filters/filter_test.cpp)

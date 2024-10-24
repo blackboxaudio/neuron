@@ -16,6 +16,9 @@
 // GENERATORS
 #include "generators/oscillator.h"
 
+// MODULATORS
+#include "modulators/adsr.h"
+
 // PROCESSORS
 #include "processors/effects/saturator.h"
 #include "processors/effects/wavefolder.h"
