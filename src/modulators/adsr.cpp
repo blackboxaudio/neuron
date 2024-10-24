@@ -16,6 +16,14 @@ float AdsrEnvelopeModulator::Modulate()
 {
     float position = (float)m_samplesSinceLastStage * (1000.0f / m_context.sampleRate);
 
+    /**
+     * NOTE: The modulation value is calculated based on the current stage of the modulator.
+     * Based on the stage of the envelope, the calculation of the modulation value is made from a
+     * particular linear equation. The x position as input for this linear equation is calculated
+     * from the number of samples generated since the stage was last updated multiplied by the number
+     * of milliseconds per sample. If the x position is greater than the stage's duration, then the
+     * modulator is updated to the next stage.
+     */
     float value;
     switch (m_stage) {
     case AdsrStage::ATTACK:
