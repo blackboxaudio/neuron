@@ -1,7 +1,6 @@
 #include <gtest/gtest.h>
 
-#include "filter.h"
-#include "oscillator.h"
+#include "cortex.h"
 
 using namespace cortex;
 

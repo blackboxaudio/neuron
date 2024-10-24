@@ -1,6 +1,6 @@
 #include <gtest/gtest.h>
 
-#include "oscillator.h"
+#include "cortex.h"
 
 using namespace cortex;
 

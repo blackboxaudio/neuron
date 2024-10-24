@@ -1,7 +1,6 @@
-#include <cmath>
 #include <gtest/gtest.h>
 
-#include "waveform.h"
+#include "cortex.h"
 
 using namespace cortex;
 
