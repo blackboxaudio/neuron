@@ -1,7 +1,7 @@
 #pragma once
 
-#include "../utilities/arithmetic.h"
-#include "sample.h"
+#include "audio/sample.h"
+#include "utilities/arithmetic.h"
 
 namespace cortex {
 /**

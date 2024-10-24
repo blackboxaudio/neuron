@@ -1,4 +1,4 @@
-#include "oscillator.h"
+#include "generators/oscillator.h"
 
 using namespace cortex;
 

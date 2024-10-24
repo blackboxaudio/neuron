@@ -1,4 +1,4 @@
-#include "wavefolder.h"
+#include "processors/effects/wavefolder.h"
 
 using namespace cortex;
 

@@ -1,8 +1,8 @@
 #pragma once
 
-#include "../../audio/context.h"
-#include "../../audio/sample.h"
-#include "../../utilities/arithmetic.h"
+#include "audio/context.h"
+#include "audio/sample.h"
+#include "utilities/arithmetic.h"
 
 namespace cortex {
 const float FILTER_CUTOFF_FREQ_MIN = 20.0f;

@@ -1,6 +1,6 @@
 #pragma once
 
-#include "../audio/context.h"
+#include "audio/context.h"
 
 namespace cortex {
 /**
