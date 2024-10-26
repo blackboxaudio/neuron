@@ -12,5 +12,6 @@ void Logger::Log(std::string str)
     char buffer[80];
     std::strftime(buffer, sizeof(buffer), "Y-%m-%d %H:%M:%S", localTime);
 
-    std::cout << "[" << buffer << "] " << "CORTEX: " << str << std::endl;
+    std::cout << "[" << buffer << "] "
+              << "CORTEX: " << str << std::endl;
 }
