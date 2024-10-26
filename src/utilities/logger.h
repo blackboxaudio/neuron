@@ -6,7 +6,7 @@ namespace cortex {
 
 class Logger {
 public:
-    static void Log(std::string strings...);
+    static void Log(std::string str);
 };
 
 }

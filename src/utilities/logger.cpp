@@ -1,16 +1,16 @@
 #include "logger.h"
 
+#include <ctime>
 #include <iostream>
 
 using namespace cortex;
 
-void Logger::Log(std::string strings...)
+void Logger::Log(std::string str)
 {
-    std::string result = "";
+    std::time_t now = std::time(nullptr);
+    std::tm* localTime = std::localtime(&now);
+    char buffer[80];
+    std::strftime(buffer, sizeof(buffer), "Y-%m-%d %H:%M:%S", localTime);
 
-    for (auto string : strings) {
-        result += string;
-    }
-
-    std::cout << result << std::endl;
+    std::cout << "[" << buffer << "] " << "CORTEX: " << str << std::endl;
 }
