@@ -3,6 +3,7 @@
 #include <cmath>
 
 namespace cortex {
+
 /**
  * Contains information about the context in which DSP operations
  * will be executed, useful for some components such as oscillators
@@ -19,4 +20,4 @@ struct Context {
  * channel configuration, and a buffer size of 16 samples.
  */
 static Context DEFAULT_CONTEXT = { 44100, 2, 16 };
-} // namespace cortex
+}

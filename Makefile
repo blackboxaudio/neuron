@@ -28,6 +28,7 @@ filter \
 
 UTILITY_MOD_DIR = utilities
 UTILITY_MODULES = \
+logger
 
 ######################################
 # source
@@ -37,6 +38,7 @@ CPP_SOURCES += $(addsuffix .cpp, $(MODULE_DIR)/$(GENERATOR_MOD_DIR)/$(GENERATOR_
 CPP_SOURCES += $(addsuffix .cpp, $(MODULE_DIR)/$(MODULATOR_MOD_DIR)/$(MODULATOR_MODULES))
 CPP_SOURCES += $(addsuffix .cpp, $(MODULE_DIR)/$(PROCESSOR_EFFECTS_MOD_DIR)/$(PROCESSOR_EFFECTS_MODULES))
 CPP_SOURCES += $(addsuffix .cpp, $(MODULE_DIR)/$(PROCESSOR_FILTERS_MOD_DIR)/$(PROCESS_FILTERS_MODULES))
+CPP_SOURCES += $(addsuffix .cpp, $(MODULE_DIR)/$(UTILITY_MOD_DIR)/$(UTILITY_MODULES))
 
 ######################################
 # building variables

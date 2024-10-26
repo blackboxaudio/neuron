@@ -53,4 +53,5 @@ private:
     float m_alpha;
     Sample m_previousOutput;
 };
-} // namespace cortex
+
+}

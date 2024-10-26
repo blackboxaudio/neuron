@@ -55,10 +55,13 @@ TEST(oscillator_suite, oscillator_sync)
     EXPECT_NEAR(leader.Generate(), 0.00783538f, 1e-5f);
     EXPECT_NEAR(follower.Generate(), 0.01174026f, 1e-5f);
 
-    int numSamples = context.sampleRate;
-    while (numSamples--) {
-        leader.Generate();
-        follower.Generate();
+    {
+        Timer t;
+        int numSamples = context.sampleRate;
+        while (numSamples--) {
+            leader.Generate();
+            follower.Generate();
+        }
     }
 
     EXPECT_NE(leader.Generate(), follower.Generate());

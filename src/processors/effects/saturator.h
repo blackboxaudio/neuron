@@ -4,6 +4,7 @@
 #include "utilities/arithmetic.h"
 
 namespace cortex {
+
 /**
  * The Saturator class applies a tape saturation
  * algorithm to audio signals.
@@ -54,4 +55,5 @@ private:
     float m_saturation = 1.0f;
     float m_symmetry = 1.0f;
 };
-} // namespace cortex
+
+}

@@ -4,6 +4,7 @@
 #include "utilities/arithmetic.h"
 
 namespace cortex {
+
 /**
  * The Wavefolder class applies a wavefolding
  * algorithm to audio signals.
@@ -58,4 +59,5 @@ private:
     float m_threshold = 1.0f;
     float m_symmetry = 1.0f;
 };
+
 }

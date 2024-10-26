@@ -4,6 +4,7 @@
 #include <cmath>
 
 namespace cortex {
+
 /**
  * A value for the absence of quantity; nothing.
  */
@@ -109,4 +110,5 @@ inline T exp(T n)
     auto denominator = 1680 + n * (-840 + n * (180 + n * (-20 + n)));
     return numerator / denominator;
 }
-} // namespace cortex
+
+}

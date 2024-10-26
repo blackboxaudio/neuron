@@ -3,6 +3,7 @@
 #include "audio/context.h"
 
 namespace cortex {
+
 /**
  * The configuration of an ADSR envelope curve including durations
  * for the attack, decay, and release stages as well as a sustain level.
@@ -107,4 +108,5 @@ private:
     AdsrStage m_stage = AdsrStage::IDLE;
     size_t m_samplesSinceLastStage = 0;
 };
+
 }

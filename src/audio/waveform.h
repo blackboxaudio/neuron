@@ -4,6 +4,7 @@
 #include "utilities/arithmetic.h"
 
 namespace cortex {
+
 /**
  * The basic waveform variants, i.e. sine, triangle,
  * sawtooth, and square.
@@ -36,4 +37,5 @@ inline Sample SineToWaveform(Sample sample, Waveform waveform)
         return sample >= 0.0f ? 1.0f : -1.0f;
     }
 }
+
 }

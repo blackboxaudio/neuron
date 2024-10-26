@@ -8,6 +8,7 @@
 #include "utilities/arithmetic.h"
 
 namespace cortex {
+
 const size_t WAVETABLE_SIZE = 256;
 
 /**
@@ -85,4 +86,5 @@ private:
 
     Oscillator* m_follower = nullptr;
 };
-} // namespace cortex
+
+}

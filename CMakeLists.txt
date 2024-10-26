@@ -10,6 +10,7 @@ list(APPEND SOURCE
         src/processors/effects/saturator.cpp
         src/processors/effects/wavefolder.cpp
         src/processors/filters/filter.cpp
+        src/utilities/logger.cpp
 )
 
 list(APPEND INCLUDE_DIR
