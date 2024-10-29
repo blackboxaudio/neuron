@@ -1,9 +1,9 @@
 # `cortex`
 
-[![Test](https://github.com/blackboxdsp/cortex/actions/workflows/ci.test.yml/badge.svg)](https://github.com/blackboxdsp/cortex/actions/workflows/ci.test.yml)
-[![Build](https://github.com/blackboxdsp/cortex/actions/workflows/ci.build.yml/badge.svg)](https://github.com/blackboxdsp/cortex/actions/workflows/ci.build.yml)
-[![cortex: v0.1.0](https://img.shields.io/badge/Version-v0.1.0-blue.svg)](https://github.com/blackboxdsp/cortex)
-[![License](https://img.shields.io/badge/License-MIT-yellow)](https://github.com/blackboxdsp/cortex/blob/develop/LICENSE)
+[![Test](https://github.com/blackboxaudio/cortex/actions/workflows/ci.test.yml/badge.svg)](https://github.com/blackboxaudio/cortex/actions/workflows/ci.test.yml)
+[![Build](https://github.com/blackboxaudio/cortex/actions/workflows/ci.build.yml/badge.svg)](https://github.com/blackboxaudio/cortex/actions/workflows/ci.build.yml)
+[![cortex: v0.1.0](https://img.shields.io/badge/Version-v0.1.0-blue.svg)](https://github.com/blackboxaudio/cortex)
+[![License](https://img.shields.io/badge/License-MIT-yellow)](https://github.com/blackboxaudio/cortex/blob/develop/LICENSE)
 
 > Collection of C++ audio DSP components 🧠
 
@@ -14,7 +14,7 @@
 It can be used for a variety of applications, including:
 
 - [JUCE](https://juce.com/) audio plugins
-- Embedded hardware such as the [Electrosmith Daisy](https://electro-smith.com/collections/daisy) (see [Flora](https://github.com/blackboxdsp/flora))
+- Embedded hardware such as the [Electrosmith Daisy](https://electro-smith.com/collections/daisy) (see [Flora](https://github.com/blackboxaudio/flora))
 - [VCV Rack](https://vcvrack.com/) modules
 
 ## Features
@@ -57,7 +57,7 @@ It can be used for a variety of applications, including:
 
 Clone this repository:
 ```bash 
-git clone https://github.com/blackboxdsp/cortex
+git clone https://github.com/blackboxaudio/cortex
 cd cortex/
 ```
 
