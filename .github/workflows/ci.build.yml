@@ -1,0 +1,47 @@
+name: Build
+
+on:
+  pull_request:
+  push:
+    branches: ['main', 'develop']
+
+jobs:
+  CMake:
+    runs-on: ${{matrix.os}}
+    strategy:
+      matrix:
+        os: [ubuntu-latest, macos-latest, windows-latest]
+
+    steps:
+      - name: "Checkout"
+        uses: actions/checkout@v4
+
+      - name: "Prepare"
+        working-directory: ${{runner.workspace}}/cortex
+        run: cmake -E make_directory ${{runner.workspace}}/cortex/target
+
+      - name: "Configure"
+        working-directory: ${{runner.workspace}}/cortex/target
+        run: cmake ${{runner.workspace}}/cortex
+
+      - name: "Build"
+        working-directory: ${{runner.workspace}}/cortex/target
+        run: cmake --build .
+
+  Make:
+    runs-on: ${{matrix.os}}
+    strategy:
+      matrix:
+        os: [ ubuntu-latest, macos-latest, windows-latest ]
+
+    steps:
+      - name: "Checkout"
+        uses: actions/checkout@v4
+
+      - name: "Install ARM Toolchain"
+        uses: carlosperate/arm-none-eabi-gcc-action@v1
+        with:
+          release: '10-2020-q4'
+
+      - name: "Build"
+        run: make

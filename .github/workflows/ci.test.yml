@@ -1,0 +1,31 @@
+name: Test
+
+on:
+    pull_request:
+    push:
+        branches: ['main', 'develop']
+
+jobs:
+    GoogleTest:
+        runs-on: ubuntu-latest
+        steps:
+            - name: "Checkout"
+              uses: actions/checkout@v4
+              with:
+                  submodules: recursive
+
+            - name: "Prepare"
+              working-directory: ${{runner.workspace}}/cortex
+              run: mkdir -p target/test
+
+            - name: "Generate Makefile"
+              working-directory: ${{runner.workspace}}/cortex/target/test
+              run: cmake -DBUILD_TESTS=ON ../../
+
+            - name: "Build"
+              working-directory: ${{runner.workspace}}/cortex/target/test
+              run: make
+
+            - name: "Test"
+              working-directory: ${{runner.workspace}}/cortex/target/test
+              run: ctest
