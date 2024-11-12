@@ -1,6 +1,6 @@
 #include "generators/oscillator.h"
 
-using namespace cortex;
+using namespace neuron;
 
 Oscillator::Oscillator(Context& context, float frequency, Waveform waveform)
     : m_context(context)

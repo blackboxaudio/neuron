@@ -2,7 +2,7 @@
 
 #include <string>
 
-namespace cortex {
+namespace neuron {
 
 class Logger {
 public:
@@ -11,7 +11,7 @@ public:
 
 }
 
-#define CX_TRACE(...) ::cortex::Logger::Log(__VA_ARGS__)
-#define CX_INFO(...) ::cortex::Logger::Log(__VA_ARGS__)
-#define CX_WARN(...) ::cortex::Logger::Log(__VA_ARGS__)
-#define CX_ERROR(...) ::cortex::Logger::Log(__VA_ARGS__)
+#define NEO_TRACE(...) ::neuron::Logger::Log(__VA_ARGS__)
+#define NEO_INFO(...) ::neuron::Logger::Log(__VA_ARGS__)
+#define NEO_WARN(...) ::neuron::Logger::Log(__VA_ARGS__)
+#define NEO_ERROR(...) ::neuron::Logger::Log(__VA_ARGS__)

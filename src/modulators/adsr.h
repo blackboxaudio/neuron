@@ -2,7 +2,7 @@
 
 #include "audio/context.h"
 
-namespace cortex {
+namespace neuron {
 
 /**
  * The configuration of an ADSR envelope curve including durations

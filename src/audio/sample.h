@@ -1,6 +1,6 @@
 #pragma once
 
-namespace cortex {
+namespace neuron {
 
 /**
  * The basic data type for DSP operations of

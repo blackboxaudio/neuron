@@ -3,7 +3,7 @@
 #include <algorithm>
 #include <cmath>
 
-namespace cortex {
+namespace neuron {
 
 /**
  * A value for the absence of quantity; nothing.

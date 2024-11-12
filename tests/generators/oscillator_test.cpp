@@ -1,8 +1,8 @@
 #include <gtest/gtest.h>
 
-#include "cortex.h"
+#include "neuron.h"
 
-using namespace cortex;
+using namespace neuron;
 
 TEST(oscillator_suite, generate_test)
 {

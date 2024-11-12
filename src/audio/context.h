@@ -2,7 +2,7 @@
 
 #include <cmath>
 
-namespace cortex {
+namespace neuron {
 
 /**
  * Contains information about the context in which DSP operations

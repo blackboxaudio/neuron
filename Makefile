@@ -1,4 +1,4 @@
-TARGET = libcortex
+TARGET = libneuron
 
 MODULE_DIR = src
 

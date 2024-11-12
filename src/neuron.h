@@ -1,12 +1,12 @@
 /**
- * Cortex is a lightweight audio DSP library intended for use
+ * Neuron is a lightweight audio DSP library intended for use
  * in any relevant application e.g. Electrosmith Daisy patches,
  * JUCE plugins, VCV Rack modules.
  *
  * Author: Matthew Maxwell, 2024
  */
-#ifndef CORTEX_LIB_H
-#define CORTEX_LIB_H
+#ifndef NEURON_LIB_H
+#define NEURON_LIB_H
 
 // AUDIO
 #include "audio/context.h"

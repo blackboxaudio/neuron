@@ -17,15 +17,15 @@ jobs:
         uses: actions/checkout@v4
 
       - name: "Prepare"
-        working-directory: ${{runner.workspace}}/cortex
-        run: cmake -E make_directory ${{runner.workspace}}/cortex/target
+        working-directory: ${{runner.workspace}}/neuron
+        run: cmake -E make_directory ${{runner.workspace}}/neuron/target
 
       - name: "Configure"
-        working-directory: ${{runner.workspace}}/cortex/target
-        run: cmake ${{runner.workspace}}/cortex
+        working-directory: ${{runner.workspace}}/neuron/target
+        run: cmake ${{runner.workspace}}/neuron
 
       - name: "Build"
-        working-directory: ${{runner.workspace}}/cortex/target
+        working-directory: ${{runner.workspace}}/neuron/target
         run: cmake --build .
 
   Make:
