@@ -1,6 +1,6 @@
 #include "processors/effects/saturator.h"
 
-using namespace cortex;
+using namespace neuron;
 
 Sample Saturator::Process(const Sample input)
 {

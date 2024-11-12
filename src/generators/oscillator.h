@@ -7,7 +7,7 @@
 #include "audio/waveform.h"
 #include "utilities/arithmetic.h"
 
-namespace cortex {
+namespace neuron {
 
 const size_t WAVETABLE_SIZE = 256;
 

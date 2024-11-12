@@ -2,7 +2,7 @@
 
 #include "utilities/logger.h"
 
-namespace cortex {
+namespace neuron {
 
 class Timer {
 public:
@@ -24,7 +24,7 @@ public:
         auto end = std::chrono::time_point_cast<std::chrono::microseconds>(endTimepoint).time_since_epoch().count();
 
         auto durationMs = (end - start) * 0.001f;
-        CX_INFO(std::to_string(durationMs) + "ms");
+        NEO_INFO(std::to_string(durationMs) + "ms");
     }
 
 private:

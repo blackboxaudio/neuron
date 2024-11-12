@@ -4,7 +4,7 @@
 
 #include "utilities/arithmetic.h"
 
-namespace cortex {
+namespace neuron {
 
 /**
  * Converts a MIDI note number to a (floating-point) frequency. Any value outside

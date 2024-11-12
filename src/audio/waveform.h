@@ -3,7 +3,7 @@
 #include "audio/sample.h"
 #include "utilities/arithmetic.h"
 
-namespace cortex {
+namespace neuron {
 
 /**
  * The basic waveform variants, i.e. sine, triangle,

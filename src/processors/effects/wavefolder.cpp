@@ -1,6 +1,6 @@
 #include "processors/effects/wavefolder.h"
 
-using namespace cortex;
+using namespace neuron;
 
 Sample Wavefolder::Process(const Sample input)
 {

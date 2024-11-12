@@ -1,8 +1,8 @@
 #include <gtest/gtest.h>
 
-#include "cortex.h"
+#include "neuron.h"
 
-using namespace cortex;
+using namespace neuron;
 
 TEST(wavefolder_suite, process_test)
 {

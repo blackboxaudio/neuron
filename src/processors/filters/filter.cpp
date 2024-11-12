@@ -1,8 +1,8 @@
 #include "processors/filters/filter.h"
 
-using namespace cortex;
+using namespace neuron;
 
-Filter::Filter(cortex::Context& context, float cutoffFrequency)
+Filter::Filter(neuron::Context& context, float cutoffFrequency)
     : m_context(context)
     , m_cutoffFrequency(cutoffFrequency)
     , m_previousOutput(0.0f)
@@ -10,7 +10,7 @@ Filter::Filter(cortex::Context& context, float cutoffFrequency)
     SetCutoffFrequency(cutoffFrequency);
 }
 
-Sample Filter::Process(const cortex::Sample input)
+Sample Filter::Process(const neuron::Sample input)
 {
     float output = m_alpha * (float)input + (1.0f - m_alpha) * (float)m_previousOutput;
     m_previousOutput = (Sample)output;

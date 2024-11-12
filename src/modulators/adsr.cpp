@@ -1,6 +1,6 @@
 #include "modulators/adsr.h"
 
-using namespace cortex;
+using namespace neuron;
 
 AdsrEnvelopeModulator::AdsrEnvelopeModulator(Context& context, AdsrEnvelope envelope)
     : m_context(context)

@@ -1,15 +1,15 @@
-# `cortex`
+# `neuron`
 
-[![Test](https://github.com/blackboxaudio/cortex/actions/workflows/ci.test.yml/badge.svg)](https://github.com/blackboxaudio/cortex/actions/workflows/ci.test.yml)
-[![Build](https://github.com/blackboxaudio/cortex/actions/workflows/ci.build.yml/badge.svg)](https://github.com/blackboxaudio/cortex/actions/workflows/ci.build.yml)
-[![cortex: v0.1.0](https://img.shields.io/badge/Version-v0.1.0-blue.svg)](https://github.com/blackboxaudio/cortex)
-[![License](https://img.shields.io/badge/License-MIT-yellow)](https://github.com/blackboxaudio/cortex/blob/develop/LICENSE)
+[![Test](https://github.com/blackboxaudio/neuron/actions/workflows/ci.test.yml/badge.svg)](https://github.com/blackboxaudio/neuron/actions/workflows/ci.test.yml)
+[![Build](https://github.com/blackboxaudio/neuron/actions/workflows/ci.build.yml/badge.svg)](https://github.com/blackboxaudio/neuron/actions/workflows/ci.build.yml)
+[![neuron: v0.1.0](https://img.shields.io/badge/Version-v0.1.0-blue.svg)](https://github.com/blackboxaudio/neuron)
+[![License](https://img.shields.io/badge/License-MIT-yellow)](https://github.com/blackboxaudio/neuron/blob/develop/LICENSE)
 
 > Collection of C++ audio DSP components 🧠
 
 ## Overview
 
-`cortex` is an open-source DSP (Digital Signal Processing) library that provides a wide-ranging suite of components for building audio software.
+`neuron` is an open-source DSP (Digital Signal Processing) library that provides a wide-ranging suite of components for building audio software.
 
 It can be used for a variety of applications, including:
 
@@ -19,7 +19,7 @@ It can be used for a variety of applications, including:
 
 ## Features
 
-`cortex` currently lacks wide support for features because it is in early stages, however the following are in its immediate roadmap:
+`neuron` currently lacks wide support for features because it is in early stages, however the following are in its immediate roadmap:
 
 - Dynamics
   - Compressor
@@ -57,8 +57,8 @@ It can be used for a variety of applications, including:
 
 Clone this repository:
 ```bash 
-git clone https://github.com/blackboxaudio/cortex
-cd cortex/
+git clone https://github.com/blackboxaudio/neuron
+cd neuron/
 ```
 
 Build the library:
@@ -69,7 +69,7 @@ make
 ## Using the Library
 
 ```c++
-#include "cortex.h"
+#include "neuron.h"
 
 // Create a DSP context (sample rate,
 // number of channels, buffer size).

@@ -3,7 +3,7 @@
 #include <ctime>
 #include <iostream>
 
-using namespace cortex;
+using namespace neuron;
 
 void Logger::Log(std::string str)
 {
@@ -13,5 +13,5 @@ void Logger::Log(std::string str)
     std::strftime(buffer, sizeof(buffer), "Y-%m-%d %H:%M:%S", localTime);
 
     std::cout << "[" << buffer << "] "
-              << "CORTEX: " << str << std::endl;
+              << "NEURON: " << str << std::endl;
 }

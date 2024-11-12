@@ -3,7 +3,7 @@
 #include "audio/sample.h"
 #include "utilities/arithmetic.h"
 
-namespace cortex {
+namespace neuron {
 
 /**
  * The Saturator class applies a tape saturation

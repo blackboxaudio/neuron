@@ -4,7 +4,7 @@
 #include "audio/sample.h"
 #include "utilities/arithmetic.h"
 
-namespace cortex {
+namespace neuron {
 const float FILTER_CUTOFF_FREQ_MIN = 20.0f;
 const float FILTER_CUTOFF_FREQ_MAX = 20000.0f;
 
