@@ -16,12 +16,12 @@ public:
      *
      * @return Saturator
      */
-    Saturator() {};
+    Saturator() {}
 
     /**
      * Frees any memory allocated by the saturator.
      */
-    ~Saturator() {};
+    ~Saturator() {}
 
     /**
      * Applies a saturation algorithm to an input sample.

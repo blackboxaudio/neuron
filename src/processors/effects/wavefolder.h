@@ -14,12 +14,12 @@ public:
     /**
      * Creates a default wavefolder processor.
      */
-    Wavefolder() {};
+    Wavefolder() {}
 
     /**
      * Frees any memory allocated by the wavefolder.
      */
-    ~Wavefolder() {};
+    ~Wavefolder() {}
 
     /**
      * Applies a wavefolding algorithm to an input sample.
