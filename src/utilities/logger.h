@@ -4,10 +4,10 @@
 
 namespace neuron {
 
-class Logger {
-public:
-    static void Log(std::string str);
-};
+    class Logger {
+    public:
+        static void Log(std::string str);
+    };
 
 }
 

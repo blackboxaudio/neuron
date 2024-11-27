@@ -26,24 +26,24 @@ float AdsrEnvelopeModulator::Modulate()
      */
     float value;
     switch (m_stage) {
-    case AdsrStage::ATTACK:
-        value = position / m_envelope.attack;
-        Update(m_envelope.attack, AdsrStage::DECAY, true);
-        break;
-    case AdsrStage::DECAY:
-        value = (((m_envelope.sustain - 1.0f) / m_envelope.decay) * position) + 1.0f;
-        Update(m_envelope.decay, AdsrStage::SUSTAIN, true);
-        break;
-    case AdsrStage::SUSTAIN:
-        value = m_envelope.sustain;
-        break;
-    case AdsrStage::RELEASE:
-        value = ((-m_envelope.sustain / m_envelope.release) * position) + m_envelope.sustain;
-        Update(m_envelope.release, AdsrStage::IDLE, true);
-        break;
-    case AdsrStage::IDLE:
-    default:
-        value = 0.0f;
+        case AdsrStage::ATTACK:
+            value = position / m_envelope.attack;
+            Update(m_envelope.attack, AdsrStage::DECAY, true);
+            break;
+        case AdsrStage::DECAY:
+            value = (((m_envelope.sustain - 1.0f) / m_envelope.decay) * position) + 1.0f;
+            Update(m_envelope.decay, AdsrStage::SUSTAIN, true);
+            break;
+        case AdsrStage::SUSTAIN:
+            value = m_envelope.sustain;
+            break;
+        case AdsrStage::RELEASE:
+            value = ((-m_envelope.sustain / m_envelope.release) * position) + m_envelope.sustain;
+            Update(m_envelope.release, AdsrStage::IDLE, true);
+            break;
+        case AdsrStage::IDLE:
+        default:
+            value = 0.0f;
     }
 
     return value;

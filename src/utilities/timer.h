@@ -4,31 +4,31 @@
 
 namespace neuron {
 
-class Timer {
-public:
-    Timer()
-    {
-        m_startTimepoint = std::chrono::high_resolution_clock::now();
-    }
+    class Timer {
+    public:
+        Timer()
+        {
+            m_startTimepoint = std::chrono::high_resolution_clock::now();
+        }
 
-    ~Timer()
-    {
-        Stop();
-    }
+        ~Timer()
+        {
+            Stop();
+        }
 
-    void Stop()
-    {
-        auto endTimepoint = std::chrono::high_resolution_clock::now();
+        void Stop()
+        {
+            auto endTimepoint = std::chrono::high_resolution_clock::now();
 
-        auto start = std::chrono::time_point_cast<std::chrono::microseconds>(m_startTimepoint).time_since_epoch().count();
-        auto end = std::chrono::time_point_cast<std::chrono::microseconds>(endTimepoint).time_since_epoch().count();
+            auto start = std::chrono::time_point_cast<std::chrono::microseconds>(m_startTimepoint).time_since_epoch().count();
+            auto end = std::chrono::time_point_cast<std::chrono::microseconds>(endTimepoint).time_since_epoch().count();
 
-        auto durationMs = (end - start) * 0.001f;
-        NEO_INFO(std::to_string(durationMs) + "ms");
-    }
+            auto durationMs = (end - start) * 0.001f;
+            NEO_INFO(std::to_string(durationMs) + "ms");
+        }
 
-private:
-    std::chrono::high_resolution_clock::time_point m_startTimepoint;
-};
+    private:
+        std::chrono::high_resolution_clock::time_point m_startTimepoint;
+    };
 
 }

@@ -2,8 +2,17 @@
 
 using namespace neuron;
 
+Wavefolder::~Wavefolder()
+{
+    a_inputGain = nullptr;
+}
+
 Sample Wavefolder::Process(const Sample input)
 {
+    if (a_inputGain != nullptr) {
+        m_inputGain = a_inputGain->load();
+    }
+
     float output = (float)input * m_inputGain;
     while (output > m_threshold || output < -m_threshold) {
         if (output > m_threshold) {
@@ -33,4 +42,16 @@ void Wavefolder::SetThreshold(float threshold)
 void Wavefolder::SetSymmetry(float symmetry)
 {
     m_symmetry = clamp(symmetry, 0.0f, 1.0f);
+}
+
+void Wavefolder::AttachParameter(int parameterId, std::atomic<float>* parameter)
+{
+    switch ((WavefolderParameter)parameterId) {
+        case InputGain:
+            a_inputGain = parameter;
+            break;
+        default:
+            // Do nothing.
+            break;
+    }
 }

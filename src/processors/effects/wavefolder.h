@@ -2,62 +2,71 @@
 
 #include "audio/sample.h"
 #include "utilities/arithmetic.h"
+#include "utilities/parameterized.h"
 
 namespace neuron {
-
-/**
- * The Wavefolder class applies a wavefolding
- * algorithm to audio signals.
- */
-class Wavefolder {
-public:
     /**
-     * Creates a default wavefolder processor.
+     * The Wavefolder class applies a wavefolding
+     * algorithm to audio signals.
      */
-    Wavefolder() {}
+    class Wavefolder : public Parameterized {
+    public:
+        enum WavefolderParameter {
+            InputGain = 0
+        };
 
-    /**
-     * Frees any memory allocated by the wavefolder.
-     */
-    ~Wavefolder() {}
+        /**
+         * Creates a default wavefolder processor.
+         */
+        Wavefolder()
+        {
+        }
 
-    /**
-     * Applies a wavefolding algorithm to an input sample.
-     *
-     * @param input The input sample to be processed.
-     * @return Sample
-     */
-    Sample Process(const Sample input);
+        /**
+         * Frees any memory allocated by the wavefolder.
+         */
+        ~Wavefolder();
 
-    /**
-     * Sets the input gain level, which boosts the signal before
-     * being measured against the wavefolder threshold.
-     *
-     * @param gain The multiplier of the audio signal going into the
-     * wavefolding algorithm.
-     */
-    void SetInputGain(float gain);
+        /**
+         * Applies a wavefolding algorithm to an input sample.
+         *
+         * @param input The input sample to be processed.
+         * @return Sample
+         */
+        Sample Process(const Sample input);
 
-    /**
-     * Sets the threshold of the wavefolder, above which samples will
-     * be "folded" toawrds zero until they are within the threshold.
-     */
-    void SetThreshold(float threshold);
+        /**
+         * Sets the input gain level, which boosts the signal before
+         * being measured against the wavefolder threshold.
+         *
+         * @param gain The multiplier of the audio signal going into the
+         * wavefolding algorithm.
+         */
+        void SetInputGain(float gain);
 
-    /**
-     * Sets the symmetry of the algorithm, determining how much
-     * wavefolding to apply to the positive and negative parts
-     * of the signal separately.
-     *
-     * @param symmetry A value between 0.0 and 1.0, ranging from asymmetrical
-     * (one-sided) to symmetrical respectively.
-     */
-    void SetSymmetry(float symmetry);
+        /**
+         * Sets the threshold of the wavefolder, above which samples will
+         * be "folded" toawrds zero until they are within the threshold.
+         */
+        void SetThreshold(float threshold);
 
-private:
-    float m_inputGain = 1.0f;
-    float m_threshold = 1.0f;
-    float m_symmetry = 1.0f;
-};
+        /**
+         * Sets the symmetry of the algorithm, determining how much
+         * wavefolding to apply to the positive and negative parts
+         * of the signal separately.
+         *
+         * @param symmetry A value between 0.0 and 1.0, ranging from asymmetrical
+         * (one-sided) to symmetrical respectively.
+         */
+        void SetSymmetry(float symmetry);
 
+        void AttachParameter(int parameterId, std::atomic<float>* parameter) override;
+
+    private:
+        std::atomic<float>* a_inputGain = nullptr;
+
+        float m_inputGain = 1.0f;
+        float m_threshold = 1.0f;
+        float m_symmetry = 1.0f;
+    };
 }
