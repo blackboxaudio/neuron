@@ -9,8 +9,7 @@ namespace neuron {
      * The Wavefolder class applies a wavefolding
      * algorithm to audio signals.
      */
-    class Wavefolder
-        : public Parameterized {
+    class Wavefolder : public Parameterized {
     public:
         /**
          * Creates a default wavefolder processor.
