@@ -28,7 +28,7 @@
 #include "utilities/arithmetic.h"
 #include "utilities/logger.h"
 #include "utilities/midi.h"
-#include "utilities/parameterized.h"
+#include "utilities/parameter.h"
 #include "utilities/timer.h"
 
 #endif

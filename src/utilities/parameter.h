@@ -6,7 +6,7 @@
 
 namespace neuron {
 #ifdef NEO_ENABLE_PLUGIN_SUPPORT
-    template <typename T>
+    template<typename T>
     class Parameter {
     public:
         Parameter(std::atomic<T>* ptr = nullptr)
@@ -25,32 +25,38 @@ namespace neuron {
             m_parameter = ptr;
         }
 
-        operator float() const {
+        operator T() const
+        {
             return m_parameter->load();
         }
 
-        T operator=(T value) const {
+        T operator=(T value) const
+        {
             m_parameter->store(value);
             return value;
         }
 
-        T operator+(T value) const {
+        T operator+(T value) const
+        {
             return m_parameter->load() + value;
         }
 
-        T operator-(T value) const {
+        T operator-(T value) const
+        {
             return m_parameter->load() - value;
         }
 
-        T operator*(T value) const {
+        T operator*(T value) const
+        {
             return m_parameter->load() * value;
         }
 
-        T operator/(T value) const {
+        T operator/(T value) const
+        {
             if (value == 0.0) {
                 return value;
             } else {
-            	return m_parameter->load() / value;
+                return m_parameter->load() / value;
             }
         }
 
@@ -58,7 +64,7 @@ namespace neuron {
         std::atomic<T>* m_parameter = nullptr;
     };
 #else
-    template <typename T>
+    template<typename T>
     class Parameter {
     public:
         Parameter(T value = 0.0)
@@ -68,31 +74,37 @@ namespace neuron {
 
         ~Parameter() = default;
 
-        operator float() const {
+        operator float() const
+        {
             return m_parameter;
         }
 
-        T operator=(T value) const {
+        T operator=(T value) const
+        {
             m_parameter = value;
         }
 
-        T operator+(T value) const {
+        T operator+(T value) const
+        {
             return m_parameter + value;
         }
 
-        T operator-(T value) const {
+        T operator-(T value) const
+        {
             return m_parameter - value;
         }
 
-        T operator*(T value) const {
+        T operator*(T value) const
+        {
             return m_parameter * value;
         }
 
-        T operator/(T value) const {
+        T operator/(T value) const
+        {
             if (value == 0.0) {
                 return value;
             } else {
-            	return m_parameter / value;
+                return m_parameter / value;
             }
         }
 
