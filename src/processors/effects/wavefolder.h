@@ -9,12 +9,9 @@ namespace neuron {
      * The Wavefolder class applies a wavefolding
      * algorithm to audio signals.
      */
-    class Wavefolder : public Parameterized {
+    class Wavefolder
+        : public Parameterized {
     public:
-        enum WavefolderParameter {
-            InputGain = 0
-        };
-
         /**
          * Creates a default wavefolder processor.
          */
@@ -60,13 +57,28 @@ namespace neuron {
          */
         void SetSymmetry(float symmetry);
 
-        void AttachParameter(int parameterId, std::atomic<float>* parameter) override;
+#ifdef NEO_ENABLE_PLUGIN_SUPPORT
+        /**
+         * The wavefolder parameters that support automation by e.g. a DAW.
+         */
+        enum WavefolderParameter {
+            InputGain = 0
+        };
+
+        /**
+         * Attaches a parameter from a `AudioProcessorValueTreeState` parameter (from
+         * the JUCE library).
+         */
+        void AttachParameter(int parameter, std::atomic<float>* value) override;
+#endif
 
     private:
-        std::atomic<float>* a_inputGain = nullptr;
-
         float m_inputGain = 1.0f;
         float m_threshold = 1.0f;
         float m_symmetry = 1.0f;
+
+#ifdef NEO_ENABLE_PLUGIN_SUPPORT
+        std::atomic<float>* a_inputGain = nullptr;
+#endif
     };
 }

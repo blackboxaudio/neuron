@@ -1,6 +1,7 @@
 cmake_minimum_required(VERSION 3.14)
 
-option(BUILD_TESTS "Build unit tests" OFF)
+option(NEO_ENABLE_PLUGIN_SUPPORT "Enable plugin build support" OFF)
+option(NEO_BUILD_TESTS "Build unit tests" OFF)
 
 project(neuron VERSION 0.1.0 LANGUAGES CXX)
 
@@ -30,7 +31,11 @@ set_target_properties(neuron PROPERTIES PUBLIC
         CXX_STANDARD_REQUIRED
 )
 
-if(BUILD_TESTS)
+if(NEO_ENABLE_PLUGIN_SUPPORT)
+    target_compile_definitions(neuron PUBLIC NEO_ENABLE_PLUGIN_SUPPORT)
+endif()
+
+if(NEO_BUILD_TESTS)
     function(add_neuron_test name src)
         add_executable("${name}_test_exe" ${src})
         target_include_directories("${name}_test_exe" PRIVATE ${INCLUDE_DIR})

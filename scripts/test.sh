@@ -23,7 +23,7 @@ if [ $BUILD_TESTS == "true" ]; then
     rm -rf "$TARGET_DIR"
     mkdir -p "$TARGET_DIR"
     cd "$TARGET_DIR" || exit 1
-    cmake -DBUILD_TESTS=ON ../../
+    cmake -DNEO_BUILD_TESTS=ON ../../
     make
 else
     cd "$TARGET_DIR" || exit 1
