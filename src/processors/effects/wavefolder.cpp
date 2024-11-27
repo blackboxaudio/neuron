@@ -2,20 +2,9 @@
 
 using namespace neuron;
 
-Wavefolder::~Wavefolder()
-{
-#ifdef NEO_ENABLE_PLUGIN_SUPPORT
-    a_inputGain = nullptr;
-#endif
-}
-
 Sample Wavefolder::Process(const Sample input)
 {
-#ifdef NEO_ENABLE_PLUGIN_SUPPORT
-    m_inputGain = a_inputGain->load();
-#endif
-
-    float output = (float)input * m_inputGain;
+    float output = (float)input * p_inputGain;
     while (output > m_threshold || output < -m_threshold) {
         if (output > m_threshold) {
             output = m_threshold - (output - m_threshold);
@@ -33,10 +22,7 @@ Sample Wavefolder::Process(const Sample input)
 
 void Wavefolder::SetInputGain(float gain)
 {
-#ifdef NEO_ENABLE_PLUGIN_SUPPORT
-    a_inputGain->store(gain);
-#endif
-    m_inputGain = gain;
+    p_inputGain = gain;
 }
 
 void Wavefolder::SetThreshold(float threshold)
@@ -48,17 +34,3 @@ void Wavefolder::SetSymmetry(float symmetry)
 {
     m_symmetry = clamp(symmetry, 0.0f, 1.0f);
 }
-
-#ifdef NEO_ENABLE_PLUGIN_SUPPORT
-void Wavefolder::AttachParameter(int parameter, std::atomic<float>* value)
-{
-    switch ((WavefolderParameter)parameter) {
-        case InputGain:
-            a_inputGain = value;
-            break;
-        default:
-            // Do nothing.
-            break;
-    }
-}
-#endif
