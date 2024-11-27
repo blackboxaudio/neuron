@@ -25,7 +25,7 @@ const float PI = 3.14159265358979323846264338327950288f;
 /**
  * An irrational number that is the base of the natural logarithm.
  */
-const float EULER = 2.71828182845904523536028747135266250;
+const float EULER = 2.71828182845904523536028747135266250f;
 
 /**
  * Depicts different mathematical curves, e.g. exponential,
