@@ -8,7 +8,6 @@ Saturator::Saturator()
 
 }
 
-
 Sample Saturator::Process(Sample input)
 {
     float output = tanh(input * p_saturation);
@@ -16,7 +15,7 @@ Sample Saturator::Process(Sample input)
         output = (input * (1.0f - p_symmetry)) + (output * p_symmetry);
     }
 
-    return (Sample)clamp(output, -1.0f, 1.0f);
+    return clamp(output, -1.0f, 1.0f);
 }
 
 void Saturator::SetSaturation(float saturation)

@@ -69,7 +69,12 @@ namespace neuron {
         }
 
     private:
-        std::atomic<T>* m_parameter = nullptr;
+        /**
+        * CAUTION: This empty value is used as a safe initializer for the pointer,
+        * which is what is used by the JUCE library.
+        */
+        std::atomic<T> m_value {0};
+        std::atomic<T>* m_parameter = &m_value;
     };
 
 #else
