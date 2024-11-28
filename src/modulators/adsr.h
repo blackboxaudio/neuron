@@ -32,7 +32,7 @@ namespace neuron {
     };
 
     /**
-     * The ADsrEnvelopeModulator class is a modulation source
+     * The AdsrEnvelopeModulator class is a modulation source
      * that is based off of an ADSR envelope generator.
      */
     class AdsrEnvelopeModulator : public Modulator {

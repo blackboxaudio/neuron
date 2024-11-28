@@ -2,6 +2,10 @@
 
 namespace neuron {
 
+    /**
+     * Describes a DSP component that produces a stream of data
+     * that changes the parameter of another DSP component over time.
+     */
     class Modulator {
     public:
         /**

@@ -4,6 +4,10 @@
 
 namespace neuron {
 
+    /**
+     * Describes a DSP component that generates a signal without
+     * processing an input signal.
+     */
     class Generator {
     public:
         /**

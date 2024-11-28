@@ -7,6 +7,10 @@
 namespace neuron {
 
 #ifdef NEO_USE_STD_ATOMIC
+    /**
+     * An adjustable parameter used by a DSP component to allow more
+     * control and flexibility in shaping its sound.
+     */
     template<typename T>
     class Parameter {
     public:
@@ -27,7 +31,11 @@ namespace neuron {
             m_parameter = nullptr;
         }
 
-        // Attach a parameter (e.g. via an atomic float pointer)
+        /**
+         * Attaches a new source for this parameter to read data from.
+         *
+         * @param ptr The new pointer that this parameter will read from and write to.
+         */
         void AttachSource(std::atomic<T>* ptr)
         {
             m_parameter = ptr;
@@ -78,6 +86,10 @@ namespace neuron {
     };
 
 #else
+    /**
+     * An adjustable parameter used by a DSP component to allow more
+     * control and flexibility in shaping its sound.
+     */
     template<typename T>
     class Parameter {
     public:
