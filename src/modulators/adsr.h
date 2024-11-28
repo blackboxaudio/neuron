@@ -1,6 +1,7 @@
 #pragma once
 
 #include "audio/context.h"
+#include "utilities/modulator.h"
 
 namespace neuron {
 
@@ -34,7 +35,7 @@ namespace neuron {
      * The ADsrEnvelopeModulator class is a modulation source
      * that is based off of an ADSR envelope generator.
      */
-    class AdsrEnvelopeModulator {
+    class AdsrEnvelopeModulator : public Modulator {
     public:
         /**
          * Creates an ADSR envelope modulator.
@@ -43,17 +44,17 @@ namespace neuron {
          * @param envelope The envelope configuration to initialize the class with.
          * @return AdsrEnvelopeModulator
          */
-        AdsrEnvelopeModulator(Context& context = DEFAULT_CONTEXT, AdsrEnvelope envelope = DEFAULT_ADSR_ENVELOPE);
+        explicit AdsrEnvelopeModulator(Context& context = DEFAULT_CONTEXT, AdsrEnvelope envelope = DEFAULT_ADSR_ENVELOPE);
 
         /**
          * Frees any memory allocated by the modulator.
          */
-        ~AdsrEnvelopeModulator();
+        ~AdsrEnvelopeModulator() override = default;
 
         /**
          * Calculates a modulation value to apply to some arbitrary variable.
          */
-        float Modulate();
+        float Modulate() override;
 
         /**
          * Starts the envelope from its attack phase.

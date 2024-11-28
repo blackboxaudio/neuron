@@ -2,6 +2,8 @@
 
 #include "audio/sample.h"
 #include "utilities/arithmetic.h"
+#include "utilities/parameter.h"
+#include "utilities/processor.h"
 
 namespace neuron {
 
@@ -9,19 +11,19 @@ namespace neuron {
      * The Saturator class applies a tape saturation
      * algorithm to audio signals.
      */
-    class Saturator {
+    class Saturator : public Processor {
     public:
         /**
          * Creates a default saturator processor.
          *
          * @return Saturator
          */
-        Saturator() {}
+        Saturator();
 
         /**
          * Frees any memory allocated by the saturator.
          */
-        ~Saturator() {}
+        ~Saturator() override;
 
         /**
          * Applies a saturation algorithm to an input sample.
@@ -29,7 +31,7 @@ namespace neuron {
          * @param input The input sample to be processed.
          * @return Sample
          */
-        Sample Process(const Sample input);
+        Sample Process(Sample input) override;
 
         /**
          * Sets the saturation level, which boosts the signal before
@@ -51,9 +53,8 @@ namespace neuron {
          */
         void SetSymmetry(float symmetry);
 
-    private:
-        float m_saturation = 1.0f;
-        float m_symmetry = 1.0f;
+        Parameter<float> p_saturation;
+        Parameter<float> p_symmetry;
     };
 
 }

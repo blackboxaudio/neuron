@@ -26,9 +26,12 @@
 
 // UTILITIES
 #include "utilities/arithmetic.h"
+#include "utilities/generator.h"
 #include "utilities/logger.h"
 #include "utilities/midi.h"
+#include "utilities/modulator.h"
 #include "utilities/parameter.h"
+#include "utilities/processor.h"
 #include "utilities/timer.h"
 
 #endif

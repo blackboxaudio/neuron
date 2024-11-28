@@ -6,6 +6,8 @@
 #include "audio/sample.h"
 #include "audio/waveform.h"
 #include "utilities/arithmetic.h"
+#include "utilities/generator.h"
+#include "utilities/parameter.h"
 
 namespace neuron {
 
@@ -15,7 +17,7 @@ namespace neuron {
      * The Oscillator class creates an audio signal
      * with a basic waveform.
      */
-    class Oscillator {
+    class Oscillator : public Generator {
     public:
         /**
          * Creates an oscillator generator.
@@ -24,12 +26,12 @@ namespace neuron {
          * @param frequency The initial frequency of the oscillator.
          * @return Oscillator
          */
-        Oscillator(Context& context = DEFAULT_CONTEXT, float frequency = 440.0f, Waveform waveform = Waveform::SINE);
+        explicit Oscillator(Context& context = DEFAULT_CONTEXT, float frequency = 440.0f, Waveform waveform = Waveform::SINE);
 
         /**
          * Frees any memory allocated by the oscillator.
          */
-        ~Oscillator();
+        ~Oscillator() override;
 
         /**
          * Generates a sample of an audio signal with a
@@ -37,7 +39,7 @@ namespace neuron {
          *
          * @return Sample
          */
-        Sample Generate();
+        Sample Generate() override;
 
         /**
          * Resets the phase of the oscillator, starting it at the beginning
@@ -73,14 +75,18 @@ namespace neuron {
          */
         void DetachFollower();
 
+        Parameter<float> p_frequency;
+
     private:
         void PopulateWavetable();
         void IncrementPhase();
         Sample Lerp();
 
         Context& m_context;
+
         Sample m_wavetable[WAVETABLE_SIZE];
         Waveform m_waveform;
+
         float m_phase = 0.0f;
         float m_phaseIncrement = 0.0f;
 

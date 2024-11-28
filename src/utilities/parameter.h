@@ -1,15 +1,23 @@
 #pragma once
 
-#ifdef NEO_ENABLE_PLUGIN_SUPPORT
+#ifdef NEO_USE_STD_ATOMIC
 #include <atomic>
 #endif
 
 namespace neuron {
-#ifdef NEO_ENABLE_PLUGIN_SUPPORT
+
+#ifdef NEO_USE_STD_ATOMIC
     template<typename T>
     class Parameter {
     public:
-        Parameter(std::atomic<T>* ptr = nullptr)
+        Parameter() = default;
+
+        explicit Parameter(T value)
+        {
+            std::atomic_init(m_parameter, value);
+        }
+
+        explicit Parameter(std::atomic<T>* ptr)
         {
             m_parameter = ptr;
         }
@@ -30,10 +38,10 @@ namespace neuron {
             return m_parameter->load();
         }
 
-        T operator=(T value) const
+        Parameter& operator=(T value)
         {
             m_parameter->store(value);
-            return value;
+            return *this;
         }
 
         T operator+(T value) const
@@ -63,11 +71,12 @@ namespace neuron {
     private:
         std::atomic<T>* m_parameter = nullptr;
     };
+
 #else
     template<typename T>
     class Parameter {
     public:
-        Parameter(T value = 0.0)
+        explicit Parameter(T value = 0.0)
         {
             m_parameter = value;
         }
@@ -79,9 +88,10 @@ namespace neuron {
             return m_parameter;
         }
 
-        T operator=(T value) const
+        Parameter& operator=(T value) const
         {
             m_parameter = value;
+            return *this;
         }
 
         T operator+(T value) const
@@ -112,4 +122,5 @@ namespace neuron {
         T m_parameter;
     };
 #endif
+
 }

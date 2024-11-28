@@ -3,8 +3,11 @@
 #include "audio/context.h"
 #include "audio/sample.h"
 #include "utilities/arithmetic.h"
+#include "utilities/parameter.h"
+#include "utilities/processor.h"
 
 namespace neuron {
+
     const float FILTER_CUTOFF_FREQ_MIN = 20.0f;
     const float FILTER_CUTOFF_FREQ_MAX = 20000.0f;
 
@@ -12,7 +15,7 @@ namespace neuron {
      * The Filter class applies a simple low-pass filter
      * to audio signals.
      */
-    class Filter {
+    class Filter : public Processor {
     public:
         /**
          * Creates a filter processor.
@@ -27,7 +30,7 @@ namespace neuron {
         /**
          * Frees any memory allocated by the oscillator.
          */
-        ~Filter() {}
+        ~Filter() override = default;
 
         /**
          * Applies a low-pass filter to an input sample.
@@ -35,7 +38,7 @@ namespace neuron {
          * @param input The input sample to be processed.
          * @return Sample
          */
-        Sample Process(const Sample input);
+        Sample Process(Sample input) override;
 
         /**
          * Sets the filter's cutoff frequency.
@@ -44,12 +47,13 @@ namespace neuron {
          */
         void SetCutoffFrequency(float frequency);
 
+        Parameter<float> p_cutoffFrequency;
+
     private:
         void CalculateAlpha();
 
         Context& m_context;
 
-        float m_cutoffFrequency;
         float m_alpha;
         Sample m_previousOutput;
     };

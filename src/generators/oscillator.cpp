@@ -3,8 +3,7 @@
 using namespace neuron;
 
 Oscillator::Oscillator(Context& context, float frequency, Waveform waveform)
-    : m_context(context)
-    , m_waveform(waveform)
+    : m_context(context), m_waveform(waveform), p_frequency(frequency)
 {
     PopulateWavetable();
     SetFrequency(frequency);
@@ -35,7 +34,8 @@ void Oscillator::Reset(float phase)
 
 void Oscillator::SetFrequency(float frequency)
 {
-    m_phaseIncrement = frequency * (float)WAVETABLE_SIZE / (float)m_context.sampleRate;
+    p_frequency = frequency;
+    m_phaseIncrement = p_frequency * (float)WAVETABLE_SIZE / (float)m_context.sampleRate;
 }
 
 void Oscillator::SetWaveform(Waveform waveform)
@@ -45,7 +45,7 @@ void Oscillator::SetWaveform(Waveform waveform)
 
 void Oscillator::AttachFollower(Oscillator* follower)
 {
-    if (follower != nullptr) {
+    if (follower != nullptr && follower != this) {
         m_follower = follower;
     }
 }
@@ -59,7 +59,7 @@ void Oscillator::PopulateWavetable()
 {
     for (size_t idx = 0; idx < WAVETABLE_SIZE; idx++) {
         float phase = (float)idx * PI * 2.0f / (float)WAVETABLE_SIZE;
-        m_wavetable[idx] = (Sample)sin(phase);
+        m_wavetable[idx] = sin(phase);
     }
 }
 

@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.14)
 
-option(NEO_ENABLE_PLUGIN_SUPPORT "Enable plugin build support" OFF)
+option(NEO_USE_STD_ATOMIC "Enable atomic variables" OFF)
 option(NEO_BUILD_TESTS "Build unit tests" OFF)
 
 project(neuron VERSION 0.1.0 LANGUAGES CXX)
@@ -31,8 +31,8 @@ set_target_properties(neuron PROPERTIES PUBLIC
         CXX_STANDARD_REQUIRED
 )
 
-if(NEO_ENABLE_PLUGIN_SUPPORT)
-    target_compile_definitions(neuron PUBLIC NEO_ENABLE_PLUGIN_SUPPORT)
+if(NEO_USE_STD_ATOMIC)
+    target_compile_definitions(neuron PUBLIC NEO_USE_STD_ATOMIC)
 endif()
 
 if(NEO_BUILD_TESTS)

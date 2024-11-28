@@ -3,23 +3,25 @@
 #include "audio/sample.h"
 #include "utilities/arithmetic.h"
 #include "utilities/parameter.h"
+#include "utilities/processor.h"
 
 namespace neuron {
+
     /**
      * The Wavefolder class applies a wavefolding
      * algorithm to audio signals.
      */
-    class Wavefolder {
+    class Wavefolder : public Processor {
     public:
         /**
          * Creates a default wavefolder processor.
          */
-        Wavefolder() = default;
+        Wavefolder();
 
         /**
          * Frees any memory allocated by the wavefolder.
          */
-        ~Wavefolder() = default;
+        ~Wavefolder() override = default;
 
         /**
          * Applies a wavefolding algorithm to an input sample.
@@ -27,7 +29,7 @@ namespace neuron {
          * @param input The input sample to be processed.
          * @return Sample
          */
-        Sample Process(const Sample input);
+        Sample Process(Sample input) override;
 
         /**
          * Sets the input gain level, which boosts the signal before
@@ -54,11 +56,9 @@ namespace neuron {
          */
         void SetSymmetry(float symmetry);
 
-    public:
         Parameter<float> p_inputGain;
-
-    private:
-        float m_threshold = 1.0f;
-        float m_symmetry = 1.0f;
+        Parameter<float> p_threshold;
+        Parameter<float> p_symmetry;
     };
+
 }
