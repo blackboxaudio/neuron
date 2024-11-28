@@ -14,16 +14,14 @@ namespace neuron {
     template<typename T>
     class Parameter {
     public:
-        Parameter() = default;
-
         explicit Parameter(T value)
         {
             std::atomic_init(m_parameter, value);
         }
 
-        explicit Parameter(std::atomic<T>* ptr)
+        explicit Parameter(std::atomic<T>* source)
         {
-            m_parameter = ptr;
+            m_parameter = source;
         }
 
         ~Parameter()
@@ -34,11 +32,11 @@ namespace neuron {
         /**
          * Attaches a new source for this parameter to read data from.
          *
-         * @param ptr The new pointer that this parameter will read from and write to.
+         * @param source The new pointer that this parameter will read from and write to.
          */
-        void AttachSource(std::atomic<T>* ptr)
+        void AttachSource(std::atomic<T>* source)
         {
-            m_parameter = ptr;
+            m_parameter = source;
         }
 
         operator T() const
@@ -81,8 +79,8 @@ namespace neuron {
         * CAUTION: This empty value is used as a safe initializer for the pointer,
         * which is what is used by the JUCE library.
         */
-        std::atomic<T> m_value {0};
-        std::atomic<T>* m_parameter = &m_value;
+        std::atomic<T> m_initial_source {0};
+        std::atomic<T>* m_parameter = &m_initial_source;
     };
 
 #else
