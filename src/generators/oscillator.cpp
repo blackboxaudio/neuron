@@ -14,7 +14,7 @@ Oscillator::~Oscillator()
     m_follower = nullptr;
 }
 
-Sample Oscillator::Generate()
+Sample Oscillator::GenerateImpl()
 {
     Sample value = Lerp();
 

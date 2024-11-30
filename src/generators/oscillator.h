@@ -17,7 +17,7 @@ namespace neuron {
      * The Oscillator class creates an audio signal
      * with a basic waveform.
      */
-    class Oscillator : public Generator {
+    class Oscillator : public Generator<Oscillator> {
     public:
         /**
          * Creates an oscillator generator.
@@ -31,15 +31,7 @@ namespace neuron {
         /**
          * Frees any memory allocated by the oscillator.
          */
-        ~Oscillator() override;
-
-        /**
-         * Generates a sample of an audio signal with a
-         * basic waveform.
-         *
-         * @return Sample
-         */
-        Sample Generate() override;
+        ~Oscillator();
 
         /**
          * Resets the phase of the oscillator, starting it at the beginning
@@ -76,6 +68,9 @@ namespace neuron {
         void DetachFollower();
 
         Parameter<float> p_frequency;
+
+    protected:
+        Sample GenerateImpl();
 
     private:
         void PopulateWavetable();
