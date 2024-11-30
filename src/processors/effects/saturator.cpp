@@ -3,12 +3,12 @@
 using namespace neuron;
 
 Saturator::Saturator()
-    : p_saturation(1.0f), p_symmetry(1.0f)
+    : p_saturation(1.0f)
+    , p_symmetry(1.0f)
 {
-
 }
 
-Sample Saturator::Process(Sample input)
+Sample Saturator::ProcessImpl(Sample input)
 {
     float output = tanh(input * p_saturation);
     if (input < 0.0f) {

@@ -15,7 +15,7 @@ namespace neuron {
      * The Filter class applies a simple low-pass filter
      * to audio signals.
      */
-    class Filter : public Processor {
+    class Filter : public Processor<Filter> {
     public:
         /**
          * Creates a filter processor.
@@ -24,21 +24,8 @@ namespace neuron {
          * @param cutoffFrequency The initial cutoff frequency of the filter.
          * @return Filter
          */
-        Filter(Context& context = DEFAULT_CONTEXT,
+        explicit Filter(Context& context = DEFAULT_CONTEXT,
             float cutoffFrequency = FILTER_CUTOFF_FREQ_MAX);
-
-        /**
-         * Frees any memory allocated by the oscillator.
-         */
-        ~Filter() override = default;
-
-        /**
-         * Applies a low-pass filter to an input sample.
-         *
-         * @param input The input sample to be processed.
-         * @return Sample
-         */
-        Sample Process(Sample input) override;
 
         /**
          * Sets the filter's cutoff frequency.
@@ -48,6 +35,10 @@ namespace neuron {
         void SetCutoffFrequency(float frequency);
 
         Parameter<float> p_cutoffFrequency;
+
+    protected:
+        friend class Processor<Filter>;
+        Sample ProcessImpl(Sample input);
 
     private:
         void CalculateAlpha();

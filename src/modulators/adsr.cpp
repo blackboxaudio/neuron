@@ -8,7 +8,7 @@ AdsrEnvelopeModulator::AdsrEnvelopeModulator(Context& context, AdsrEnvelope enve
 {
 }
 
-float AdsrEnvelopeModulator::Modulate()
+float AdsrEnvelopeModulator::ModulateImpl()
 {
     float position = (float)m_samplesSinceLastStage * (1000.0f / m_context.sampleRate);
 

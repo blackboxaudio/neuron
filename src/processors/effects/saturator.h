@@ -11,7 +11,7 @@ namespace neuron {
      * The Saturator class applies a tape saturation
      * algorithm to audio signals.
      */
-    class Saturator : public Processor {
+    class Saturator : public Processor<Saturator> {
     public:
         /**
          * Creates a default saturator processor.
@@ -23,15 +23,7 @@ namespace neuron {
         /**
          * Frees any memory allocated by the saturator.
          */
-        ~Saturator() override;
-
-        /**
-         * Applies a saturation algorithm to an input sample.
-         *
-         * @param input The input sample to be processed.
-         * @return Sample
-         */
-        Sample Process(Sample input) override;
+        ~Saturator();
 
         /**
          * Sets the saturation level, which boosts the signal before
@@ -55,6 +47,10 @@ namespace neuron {
 
         Parameter<float> p_saturation;
         Parameter<float> p_symmetry;
+
+    protected:
+        friend class Processor<Saturator>;
+        Sample ProcessImpl(Sample input);
     };
 
 }

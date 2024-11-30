@@ -35,7 +35,7 @@ namespace neuron {
      * The AdsrEnvelopeModulator class is a modulation source
      * that is based off of an ADSR envelope generator.
      */
-    class AdsrEnvelopeModulator : public Modulator {
+    class AdsrEnvelopeModulator : public Modulator<AdsrEnvelopeModulator> {
     public:
         /**
          * Creates an ADSR envelope modulator.
@@ -45,16 +45,6 @@ namespace neuron {
          * @return AdsrEnvelopeModulator
          */
         explicit AdsrEnvelopeModulator(Context& context = DEFAULT_CONTEXT, AdsrEnvelope envelope = DEFAULT_ADSR_ENVELOPE);
-
-        /**
-         * Frees any memory allocated by the modulator.
-         */
-        ~AdsrEnvelopeModulator() override = default;
-
-        /**
-         * Calculates a modulation value to apply to some arbitrary variable.
-         */
-        float Modulate() override;
 
         /**
          * Starts the envelope from its attack phase.
@@ -98,6 +88,10 @@ namespace neuron {
          * @param releaseTimeMs The new release time for the envelope.
          */
         void SetReleaseTime(float releaseTimeMs);
+
+    protected:
+        friend class Modulator<AdsrEnvelopeModulator>;
+        float ModulateImpl();
 
     private:
         // Checks and updates the modulator's state if necessary

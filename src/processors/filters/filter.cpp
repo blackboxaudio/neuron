@@ -3,12 +3,14 @@
 using namespace neuron;
 
 Filter::Filter(Context& context, float cutoffFrequency)
-    : m_context(context), m_previousOutput(0.0f), p_cutoffFrequency(cutoffFrequency)
+    : m_context(context)
+    , m_previousOutput(0.0f)
+    , p_cutoffFrequency(cutoffFrequency)
 {
     SetCutoffFrequency(cutoffFrequency);
 }
 
-Sample Filter::Process(Sample input)
+Sample Filter::ProcessImpl(Sample input)
 {
     float output = m_alpha * input + (1.0f - m_alpha) * m_previousOutput;
     m_previousOutput = output;

@@ -3,12 +3,13 @@
 using namespace neuron;
 
 Wavefolder::Wavefolder()
-    : p_inputGain(1.0f), p_threshold(1.0f), p_symmetry(1.0f)
+    : p_inputGain(1.0f)
+    , p_threshold(1.0f)
+    , p_symmetry(1.0f)
 {
-
 }
 
-Sample Wavefolder::Process(Sample input)
+Sample Wavefolder::ProcessImpl(Sample input)
 {
     float output = input * p_inputGain;
     while (output > p_threshold || output < -p_threshold) {

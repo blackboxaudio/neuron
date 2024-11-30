@@ -70,6 +70,7 @@ namespace neuron {
         Parameter<float> p_frequency;
 
     protected:
+        friend class Generator<Oscillator>;
         Sample GenerateImpl();
 
     private:

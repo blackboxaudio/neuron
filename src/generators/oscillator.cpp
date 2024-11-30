@@ -3,7 +3,9 @@
 using namespace neuron;
 
 Oscillator::Oscillator(Context& context, float frequency, Waveform waveform)
-    : m_context(context), m_waveform(waveform), p_frequency(frequency)
+    : m_context(context)
+    , m_waveform(waveform)
+    , p_frequency(frequency)
 {
     PopulateWavetable();
     SetFrequency(frequency);

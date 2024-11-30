@@ -11,25 +11,12 @@ namespace neuron {
      * The Wavefolder class applies a wavefolding
      * algorithm to audio signals.
      */
-    class Wavefolder : public Processor {
+    class Wavefolder : public Processor<Wavefolder> {
     public:
         /**
          * Creates a default wavefolder processor.
          */
         Wavefolder();
-
-        /**
-         * Frees any memory allocated by the wavefolder.
-         */
-        ~Wavefolder() override = default;
-
-        /**
-         * Applies a wavefolding algorithm to an input sample.
-         *
-         * @param input The input sample to be processed.
-         * @return Sample
-         */
-        Sample Process(Sample input) override;
 
         /**
          * Sets the input gain level, which boosts the signal before
@@ -59,6 +46,10 @@ namespace neuron {
         Parameter<float> p_inputGain;
         Parameter<float> p_threshold;
         Parameter<float> p_symmetry;
+
+    protected:
+        friend class Processor<Wavefolder>;
+        Sample ProcessImpl(Sample input);
     };
 
 }
