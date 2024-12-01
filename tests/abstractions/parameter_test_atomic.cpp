@@ -1,5 +1,5 @@
-#include <gtest/gtest.h>
 #include <atomic>
+#include <gtest/gtest.h>
 
 #include "neuron.h"
 
