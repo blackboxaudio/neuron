@@ -52,7 +52,7 @@ namespace neuron {
         friend class Processor<Wavefolder>;
         Sample ProcessImpl(Sample input);
 
-#ifdef NEO_USE_STD_ATOMIC
+#ifdef NEO_PLUGIN_SUPPORT
         friend class Neuron<Wavefolder, WavefolderParameter>;
         void AttachParameterToSourceImpl(const WavefolderParameter parameter, std::atomic<float>* source);
 #endif

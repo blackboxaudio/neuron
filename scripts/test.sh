@@ -26,7 +26,7 @@ done
 
 CMAKE_FLAGS="-DCMAKE_BUILD_TYPE=Release -DNEO_BUILD_TESTS=ON"
 if [ "$PLUGIN_SUPPORT" == "true" ]; then
-    CMAKE_FLAGS+=" -DNEO_USE_STD_ATOMIC=ON"
+    CMAKE_FLAGS+=" -DNEO_PLUGIN_SUPPORT=ON"
 fi
 
 if [ $BUILD_TESTS == "true" ]; then

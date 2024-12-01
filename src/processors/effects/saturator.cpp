@@ -19,7 +19,7 @@ Sample Saturator::ProcessImpl(Sample input)
     return clamp(output, -1.0f, 1.0f);
 }
 
-#ifdef NEO_USE_STD_ATOMIC
+#ifdef NEO_PLUGIN_SUPPORT
 void Saturator::AttachParameterToSourceImpl(SaturatorParameter parameter, std::atomic<float>* source)
 {
     switch (parameter) {

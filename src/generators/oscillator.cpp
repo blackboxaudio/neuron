@@ -27,7 +27,7 @@ Sample Oscillator::GenerateImpl()
     return SineToWaveform(value, m_waveform);
 }
 
-#ifdef NEO_USE_STD_ATOMIC
+#ifdef NEO_PLUGIN_SUPPORT
 void Oscillator::AttachParameterToSourceImpl(OscillatorParameter parameter, std::atomic<float>* source)
 {
     switch (parameter) {

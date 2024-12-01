@@ -1,6 +1,6 @@
 #pragma once
 
-#ifdef NEO_USE_STD_ATOMIC
+#ifdef NEO_PLUGIN_SUPPORT
 #include <atomic>
 #endif
 
@@ -18,7 +18,7 @@ namespace neuron {
          */
         ~Neuron() = default;
 
-#ifdef NEO_USE_STD_ATOMIC
+#ifdef NEO_PLUGIN_SUPPORT
         /**
          * Attach a source via an atomic pointer to a given parameter.
          */

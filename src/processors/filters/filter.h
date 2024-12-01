@@ -44,7 +44,7 @@ namespace neuron {
         friend class Processor<Filter>;
         Sample ProcessImpl(Sample input);
 
-#ifdef NEO_USE_STD_ATOMIC
+#ifdef NEO_PLUGIN_SUPPORT
         friend class Neuron<Filter, FilterParameter>;
         void AttachParameterToSourceImpl(FilterParameter parameter, std::atomic<float>* source);
 #endif

@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.14)
 
-option(NEO_USE_STD_ATOMIC "Enable atomic variables" OFF)
+option(NEO_PLUGIN_SUPPORT "Enable plugin support (e.g. atomic variables)" OFF)
 option(NEO_BUILD_TESTS "Build unit tests" OFF)
 
 project(neuron VERSION 0.1.0 LANGUAGES CXX)
@@ -15,8 +15,8 @@ set_target_properties(neuron PROPERTIES PUBLIC
         CXX_STANDARD_REQUIRED
 )
 
-if(NEO_USE_STD_ATOMIC)
-    target_compile_definitions(neuron PUBLIC NEO_USE_STD_ATOMIC)
+if(NEO_PLUGIN_SUPPORT)
+    target_compile_definitions(neuron PUBLIC NEO_PLUGIN_SUPPORT)
 endif()
 
 if(NEO_BUILD_TESTS)
@@ -30,7 +30,7 @@ if(NEO_BUILD_TESTS)
 
     add_subdirectory(vendor/googletest)
 
-    if(NEO_USE_STD_ATOMIC)
+    if(NEO_PLUGIN_SUPPORT)
         add_neuron_test(parameter_atomic tests/abstractions/parameter_test_atomic.cpp)
     else()
         add_neuron_test(parameter tests/abstractions/parameter_test.cpp)

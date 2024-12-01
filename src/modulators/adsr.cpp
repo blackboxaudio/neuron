@@ -48,7 +48,7 @@ float AdsrEnvelopeModulator::ModulateImpl()
     return value;
 }
 
-#ifdef NEO_USE_STD_ATOMIC
+#ifdef NEO_PLUGIN_SUPPORT
 void AdsrEnvelopeModulator::AttachParameterToSourceImpl(AdsrParameter parameter, std::atomic<float>* source)
 {
     switch (parameter) {

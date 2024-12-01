@@ -57,7 +57,7 @@ namespace neuron {
         friend class Processor<Saturator>;
         Sample ProcessImpl(Sample input);
 
-#ifdef NEO_USE_STD_ATOMIC
+#ifdef NEO_PLUGIN_SUPPORT
         friend class Neuron<Saturator, SaturatorParameter>;
         void AttachParameterToSourceImpl(SaturatorParameter parameter, std::atomic<float>* source);
 #endif

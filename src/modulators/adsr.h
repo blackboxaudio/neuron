@@ -103,7 +103,7 @@ namespace neuron {
         friend class Modulator<AdsrEnvelopeModulator>;
         float ModulateImpl();
 
-#ifdef NEO_USE_STD_ATOMIC
+#ifdef NEO_PLUGIN_SUPPORT
         friend class Neuron<AdsrEnvelopeModulator, AdsrParameter>;
         void AttachParameterToSourceImpl(AdsrParameter parameter, std::atomic<float>* source);
 #endif

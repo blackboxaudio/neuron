@@ -73,7 +73,7 @@ namespace neuron {
         friend class Generator<Oscillator>;
         Sample GenerateImpl();
 
-#ifdef NEO_USE_STD_ATOMIC
+#ifdef NEO_PLUGIN_SUPPORT
         friend class Neuron<Oscillator, OscillatorParameter>;
         void AttachParameterToSourceImpl(OscillatorParameter parameter, std::atomic<float>* source);
 #endif

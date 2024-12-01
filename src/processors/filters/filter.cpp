@@ -18,7 +18,7 @@ Sample Filter::ProcessImpl(Sample input)
     return output;
 }
 
-#ifdef NEO_USE_STD_ATOMIC
+#ifdef NEO_PLUGIN_SUPPORT
 void Filter::AttachParameterToSourceImpl(FilterParameter parameter, std::atomic<float>* source)
 {
     switch (parameter) {
