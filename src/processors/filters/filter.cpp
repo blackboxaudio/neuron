@@ -4,8 +4,7 @@
 using namespace neuron;
 
 Filter::Filter(Context& context, float cutoffFrequency)
-    : m_context(context)
-    , p_cutoffFrequency(cutoffFrequency), m_previousOutput(0.0f)
+    : p_cutoffFrequency(cutoffFrequency), m_context(context), m_previousOutput(0.0f)
 {
     SetCutoffFrequency(cutoffFrequency);
 }
