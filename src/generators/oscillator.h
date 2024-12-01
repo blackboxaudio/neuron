@@ -5,6 +5,7 @@
 #include "abstractions/parameter.h"
 #include "audio/context.h"
 #include "audio/waveform.h"
+#include "utilities/arithmetic.h"
 
 namespace neuron {
 

@@ -1,3 +1,5 @@
+#include <cstddef>
+
 #include "generators/oscillator.h"
 
 using namespace neuron;

@@ -26,7 +26,7 @@ namespace neuron {
         {
             static_cast<N*>(this)->AttachParameterImpl(parameter, source);
         }
-    };
 #endif
+    };
 
 }

@@ -105,7 +105,7 @@ namespace neuron {
             return m_parameter;
         }
 
-        Parameter& operator=(T value) const
+        Parameter& operator=(T value)
         {
             m_parameter = value;
             return *this;

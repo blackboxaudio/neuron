@@ -28,7 +28,7 @@ namespace neuron {
         /**
          * Frees any memory allocated by the saturator.
          */
-        ~Saturator();
+        ~Saturator() = default;
 
         /**
          * Sets the saturation level, which boosts the signal before
@@ -60,7 +60,7 @@ namespace neuron {
 #ifdef NEO_USE_STD_ATOMIC
         friend class Neuron<Saturator, SaturatorParameter>;
         void AttachParameterImpl(SaturatorParameter parameter, std::atomic<float>* source);
-    };
 #endif
+    };
 
 }
