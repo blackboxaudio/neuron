@@ -1,31 +1,35 @@
 name: Test
 
 on:
-    pull_request:
-    push:
-        branches: ['main', 'develop']
+  pull_request:
+  push:
+    branches: [ 'main', 'develop' ]
+
+concurrency:
+  group: ${{ github.ref }}
+  cancel-in-progress: true
 
 jobs:
-    GoogleTest:
-        runs-on: ubuntu-latest
-        steps:
-            - name: "Checkout"
-              uses: actions/checkout@v4
-              with:
-                  submodules: recursive
+  GoogleTest:
+    runs-on: ubuntu-latest
+    steps:
+      - name: "Checkout"
+        uses: actions/checkout@v4
+        with:
+          submodules: recursive
 
-            - name: "Prepare"
-              working-directory: ${{runner.workspace}}/neuron
-              run: mkdir -p target/test
+      - name: "Prepare"
+        working-directory: ${{runner.workspace}}/neuron
+        run: mkdir -p target/test
 
-            - name: "Generate Makefile"
-              working-directory: ${{runner.workspace}}/neuron/target/test
-              run: cmake -DCMAKE_BUILD_TYPE=Release -DNEO_BUILD_TESTS=ON ../../
+      - name: "Generate Makefile"
+        working-directory: ${{runner.workspace}}/neuron/target/test
+        run: cmake -DCMAKE_BUILD_TYPE=Release -DNEO_BUILD_TESTS=ON ../../
 
-            - name: "Build"
-              working-directory: ${{runner.workspace}}/neuron/target/test
-              run: make
+      - name: "Build"
+        working-directory: ${{runner.workspace}}/neuron/target/test
+        run: make
 
-            - name: "Test"
-              working-directory: ${{runner.workspace}}/neuron/target/test
-              run: ctest
+      - name: "Test"
+        working-directory: ${{runner.workspace}}/neuron/target/test
+        run: ctest

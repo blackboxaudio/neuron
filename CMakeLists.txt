@@ -15,11 +15,11 @@ set_target_properties(neuron PROPERTIES PUBLIC
         CXX_STANDARD_REQUIRED
 )
 
-if(NEO_PLUGIN_SUPPORT)
+if (NEO_PLUGIN_SUPPORT)
     target_compile_definitions(neuron PUBLIC NEO_PLUGIN_SUPPORT)
-endif()
+endif ()
 
-if(NEO_BUILD_TESTS)
+if (NEO_BUILD_TESTS)
     function(add_neuron_test name src)
         add_executable("${name}_test_exe" ${src})
         target_include_directories("${name}_test_exe" PRIVATE ${INCLUDE_DIRS})
@@ -30,9 +30,9 @@ if(NEO_BUILD_TESTS)
 
     add_subdirectory(vendor/googletest)
 
-    if(NEO_PLUGIN_SUPPORT)
+    if (NEO_PLUGIN_SUPPORT)
         add_neuron_test(parameter_atomic tests/abstractions/parameter_test_atomic.cpp)
-    else()
+    else ()
         add_neuron_test(parameter tests/abstractions/parameter_test.cpp)
         add_neuron_test(waveform tests/audio/waveform_test.cpp)
         add_neuron_test(oscillator tests/generators/oscillator_test.cpp)
@@ -42,10 +42,10 @@ if(NEO_BUILD_TESTS)
         add_neuron_test(filter tests/processors/filters/filter_test.cpp)
         add_neuron_test(arithmetic tests/utilities/arithmetic_test.cpp)
         add_neuron_test(midi tests/utilities/midi_test.cpp)
-    endif()
+    endif ()
 
     enable_testing()
-endif()
+endif ()
 
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++14")
 
