@@ -11,14 +11,18 @@ file(GLOB_RECURSE SRC_FILES "src/*.cpp")
 add_library(neuron STATIC ${SRC_FILES})
 
 if (NEO_PLUGIN_SUPPORT)
+    set_target_properties(neuron PROPERTIES
+            PUBLIC
+            CXX_STANDARD 23
+            CXX_STANDARD_REQUIRED
+            OSX_ARCHITECTURES "x86_64;arm64")
     target_compile_definitions(neuron PUBLIC NEO_PLUGIN_SUPPORT)
 else()
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++14")
     set_target_properties(neuron PROPERTIES
-        PUBLIC
+            PUBLIC
             CXX_STANDARD 14
-            CXX_STANDARD_REQUIRED
-    )
+            CXX_STANDARD_REQUIRED)
 endif ()
 
 if (NEO_BUILD_TESTS)
