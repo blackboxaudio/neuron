@@ -22,7 +22,7 @@ jobs:
 
       - name: Set Environment Variables
         run: |
-          TARGET_PATH=${{ runner.workspace }}/neuron/target/release
+          TARGET_PATH=target/release
           echo "TARGET_PATH=$TARGET_PATH" >> $GITHUB_ENV
 
       - name: Prepare
