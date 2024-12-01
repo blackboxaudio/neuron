@@ -17,6 +17,8 @@ set_target_properties(neuron PROPERTIES PUBLIC
 
 if (NEO_PLUGIN_SUPPORT)
     target_compile_definitions(neuron PUBLIC NEO_PLUGIN_SUPPORT)
+else()
+    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++14")
 endif ()
 
 if (NEO_BUILD_TESTS)
@@ -46,7 +48,5 @@ if (NEO_BUILD_TESTS)
 
     enable_testing()
 endif ()
-
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++14")
 
 target_include_directories(neuron PUBLIC ${CMAKE_CURRENT_LIST_DIR}/src PRIVATE ${INCLUDE_DIRS})
