@@ -20,7 +20,7 @@ Sample Saturator::ProcessImpl(Sample input)
 }
 
 #ifdef NEO_USE_STD_ATOMIC
-void Saturator::AttachParameterImpl(SaturatorParameter parameter, std::atomic<float>* source)
+void Saturator::AttachParameterToSourceImpl(SaturatorParameter parameter, std::atomic<float>* source)
 {
     switch (parameter) {
         case SaturatorParameter::SATURATION:

@@ -46,7 +46,7 @@ namespace neuron {
 
 #ifdef NEO_USE_STD_ATOMIC
         friend class Neuron<Filter, FilterParameter>;
-        void AttachParameterImpl(FilterParameter parameter, std::atomic<float>* source);
+        void AttachParameterToSourceImpl(FilterParameter parameter, std::atomic<float>* source);
 #endif
 
     private:

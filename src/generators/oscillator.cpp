@@ -28,7 +28,7 @@ Sample Oscillator::GenerateImpl()
 }
 
 #ifdef NEO_USE_STD_ATOMIC
-void Oscillator::AttachParameterImpl(OscillatorParameter parameter, std::atomic<float>* source)
+void Oscillator::AttachParameterToSourceImpl(OscillatorParameter parameter, std::atomic<float>* source)
 {
     switch (parameter) {
         case OscillatorParameter::FREQUENCY:

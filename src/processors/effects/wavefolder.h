@@ -54,7 +54,7 @@ namespace neuron {
 
 #ifdef NEO_USE_STD_ATOMIC
         friend class Neuron<Wavefolder, WavefolderParameter>;
-        void AttachParameterImpl(const WavefolderParameter parameter, std::atomic<float>* source);
+        void AttachParameterToSourceImpl(const WavefolderParameter parameter, std::atomic<float>* source);
 #endif
 
     private:

@@ -1,6 +1,7 @@
 #pragma once
 
 #include "abstractions/modulator.h"
+#include "abstractions/neuron.h"
 #include "abstractions/parameter.h"
 #include "audio/context.h"
 
@@ -15,6 +16,13 @@ namespace neuron {
         float decay;
         float sustain;
         float release;
+    };
+
+    enum class AdsrParameter {
+        ATTACK,
+        DECAY,
+        SUSTAIN,
+        RELEASE,
     };
 
     /**
@@ -36,7 +44,7 @@ namespace neuron {
      * The AdsrEnvelopeModulator class is a modulation source
      * that is based off of an ADSR envelope generator.
      */
-    class AdsrEnvelopeModulator : public Modulator<AdsrEnvelopeModulator> {
+    class AdsrEnvelopeModulator : public Modulator<AdsrEnvelopeModulator>, public Neuron<AdsrEnvelopeModulator, AdsrParameter> {
     public:
         /**
          * Creates an ADSR envelope modulator.
@@ -94,6 +102,11 @@ namespace neuron {
     protected:
         friend class Modulator<AdsrEnvelopeModulator>;
         float ModulateImpl();
+
+#ifdef NEO_USE_STD_ATOMIC
+        friend class Neuron<AdsrEnvelopeModulator, AdsrParameter>;
+        void AttachParameterToSourceImpl(AdsrParameter parameter, std::atomic<float>* source);
+#endif
 
     private:
         // Checks and updates the modulator's state if necessary

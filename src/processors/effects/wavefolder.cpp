@@ -29,7 +29,7 @@ Sample Wavefolder::ProcessImpl(Sample input)
 }
 
 #ifdef NEO_USE_STD_ATOMIC
-void Wavefolder::AttachParameterImpl(const WavefolderParameter parameter, std::atomic<float>* source)
+void Wavefolder::AttachParameterToSourceImpl(const WavefolderParameter parameter, std::atomic<float>* source)
 {
     switch (parameter) {
         case WavefolderParameter::INPUT_GAIN:

@@ -22,9 +22,9 @@ namespace neuron {
         /**
          * Attach a source via an atomic pointer to a given parameter.
          */
-        void AttachParameter(const P parameter, std::atomic<float>* source)
+        void AttachParameterToSource(const P parameter, std::atomic<float>* source)
         {
-            static_cast<N*>(this)->AttachParameterImpl(parameter, source);
+            static_cast<N*>(this)->AttachParameterToSourceImpl(parameter, source);
         }
 #endif
     };

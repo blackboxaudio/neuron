@@ -75,7 +75,7 @@ namespace neuron {
 
 #ifdef NEO_USE_STD_ATOMIC
         friend class Neuron<Oscillator, OscillatorParameter>;
-        void AttachParameterImpl(OscillatorParameter parameter, std::atomic<float>* source);
+        void AttachParameterToSourceImpl(OscillatorParameter parameter, std::atomic<float>* source);
 #endif
 
     private:

@@ -59,7 +59,7 @@ namespace neuron {
 
 #ifdef NEO_USE_STD_ATOMIC
         friend class Neuron<Saturator, SaturatorParameter>;
-        void AttachParameterImpl(SaturatorParameter parameter, std::atomic<float>* source);
+        void AttachParameterToSourceImpl(SaturatorParameter parameter, std::atomic<float>* source);
 #endif
     };
 

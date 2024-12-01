@@ -19,7 +19,7 @@ Sample Filter::ProcessImpl(Sample input)
 }
 
 #ifdef NEO_USE_STD_ATOMIC
-void Filter::AttachParameterImpl(FilterParameter parameter, std::atomic<float>* source)
+void Filter::AttachParameterToSourceImpl(FilterParameter parameter, std::atomic<float>* source)
 {
     switch (parameter) {
         case FilterParameter::CUTOFF_FREQUENCY:

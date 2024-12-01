@@ -48,6 +48,28 @@ float AdsrEnvelopeModulator::ModulateImpl()
     return value;
 }
 
+#ifdef NEO_USE_STD_ATOMIC
+void AdsrEnvelopeModulator::AttachParameterToSourceImpl(AdsrParameter parameter, std::atomic<float>* source)
+{
+    switch (parameter) {
+        case AdsrParameter::ATTACK:
+            p_attack.AttachSource(source);
+            break;
+        case AdsrParameter::DECAY:
+            p_decay.AttachSource(source);
+            break;
+        case AdsrParameter::SUSTAIN:
+            p_sustain.AttachSource(source);
+            break;
+        case AdsrParameter::RELEASE:
+            p_release.AttachSource(source);
+            break;
+        default:
+            break;
+    }
+}
+#endif
+
 void AdsrEnvelopeModulator::Trigger()
 {
     m_stage = AdsrStage::ATTACK;
