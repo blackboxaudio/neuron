@@ -69,7 +69,7 @@ namespace neuron {
 
         T operator/(T value) const
         {
-            if (value == 0.0) {
+            if (value == 0.0f) {
                 return value;
             } else {
                 return m_parameter->load() / value;
@@ -81,7 +81,7 @@ namespace neuron {
          * CAUTION: This empty value is used as a safe initializer for the pointer,
          * which is what is used by the JUCE library.
          */
-        std::atomic<T> m_initial_source { 0 };
+        std::atomic<T> m_initial_source { 0.0f };
         std::atomic<T>* m_parameter = &m_initial_source;
     };
 
@@ -93,7 +93,7 @@ namespace neuron {
     template<typename T>
     class Parameter {
     public:
-        explicit Parameter(T value = 0.0)
+        explicit Parameter(T value = 0.0f)
         {
             m_parameter = value;
         }
