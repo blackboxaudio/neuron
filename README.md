@@ -89,3 +89,5 @@ for(size_t idx = 0; idx < 128; idx++) {
     buffer[idx] = (float)osc.Generate();
 }
 ```
+
+:information_source: Enable the `NEO_PLUGIN_SUPPORT` compile option in CMake to include necessary bits for JUCE integration.
