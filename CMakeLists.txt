@@ -5,26 +5,10 @@ option(NEO_BUILD_TESTS "Build unit tests" OFF)
 
 project(neuron VERSION 0.1.0 LANGUAGES CXX)
 
-list(APPEND SOURCE
-        src/generators/oscillator.cpp
-        src/modulators/adsr.cpp
-        src/processors/effects/saturator.cpp
-        src/processors/effects/wavefolder.cpp
-        src/processors/filters/filter.cpp
-        src/utilities/logger.cpp
-)
+file(GLOB_RECURSE LIST_DIRECTORIES INCLUDE_DIRS "src/*")
+file(GLOB_RECURSE SRC_FILES "src/*.cpp")
 
-list(APPEND INCLUDE_DIR
-        "src"
-        "src/audio"
-        "src/generators"
-        "src/modulators"
-        "src/processors/effects"
-        "src/processors/filters"
-        "src/utilities"
-)
-
-add_library(neuron STATIC ${SOURCE})
+add_library(neuron STATIC ${SRC_FILES})
 
 set_target_properties(neuron PROPERTIES PUBLIC
         CXX_STANDARD 14
@@ -38,7 +22,7 @@ endif()
 if(NEO_BUILD_TESTS)
     function(add_neuron_test name src)
         add_executable("${name}_test_exe" ${src})
-        target_include_directories("${name}_test_exe" PRIVATE ${INCLUDE_DIR})
+        target_include_directories("${name}_test_exe" PRIVATE ${INCLUDE_DIRS})
         target_link_libraries("${name}_test_exe" neuron)
         target_link_libraries("${name}_test_exe" gtest gtest_main)
         add_test(NAME "${name}_test" COMMAND "${name}_test_exe")
@@ -46,6 +30,7 @@ if(NEO_BUILD_TESTS)
 
     add_subdirectory(vendor/googletest)
 
+    add_neuron_test(parameter tests/abstractions/parameter_test.cpp)
     add_neuron_test(waveform tests/audio/waveform_test.cpp)
     add_neuron_test(oscillator tests/generators/oscillator_test.cpp)
     add_neuron_test(adsr tests/modulators/adsr_test.cpp)
@@ -60,4 +45,4 @@ endif()
 
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++14")
 
-target_include_directories(neuron PUBLIC ${CMAKE_CURRENT_LIST_DIR}/src PRIVATE ${INCLUDE_DIR})
+target_include_directories(neuron PUBLIC ${CMAKE_CURRENT_LIST_DIR}/src PRIVATE ${INCLUDE_DIRS})

@@ -8,7 +8,7 @@ namespace neuron {
 
 #ifdef NEO_USE_STD_ATOMIC
     /**
-     * An adjustable parameter used by a DSP component to allow more
+     * A read-only parameter used by a DSP component to allow more
      * control and flexibility in shaping its sound.
      */
     template<typename T>
@@ -32,6 +32,9 @@ namespace neuron {
         /**
          * Attaches a new source for this parameter to read data from.
          *
+         * CAUTION: If this method is called, the corresponding DSP component's
+         * setter method for this parameter will no longer update the variable.
+         *
          * @param source The new pointer that this parameter will read from and write to.
          */
         void AttachSource(std::atomic<T>* source)
@@ -44,9 +47,8 @@ namespace neuron {
             return m_parameter->load();
         }
 
-        Parameter& operator=(T value)
+        Parameter& operator=(T /* value */)
         {
-            m_parameter->store(value);
             return *this;
         }
 

@@ -4,7 +4,10 @@ using namespace neuron;
 
 AdsrEnvelopeModulator::AdsrEnvelopeModulator(Context& context, AdsrEnvelope envelope)
     : m_context(context)
-    , m_envelope(envelope)
+    , p_attack(envelope.attack)
+    , p_decay(envelope.decay)
+    , p_sustain(envelope.sustain)
+    , p_release(envelope.release)
 {
 }
 
@@ -23,19 +26,19 @@ float AdsrEnvelopeModulator::ModulateImpl()
     float value;
     switch (m_stage) {
         case AdsrStage::ATTACK:
-            value = position / m_envelope.attack;
-            Update(m_envelope.attack, AdsrStage::DECAY, true);
+            value = position / p_attack;
+            Update(p_attack, AdsrStage::DECAY, true);
             break;
         case AdsrStage::DECAY:
-            value = (((m_envelope.sustain - 1.0f) / m_envelope.decay) * position) + 1.0f;
-            Update(m_envelope.decay, AdsrStage::SUSTAIN, true);
+            value = (((p_sustain - 1.0f) / p_decay) * position) + 1.0f;
+            Update(p_decay, AdsrStage::SUSTAIN, true);
             break;
         case AdsrStage::SUSTAIN:
-            value = m_envelope.sustain;
+            value = p_sustain;
             break;
         case AdsrStage::RELEASE:
-            value = ((-m_envelope.sustain / m_envelope.release) * position) + m_envelope.sustain;
-            Update(m_envelope.release, AdsrStage::IDLE, true);
+            value = ((-p_sustain / p_release) * position) + p_sustain;
+            Update(p_release, AdsrStage::IDLE, true);
             break;
         case AdsrStage::IDLE:
         default:
@@ -65,25 +68,25 @@ void AdsrEnvelopeModulator::Reset()
 
 void AdsrEnvelopeModulator::SetAttackTime(float attackTimeMs)
 {
-    m_envelope.attack = attackTimeMs;
-    Update(m_envelope.attack, AdsrStage::DECAY, false);
+    p_attack = attackTimeMs;
+    Update(p_attack, AdsrStage::DECAY, false);
 }
 
 void AdsrEnvelopeModulator::SetDecayTime(float decayTimeMs)
 {
-    m_envelope.decay = decayTimeMs;
-    Update(m_envelope.decay, AdsrStage::SUSTAIN, false);
+    p_decay = decayTimeMs;
+    Update(p_decay, AdsrStage::SUSTAIN, false);
 }
 
 void AdsrEnvelopeModulator::SetSustainLevel(float sustainLevel)
 {
-    m_envelope.sustain = sustainLevel;
+    p_sustain = sustainLevel;
 }
 
 void AdsrEnvelopeModulator::SetReleaseTime(float releaseTimeMs)
 {
-    m_envelope.release = releaseTimeMs;
-    Update(m_envelope.release, AdsrStage::IDLE, false);
+    p_release = releaseTimeMs;
+    Update(p_release, AdsrStage::IDLE, false);
 }
 
 void AdsrEnvelopeModulator::Update(float stageDuration, AdsrStage nextStage, bool incrementSampleCount)

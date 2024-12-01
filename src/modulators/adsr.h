@@ -1,6 +1,7 @@
 #pragma once
 
 #include "abstractions/modulator.h"
+#include "abstractions/parameter.h"
 #include "audio/context.h"
 
 namespace neuron {
@@ -42,6 +43,7 @@ namespace neuron {
          *
          * @param context The DSP context to be used by the envelope.
          * @param envelope The envelope configuration to initialize the class with.
+         *
          * @return AdsrEnvelopeModulator
          */
         explicit AdsrEnvelopeModulator(Context& context = DEFAULT_CONTEXT, AdsrEnvelope envelope = DEFAULT_ADSR_ENVELOPE);
@@ -99,7 +101,11 @@ namespace neuron {
 
         Context& m_context;
 
-        AdsrEnvelope m_envelope;
+        Parameter<float> p_attack;
+        Parameter<float> p_decay;
+        Parameter<float> p_sustain;
+        Parameter<float> p_release;
+
         AdsrStage m_stage = AdsrStage::IDLE;
         size_t m_samplesSinceLastStage = 0;
     };
