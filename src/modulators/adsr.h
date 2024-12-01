@@ -18,17 +18,17 @@ namespace neuron {
         float release;
     };
 
-    enum class AdsrParameter {
-        ATTACK,
-        DECAY,
-        SUSTAIN,
-        RELEASE,
+    enum AdsrParameter {
+        ADSR_ATTACK,
+        ADSR_DECAY,
+        ADSR_SUSTAIN,
+        ADSR_RELEASE,
     };
 
     /**
      * The stages of an ADSR envelope, including an "idle" stage when not in use.
      */
-    enum class AdsrStage {
+    enum AdsrStage {
         IDLE,
         ATTACK,
         DECAY,

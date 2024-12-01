@@ -31,7 +31,7 @@ namespace neuron {
      * Depicts different mathematical curves, e.g. exponential,
      * linear, logarithmic.
      */
-    enum class Mapping {
+    enum Mapping {
         EXP,
         LOG,
         LINEAR,

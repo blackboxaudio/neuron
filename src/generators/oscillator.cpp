@@ -31,7 +31,7 @@ Sample Oscillator::GenerateImpl()
 void Oscillator::AttachParameterToSourceImpl(OscillatorParameter parameter, std::atomic<float>* source)
 {
     switch (parameter) {
-        case OscillatorParameter::FREQUENCY:
+        case OscillatorParameter::OSC_FREQUENCY:
             p_frequency.AttachSource(source);
             break;
         default:

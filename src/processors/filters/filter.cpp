@@ -22,7 +22,7 @@ Sample Filter::ProcessImpl(Sample input)
 void Filter::AttachParameterToSourceImpl(FilterParameter parameter, std::atomic<float>* source)
 {
     switch (parameter) {
-        case FilterParameter::CUTOFF_FREQUENCY:
+        case FilterParameter::FILTER_CUTOFF_FREQUENCY:
             p_cutoffFrequency.AttachSource(source);
             break;
         default:

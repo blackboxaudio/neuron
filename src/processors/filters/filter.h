@@ -11,8 +11,8 @@ namespace neuron {
     const float FILTER_CUTOFF_FREQ_MIN = 20.0f;
     const float FILTER_CUTOFF_FREQ_MAX = 20000.0f;
 
-    enum class FilterParameter {
-        CUTOFF_FREQUENCY,
+    enum FilterParameter {
+        FILTER_CUTOFF_FREQUENCY,
     };
 
     /**

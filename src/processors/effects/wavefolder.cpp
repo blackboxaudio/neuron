@@ -32,13 +32,13 @@ Sample Wavefolder::ProcessImpl(Sample input)
 void Wavefolder::AttachParameterToSourceImpl(const WavefolderParameter parameter, std::atomic<float>* source)
 {
     switch (parameter) {
-        case WavefolderParameter::INPUT_GAIN:
+        case WavefolderParameter::WAVEFOLDER_INPUT_GAIN:
             p_inputGain.AttachSource(source);
             break;
-        case WavefolderParameter::THRESHOLD:
+        case WavefolderParameter::WAVEFOLDER_THRESHOLD:
             p_threshold.AttachSource(source);
             break;
-        case WavefolderParameter::SYMMETRY:
+        case WavefolderParameter::WAVEFOLDER_SYMMETRY:
             p_symmetry.AttachSource(source);
             break;
         default:

@@ -7,9 +7,9 @@
 
 namespace neuron {
 
-    enum class SaturatorParameter {
-        SATURATION,
-        SYMMETRY,
+    enum SaturatorParameter {
+        SATURATOR_SATURATION,
+        SATURATOR_SYMMETRY,
     };
 
     /**

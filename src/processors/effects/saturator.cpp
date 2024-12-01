@@ -23,10 +23,10 @@ Sample Saturator::ProcessImpl(Sample input)
 void Saturator::AttachParameterToSourceImpl(SaturatorParameter parameter, std::atomic<float>* source)
 {
     switch (parameter) {
-        case SaturatorParameter::SATURATION:
+        case SaturatorParameter::SATURATOR_SATURATION:
             p_saturation.AttachSource(source);
             break;
-        case SaturatorParameter::SYMMETRY:
+        case SaturatorParameter::SATURATOR_SYMMETRY:
             p_symmetry.AttachSource(source);
             break;
         default:

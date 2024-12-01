@@ -6,10 +6,10 @@
 
 namespace neuron {
 
-    enum class WavefolderParameter {
-        INPUT_GAIN,
-        THRESHOLD,
-        SYMMETRY,
+    enum WavefolderParameter {
+        WAVEFOLDER_INPUT_GAIN,
+        WAVEFOLDER_THRESHOLD,
+        WAVEFOLDER_SYMMETRY,
     };
 
     /**

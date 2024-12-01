@@ -11,8 +11,8 @@ namespace neuron {
 
     const size_t WAVETABLE_SIZE = 256;
 
-    enum class OscillatorParameter {
-        FREQUENCY,
+    enum OscillatorParameter {
+        OSC_FREQUENCY,
     };
 
     /**

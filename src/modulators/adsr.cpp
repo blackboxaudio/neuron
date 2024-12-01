@@ -13,7 +13,7 @@ AdsrEnvelopeModulator::AdsrEnvelopeModulator(Context& context, AdsrEnvelope enve
 
 float AdsrEnvelopeModulator::ModulateImpl()
 {
-    float position = (float)m_samplesSinceLastStage * (1000.0f / m_context.sampleRate);
+    float position = (float)m_samplesSinceLastStage * (1000.0f / (float)m_context.sampleRate);
 
     /**
      * NOTE: The modulation value is calculated based on the current stage of the modulator.
@@ -52,16 +52,16 @@ float AdsrEnvelopeModulator::ModulateImpl()
 void AdsrEnvelopeModulator::AttachParameterToSourceImpl(AdsrParameter parameter, std::atomic<float>* source)
 {
     switch (parameter) {
-        case AdsrParameter::ATTACK:
+        case AdsrParameter::ADSR_ATTACK:
             p_attack.AttachSource(source);
             break;
-        case AdsrParameter::DECAY:
+        case AdsrParameter::ADSR_DECAY:
             p_decay.AttachSource(source);
             break;
-        case AdsrParameter::SUSTAIN:
+        case AdsrParameter::ADSR_SUSTAIN:
             p_sustain.AttachSource(source);
             break;
-        case AdsrParameter::RELEASE:
+        case AdsrParameter::ADSR_RELEASE:
             p_release.AttachSource(source);
             break;
         default:
