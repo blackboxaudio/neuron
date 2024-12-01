@@ -12,7 +12,7 @@ add_library(neuron STATIC ${SRC_FILES})
 
 if (NEO_PLUGIN_SUPPORT)
     set_target_properties(neuron PROPERTIES
-            PUBLIC
+        PUBLIC
             CXX_STANDARD 23
             CXX_STANDARD_REQUIRED
             OSX_ARCHITECTURES "x86_64;arm64")

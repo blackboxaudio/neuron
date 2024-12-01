@@ -90,4 +90,11 @@ for(size_t idx = 0; idx < 128; idx++) {
 }
 ```
 
-:information_source: Enable the `NEO_PLUGIN_SUPPORT` compile option in CMake to include necessary bits for JUCE integration.
+Enable the `NEO_PLUGIN_SUPPORT` compile option in CMake to include necessary bits for JUCE integration:
+
+```cmake
+# Set option for neuron to enable plugin support (e.g. std::atomic)
+set(NEO_PLUGIN_SUPPORT ON)
+
+...
+```
