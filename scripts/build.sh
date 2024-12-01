@@ -8,7 +8,7 @@ convertsecs() {
 
 START_TIME=$(date +%s)
 
-CONFIG=${1:-debug}
+CONFIG=${1:-release}
 if [ $CONFIG != "debug" ] && [ $CONFIG != "release" ] && [ $CONFIG != "test" ]; then
     echo "Invalid build configuration"
     exit 1

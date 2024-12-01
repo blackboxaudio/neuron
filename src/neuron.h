@@ -5,6 +5,8 @@
  *
  * Author: Matthew Maxwell, 2024
  */
+#pragma once
+
 #ifndef NEURON_LIB_H
 #define NEURON_LIB_H
 
