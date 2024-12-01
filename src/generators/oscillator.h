@@ -1,23 +1,24 @@
 #pragma once
 
-#include <cmath>
-
+#include "abstractions/generator.h"
+#include "abstractions/neuron.h"
+#include "abstractions/parameter.h"
 #include "audio/context.h"
-#include "audio/sample.h"
 #include "audio/waveform.h"
-#include "utilities/arithmetic.h"
-#include "utilities/generator.h"
-#include "utilities/parameter.h"
 
 namespace neuron {
 
     const size_t WAVETABLE_SIZE = 256;
 
+    enum class OscillatorParameter {
+        FREQUENCY,
+    };
+
     /**
      * The Oscillator class creates an audio signal
      * with a basic waveform.
      */
-    class Oscillator : public Generator<Oscillator> {
+    class Oscillator : public Generator<Oscillator>, public Neuron<Oscillator, OscillatorParameter> {
     public:
         /**
          * Creates an oscillator generator.
@@ -67,11 +68,14 @@ namespace neuron {
          */
         void DetachFollower();
 
-        Parameter<float> p_frequency;
-
     protected:
         friend class Generator<Oscillator>;
         Sample GenerateImpl();
+
+#ifdef NEO_USE_STD_ATOMIC
+        friend class Neuron<Oscillator, OscillatorParameter>;
+        void AttachParameterImpl(OscillatorParameter parameter, std::atomic<float>* source);
+#endif
 
     private:
         void PopulateWavetable();
@@ -82,6 +86,8 @@ namespace neuron {
 
         Sample m_wavetable[WAVETABLE_SIZE];
         Waveform m_waveform;
+
+        Parameter<float> p_frequency;
 
         float m_phase = 0.0f;
         float m_phaseIncrement = 0.0f;

@@ -1,4 +1,5 @@
 #include "processors/filters/filter.h"
+#include "utilities/arithmetic.h"
 
 using namespace neuron;
 
@@ -16,6 +17,19 @@ Sample Filter::ProcessImpl(Sample input)
     m_previousOutput = output;
     return output;
 }
+
+#ifdef NEO_USE_STD_ATOMIC
+void Filter::AttachParameterImpl(FilterParameter parameter, std::atomic<float>* source)
+{
+    switch (parameter) {
+        case FilterParameter::CUTOFF_FREQUENCY:
+            p_cutoffFrequency.AttachSource(source);
+            break;
+        default:
+            break;
+    }
+}
+#endif
 
 void Filter::SetCutoffFrequency(float frequency)
 {

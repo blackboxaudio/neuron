@@ -1,7 +1,5 @@
 #pragma once
 
-#include <cmath>
-
 #include "utilities/arithmetic.h"
 
 namespace neuron {

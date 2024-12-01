@@ -25,6 +25,19 @@ Sample Oscillator::GenerateImpl()
     return SineToWaveform(value, m_waveform);
 }
 
+#ifdef NEO_USE_STD_ATOMIC
+void Oscillator::AttachParameterImpl(OscillatorParameter parameter, std::atomic<float>* source)
+{
+    switch (parameter) {
+        case OscillatorParameter::FREQUENCY:
+            p_frequency.AttachSource(source);
+            break;
+        default:
+            break;
+    }
+}
+#endif
+
 void Oscillator::Reset(float phase)
 {
     float clampedPhase = clamp(phase, 0.0f, (float)WAVETABLE_SIZE);
@@ -78,7 +91,7 @@ void Oscillator::IncrementPhase()
 
 Sample Oscillator::Lerp()
 {
-    size_t truncatedIdx = (size_t)m_phase;
+    size_t truncatedIdx = m_phase;
     size_t nextIdx = (truncatedIdx + 1) % WAVETABLE_SIZE;
     float nextIdxWeight = m_phase - (float)truncatedIdx;
     float truncatedIdxWeight = 1.0f - nextIdxWeight;

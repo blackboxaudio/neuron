@@ -1,17 +1,22 @@
 #pragma once
 
-#include "audio/sample.h"
-#include "utilities/arithmetic.h"
-#include "utilities/parameter.h"
-#include "utilities/processor.h"
+#include "abstractions/neuron.h"
+#include "abstractions/parameter.h"
+#include "abstractions/processor.h"
 
 namespace neuron {
+
+    enum class WavefolderParameter {
+        INPUT_GAIN,
+        THRESHOLD,
+        SYMMETRY,
+    };
 
     /**
      * The Wavefolder class applies a wavefolding
      * algorithm to audio signals.
      */
-    class Wavefolder : public Processor<Wavefolder> {
+    class Wavefolder : public Processor<Wavefolder>, public Neuron<Wavefolder, WavefolderParameter> {
     public:
         /**
          * Creates a default wavefolder processor.
@@ -43,13 +48,19 @@ namespace neuron {
          */
         void SetSymmetry(float symmetry);
 
-        Parameter<float> p_inputGain;
-        Parameter<float> p_threshold;
-        Parameter<float> p_symmetry;
-
     protected:
         friend class Processor<Wavefolder>;
         Sample ProcessImpl(Sample input);
+
+#ifdef NEO_USE_STD_ATOMIC
+        friend class Neuron<Wavefolder, WavefolderParameter>;
+        void AttachParameterImpl(const WavefolderParameter parameter, std::atomic<float>* source);
+#endif
+
+    private:
+        Parameter<float> p_inputGain;
+        Parameter<float> p_threshold;
+        Parameter<float> p_symmetry;
     };
 
 }

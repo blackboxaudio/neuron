@@ -1,21 +1,25 @@
 #pragma once
 
+#include "abstractions/neuron.h"
+#include "abstractions/parameter.h"
+#include "abstractions/processor.h"
 #include "audio/context.h"
 #include "audio/sample.h"
-#include "utilities/arithmetic.h"
-#include "utilities/parameter.h"
-#include "utilities/processor.h"
 
 namespace neuron {
 
     const float FILTER_CUTOFF_FREQ_MIN = 20.0f;
     const float FILTER_CUTOFF_FREQ_MAX = 20000.0f;
 
+    enum class FilterParameter {
+        CUTOFF_FREQUENCY,
+    };
+
     /**
      * The Filter class applies a simple low-pass filter
      * to audio signals.
      */
-    class Filter : public Processor<Filter> {
+    class Filter : public Processor<Filter>, public Neuron<Filter, FilterParameter> {
     public:
         /**
          * Creates a filter processor.
@@ -39,6 +43,11 @@ namespace neuron {
     protected:
         friend class Processor<Filter>;
         Sample ProcessImpl(Sample input);
+
+#ifdef NEO_USE_STD_ATOMIC
+        friend class Neuron<Filter, FilterParameter>;
+        void AttachParameterImpl(FilterParameter parameter, std::atomic<float>* source);
+#endif
 
     private:
         void CalculateAlpha();

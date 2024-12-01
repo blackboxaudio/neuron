@@ -1,4 +1,5 @@
 #include "processors/effects/wavefolder.h"
+#include "utilities/arithmetic.h"
 
 using namespace neuron;
 
@@ -26,6 +27,25 @@ Sample Wavefolder::ProcessImpl(Sample input)
 
     return clamp(output, -1.0f, 1.0f);
 }
+
+#ifdef NEO_USE_STD_ATOMIC
+void Wavefolder::AttachParameterImpl(const WavefolderParameter parameter, std::atomic<float>* source)
+{
+    switch (parameter) {
+        case WavefolderParameter::INPUT_GAIN:
+            p_inputGain.AttachSource(source);
+            break;
+        case WavefolderParameter::THRESHOLD:
+            p_threshold.AttachSource(source);
+            break;
+        case WavefolderParameter::SYMMETRY:
+            p_symmetry.AttachSource(source);
+            break;
+        default:
+            break;
+    }
+}
+#endif
 
 void Wavefolder::SetInputGain(float gain)
 {

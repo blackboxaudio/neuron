@@ -1,4 +1,5 @@
 #include "processors/effects/saturator.h"
+#include "utilities/arithmetic.h"
 
 using namespace neuron;
 
@@ -17,6 +18,22 @@ Sample Saturator::ProcessImpl(Sample input)
 
     return clamp(output, -1.0f, 1.0f);
 }
+
+#ifdef NEO_USE_STD_ATOMIC
+void Saturator::AttachParameterImpl(SaturatorParameter parameter, std::atomic<float>* source)
+{
+    switch (parameter) {
+        case SaturatorParameter::SATURATION:
+            p_saturation.AttachSource(source);
+            break;
+        case SaturatorParameter::SYMMETRY:
+            p_symmetry.AttachSource(source);
+            break;
+        default:
+            break;
+    }
+}
+#endif
 
 void Saturator::SetSaturation(float saturation)
 {

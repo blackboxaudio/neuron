@@ -1,7 +1,7 @@
 #pragma once
 
+#include "abstractions/modulator.h"
 #include "audio/context.h"
-#include "utilities/modulator.h"
 
 namespace neuron {
 
