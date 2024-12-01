@@ -26,7 +26,7 @@ jobs:
 
       - name: Set Environment Variables
         run: |
-          TARGET_PATH=${{ runner.workspace }}/neuron/target
+          TARGET_PATH=${{ runner.workspace }}/neuron/target/release
           echo "TARGET_PATH=$TARGET_PATH" >> $GITHUB_ENV
 
       - name: Prepare
@@ -34,12 +34,14 @@ jobs:
           mkdir -p "${{ env.TARGET_PATH }}"
 
       - name: Configure
-        working-directory: "${{ env.TARGET_PATH }}"
-        run: cmake ${{runner.workspace}}/neuron
+        run: |
+          cd "${{ env.TARGET_PATH }}"
+          cmake ../../
 
       - name: Build
-        working-directory: "${{ env.TARGET_PATH }}"
-        run: cmake --build .
+        run: |
+          cd "${{ env.TARGET_PATH }}"
+          cmake --build . --parallel 4
 
   Make:
     runs-on: ${{matrix.os}}
