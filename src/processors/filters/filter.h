@@ -1,18 +1,25 @@
 #pragma once
 
+#include "abstractions/neuron.h"
+#include "abstractions/parameter.h"
+#include "abstractions/processor.h"
 #include "audio/context.h"
 #include "audio/sample.h"
-#include "utilities/arithmetic.h"
 
 namespace neuron {
+
     const float FILTER_CUTOFF_FREQ_MIN = 20.0f;
     const float FILTER_CUTOFF_FREQ_MAX = 20000.0f;
+
+    enum class FilterParameter {
+        CUTOFF_FREQUENCY,
+    };
 
     /**
      * The Filter class applies a simple low-pass filter
      * to audio signals.
      */
-    class Filter {
+    class Filter : public Processor<Filter>, public Neuron<Filter, FilterParameter> {
     public:
         /**
          * Creates a filter processor.
@@ -21,21 +28,8 @@ namespace neuron {
          * @param cutoffFrequency The initial cutoff frequency of the filter.
          * @return Filter
          */
-        Filter(Context& context = DEFAULT_CONTEXT,
+        explicit Filter(Context& context = DEFAULT_CONTEXT,
             float cutoffFrequency = FILTER_CUTOFF_FREQ_MAX);
-
-        /**
-         * Frees any memory allocated by the oscillator.
-         */
-        ~Filter() {}
-
-        /**
-         * Applies a low-pass filter to an input sample.
-         *
-         * @param input The input sample to be processed.
-         * @return Sample
-         */
-        Sample Process(const Sample input);
 
         /**
          * Sets the filter's cutoff frequency.
@@ -44,12 +38,22 @@ namespace neuron {
          */
         void SetCutoffFrequency(float frequency);
 
+        Parameter<float> p_cutoffFrequency;
+
+    protected:
+        friend class Processor<Filter>;
+        Sample ProcessImpl(Sample input);
+
+#ifdef NEO_USE_STD_ATOMIC
+        friend class Neuron<Filter, FilterParameter>;
+        void AttachParameterToSourceImpl(FilterParameter parameter, std::atomic<float>* source);
+#endif
+
     private:
         void CalculateAlpha();
 
         Context& m_context;
 
-        float m_cutoffFrequency;
         float m_alpha;
         Sample m_previousOutput;
     };

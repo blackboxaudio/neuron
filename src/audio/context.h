@@ -1,6 +1,6 @@
 #pragma once
 
-#include <cmath>
+#include <cstddef>
 
 namespace neuron {
 
@@ -20,4 +20,5 @@ namespace neuron {
      * channel configuration, and a buffer size of 16 samples.
      */
     static Context DEFAULT_CONTEXT = { 44100, 2, 16 };
+
 }

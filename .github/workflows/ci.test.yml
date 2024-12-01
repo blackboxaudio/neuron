@@ -20,7 +20,7 @@ jobs:
 
             - name: "Generate Makefile"
               working-directory: ${{runner.workspace}}/neuron/target/test
-              run: cmake -DBUILD_TESTS=ON ../../
+              run: cmake -DCMAKE_BUILD_TYPE=Release -DNEO_BUILD_TESTS=ON ../../
 
             - name: "Build"
               working-directory: ${{runner.workspace}}/neuron/target/test

@@ -1,17 +1,27 @@
 #pragma once
 
-#ifdef NEO_ENABLE_PLUGIN_SUPPORT
+#ifdef NEO_USE_STD_ATOMIC
 #include <atomic>
 #endif
 
 namespace neuron {
-#ifdef NEO_ENABLE_PLUGIN_SUPPORT
+
+#ifdef NEO_USE_STD_ATOMIC
+    /**
+     * A read-only parameter used by a DSP component to allow more
+     * control and flexibility in shaping its sound.
+     */
     template<typename T>
     class Parameter {
     public:
-        Parameter(std::atomic<T>* ptr = nullptr)
+        explicit Parameter(T value)
         {
-            m_parameter = ptr;
+            std::atomic_init(m_parameter, value);
+        }
+
+        explicit Parameter(std::atomic<T>* source)
+        {
+            m_parameter = source;
         }
 
         ~Parameter()
@@ -19,10 +29,17 @@ namespace neuron {
             m_parameter = nullptr;
         }
 
-        // Attach a parameter (e.g. via an atomic float pointer)
-        void AttachSource(std::atomic<T>* ptr)
+        /**
+         * Attaches a new source for this parameter to read data from.
+         *
+         * CAUTION: If this method is called, the corresponding DSP component's
+         * setter method for this parameter will no longer update the variable.
+         *
+         * @param source The new pointer that this parameter will read from and write to.
+         */
+        void AttachSource(std::atomic<T>* source)
         {
-            m_parameter = ptr;
+            m_parameter = source;
         }
 
         operator T() const
@@ -30,10 +47,9 @@ namespace neuron {
             return m_parameter->load();
         }
 
-        T operator=(T value) const
+        Parameter& operator=(T /* value */)
         {
-            m_parameter->store(value);
-            return value;
+            return *this;
         }
 
         T operator+(T value) const
@@ -53,7 +69,7 @@ namespace neuron {
 
         T operator/(T value) const
         {
-            if (value == 0.0) {
+            if (value == 0.0f) {
                 return value;
             } else {
                 return m_parameter->load() / value;
@@ -61,13 +77,23 @@ namespace neuron {
         }
 
     private:
-        std::atomic<T>* m_parameter = nullptr;
+        /**
+         * CAUTION: This empty value is used as a safe initializer for the pointer,
+         * which is what is used by the JUCE library.
+         */
+        std::atomic<T> m_initial_source { 0.0f };
+        std::atomic<T>* m_parameter = &m_initial_source;
     };
+
 #else
+    /**
+     * An adjustable parameter used by a DSP component to allow more
+     * control and flexibility in shaping its sound.
+     */
     template<typename T>
     class Parameter {
     public:
-        Parameter(T value = 0.0)
+        explicit Parameter(T value = 0.0f)
         {
             m_parameter = value;
         }
@@ -79,9 +105,10 @@ namespace neuron {
             return m_parameter;
         }
 
-        T operator=(T value) const
+        Parameter& operator=(T value)
         {
             m_parameter = value;
+            return *this;
         }
 
         T operator+(T value) const
@@ -112,4 +139,5 @@ namespace neuron {
         T m_parameter;
     };
 #endif
+
 }

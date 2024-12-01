@@ -6,6 +6,9 @@ MODULE_DIR = src
 # Header only modules are listed commented out
 # below the others.
 
+ABSTRACTIONS_MOD_DIR = abstractions
+ABSTRACTIONS_MODULES = \
+
 AUDIO_MOD_DIR = audio
 AUDIO_MODULES = \
 
@@ -112,6 +115,7 @@ C_DEFS =  \
 
 C_INCLUDES = \
 -I$(MODULE_DIR) \
+-I$(MODULE_DIR)/$(ABSTRACTIONS_MOD_DIR) \
 -I$(MODULE_DIR)/$(AUDIO_MOD_DIR) \
 -I$(MODULE_DIR)/$(GENERATOR_MOD_DIR) \
 -I$(MODULE_DIR)/$(MODULATOR_MOD_DIR) \

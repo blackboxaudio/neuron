@@ -1,24 +1,51 @@
 #include "processors/effects/wavefolder.h"
+#include "utilities/arithmetic.h"
 
 using namespace neuron;
 
-Sample Wavefolder::Process(const Sample input)
+Wavefolder::Wavefolder()
+    : p_inputGain(1.0f)
+    , p_threshold(1.0f)
+    , p_symmetry(1.0f)
 {
-    float output = (float)input * p_inputGain;
-    while (output > m_threshold || output < -m_threshold) {
-        if (output > m_threshold) {
-            output = m_threshold - (output - m_threshold);
-        } else if (output < -m_threshold) {
-            output = -m_threshold - (output + m_threshold);
+}
+
+Sample Wavefolder::ProcessImpl(Sample input)
+{
+    float output = input * p_inputGain;
+    while (output > p_threshold || output < -p_threshold) {
+        if (output > p_threshold) {
+            output = p_threshold - (output - p_threshold);
+        } else if (output < -p_threshold) {
+            output = -p_threshold - (output + p_threshold);
         }
     }
 
     if (input < 0.0f) {
-        output = (Sample)(input * (1.0f - m_symmetry)) + (output * m_symmetry);
+        output = input * (1.0f - p_symmetry) + output * p_symmetry;
     }
 
-    return (Sample)clamp(output, -1.0f, 1.0f);
+    return clamp(output, -1.0f, 1.0f);
 }
+
+#ifdef NEO_USE_STD_ATOMIC
+void Wavefolder::AttachParameterToSourceImpl(const WavefolderParameter parameter, std::atomic<float>* source)
+{
+    switch (parameter) {
+        case WavefolderParameter::INPUT_GAIN:
+            p_inputGain.AttachSource(source);
+            break;
+        case WavefolderParameter::THRESHOLD:
+            p_threshold.AttachSource(source);
+            break;
+        case WavefolderParameter::SYMMETRY:
+            p_symmetry.AttachSource(source);
+            break;
+        default:
+            break;
+    }
+}
+#endif
 
 void Wavefolder::SetInputGain(float gain)
 {
@@ -27,10 +54,10 @@ void Wavefolder::SetInputGain(float gain)
 
 void Wavefolder::SetThreshold(float threshold)
 {
-    m_threshold = threshold;
+    p_threshold = threshold;
 }
 
 void Wavefolder::SetSymmetry(float symmetry)
 {
-    m_symmetry = clamp(symmetry, 0.0f, 1.0f);
+    p_symmetry = clamp(symmetry, 0.0f, 1.0f);
 }

@@ -8,6 +8,13 @@
 #ifndef NEURON_LIB_H
 #define NEURON_LIB_H
 
+// ABSTRACTIONS
+#include "abstractions/generator.h"
+#include "abstractions/modulator.h"
+#include "abstractions/neuron.h"
+#include "abstractions/parameter.h"
+#include "abstractions/processor.h"
+
 // AUDIO
 #include "audio/context.h"
 #include "audio/sample.h"
@@ -28,7 +35,6 @@
 #include "utilities/arithmetic.h"
 #include "utilities/logger.h"
 #include "utilities/midi.h"
-#include "utilities/parameter.h"
 #include "utilities/timer.h"
 
 #endif

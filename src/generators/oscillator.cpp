@@ -1,3 +1,5 @@
+#include <cstddef>
+
 #include "generators/oscillator.h"
 
 using namespace neuron;
@@ -5,6 +7,7 @@ using namespace neuron;
 Oscillator::Oscillator(Context& context, float frequency, Waveform waveform)
     : m_context(context)
     , m_waveform(waveform)
+    , p_frequency(frequency)
 {
     PopulateWavetable();
     SetFrequency(frequency);
@@ -15,7 +18,7 @@ Oscillator::~Oscillator()
     m_follower = nullptr;
 }
 
-Sample Oscillator::Generate()
+Sample Oscillator::GenerateImpl()
 {
     Sample value = Lerp();
 
@@ -23,6 +26,19 @@ Sample Oscillator::Generate()
 
     return SineToWaveform(value, m_waveform);
 }
+
+#ifdef NEO_USE_STD_ATOMIC
+void Oscillator::AttachParameterToSourceImpl(OscillatorParameter parameter, std::atomic<float>* source)
+{
+    switch (parameter) {
+        case OscillatorParameter::FREQUENCY:
+            p_frequency.AttachSource(source);
+            break;
+        default:
+            break;
+    }
+}
+#endif
 
 void Oscillator::Reset(float phase)
 {
@@ -35,7 +51,8 @@ void Oscillator::Reset(float phase)
 
 void Oscillator::SetFrequency(float frequency)
 {
-    m_phaseIncrement = frequency * (float)WAVETABLE_SIZE / (float)m_context.sampleRate;
+    p_frequency = frequency;
+    m_phaseIncrement = p_frequency * (float)WAVETABLE_SIZE / (float)m_context.sampleRate;
 }
 
 void Oscillator::SetWaveform(Waveform waveform)
@@ -45,7 +62,7 @@ void Oscillator::SetWaveform(Waveform waveform)
 
 void Oscillator::AttachFollower(Oscillator* follower)
 {
-    if (follower != nullptr) {
+    if (follower != nullptr && follower != this) {
         m_follower = follower;
     }
 }
@@ -59,7 +76,7 @@ void Oscillator::PopulateWavetable()
 {
     for (size_t idx = 0; idx < WAVETABLE_SIZE; idx++) {
         float phase = (float)idx * PI * 2.0f / (float)WAVETABLE_SIZE;
-        m_wavetable[idx] = (Sample)sin(phase);
+        m_wavetable[idx] = sin(phase);
     }
 }
 
@@ -76,7 +93,7 @@ void Oscillator::IncrementPhase()
 
 Sample Oscillator::Lerp()
 {
-    size_t truncatedIdx = (size_t)m_phase;
+    size_t truncatedIdx = m_phase;
     size_t nextIdx = (truncatedIdx + 1) % WAVETABLE_SIZE;
     float nextIdxWeight = m_phase - (float)truncatedIdx;
     float truncatedIdxWeight = 1.0f - nextIdxWeight;

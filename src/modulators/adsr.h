@@ -1,5 +1,8 @@
 #pragma once
 
+#include "abstractions/modulator.h"
+#include "abstractions/neuron.h"
+#include "abstractions/parameter.h"
 #include "audio/context.h"
 
 namespace neuron {
@@ -13,6 +16,13 @@ namespace neuron {
         float decay;
         float sustain;
         float release;
+    };
+
+    enum class AdsrParameter {
+        ATTACK,
+        DECAY,
+        SUSTAIN,
+        RELEASE,
     };
 
     /**
@@ -31,29 +41,20 @@ namespace neuron {
     };
 
     /**
-     * The ADsrEnvelopeModulator class is a modulation source
+     * The AdsrEnvelopeModulator class is a modulation source
      * that is based off of an ADSR envelope generator.
      */
-    class AdsrEnvelopeModulator {
+    class AdsrEnvelopeModulator : public Modulator<AdsrEnvelopeModulator>, public Neuron<AdsrEnvelopeModulator, AdsrParameter> {
     public:
         /**
          * Creates an ADSR envelope modulator.
          *
          * @param context The DSP context to be used by the envelope.
          * @param envelope The envelope configuration to initialize the class with.
+         *
          * @return AdsrEnvelopeModulator
          */
-        AdsrEnvelopeModulator(Context& context = DEFAULT_CONTEXT, AdsrEnvelope envelope = DEFAULT_ADSR_ENVELOPE);
-
-        /**
-         * Frees any memory allocated by the modulator.
-         */
-        ~AdsrEnvelopeModulator();
-
-        /**
-         * Calculates a modulation value to apply to some arbitrary variable.
-         */
-        float Modulate();
+        explicit AdsrEnvelopeModulator(Context& context = DEFAULT_CONTEXT, AdsrEnvelope envelope = DEFAULT_ADSR_ENVELOPE);
 
         /**
          * Starts the envelope from its attack phase.
@@ -98,13 +99,26 @@ namespace neuron {
          */
         void SetReleaseTime(float releaseTimeMs);
 
+    protected:
+        friend class Modulator<AdsrEnvelopeModulator>;
+        float ModulateImpl();
+
+#ifdef NEO_USE_STD_ATOMIC
+        friend class Neuron<AdsrEnvelopeModulator, AdsrParameter>;
+        void AttachParameterToSourceImpl(AdsrParameter parameter, std::atomic<float>* source);
+#endif
+
     private:
         // Checks and updates the modulator's state if necessary
         void Update(float stageDuration, AdsrStage nextStage, bool incrementSampleCount);
 
         Context& m_context;
 
-        AdsrEnvelope m_envelope;
+        Parameter<float> p_attack;
+        Parameter<float> p_decay;
+        Parameter<float> p_sustain;
+        Parameter<float> p_release;
+
         AdsrStage m_stage = AdsrStage::IDLE;
         size_t m_samplesSinceLastStage = 0;
     };

@@ -1,35 +1,34 @@
 #pragma once
 
+#include "abstractions/neuron.h"
+#include "abstractions/parameter.h"
+#include "abstractions/processor.h"
 #include "audio/sample.h"
-#include "utilities/arithmetic.h"
 
 namespace neuron {
+
+    enum class SaturatorParameter {
+        SATURATION,
+        SYMMETRY,
+    };
 
     /**
      * The Saturator class applies a tape saturation
      * algorithm to audio signals.
      */
-    class Saturator {
+    class Saturator : public Processor<Saturator>, public Neuron<Saturator, SaturatorParameter> {
     public:
         /**
          * Creates a default saturator processor.
          *
          * @return Saturator
          */
-        Saturator() {}
+        Saturator();
 
         /**
          * Frees any memory allocated by the saturator.
          */
-        ~Saturator() {}
-
-        /**
-         * Applies a saturation algorithm to an input sample.
-         *
-         * @param input The input sample to be processed.
-         * @return Sample
-         */
-        Sample Process(const Sample input);
+        ~Saturator() = default;
 
         /**
          * Sets the saturation level, which boosts the signal before
@@ -51,9 +50,17 @@ namespace neuron {
          */
         void SetSymmetry(float symmetry);
 
-    private:
-        float m_saturation = 1.0f;
-        float m_symmetry = 1.0f;
+        Parameter<float> p_saturation;
+        Parameter<float> p_symmetry;
+
+    protected:
+        friend class Processor<Saturator>;
+        Sample ProcessImpl(Sample input);
+
+#ifdef NEO_USE_STD_ATOMIC
+        friend class Neuron<Saturator, SaturatorParameter>;
+        void AttachParameterToSourceImpl(SaturatorParameter parameter, std::atomic<float>* source);
+#endif
     };
 
 }
