@@ -16,7 +16,7 @@ namespace neuron {
     public:
         explicit Parameter(T value)
         {
-            std::atomic_init(m_parameter, value);
+            m_parameter->store(value);
         }
 
         explicit Parameter(std::atomic<T>* source)
