@@ -9,6 +9,10 @@ concurrency:
   group: ${{ github.ref }}
   cancel-in-progress: true
 
+defaults:
+  run:
+    shell: bash
+
 jobs:
   CMake:
     runs-on: ${{matrix.os}}
@@ -17,19 +21,24 @@ jobs:
         os: [ ubuntu-latest, macos-latest, windows-latest ]
 
     steps:
-      - name: "Checkout"
+      - name: Checkout Repository
         uses: actions/checkout@v4
 
-      - name: "Prepare"
-        working-directory: ${{runner.workspace}}/neuron
-        run: cmake -E make_directory ${{runner.workspace}}/neuron/target
+      - name: Set Environment Variables
+        run: |
+          TARGET_PATH=${{ runner.workspace }}/neuron/target
+          echo "TARGET_PATH=$TARGET_PATH" >> $GITHUB_ENV
 
-      - name: "Configure"
-        working-directory: ${{runner.workspace}}/neuron/target
+      - name: Prepare
+        run: |
+          mkdir -p "${{ env.TARGET_PATH }}"
+
+      - name: Configure
+        working-directory: "${{ env.TARGET_PATH }}"
         run: cmake ${{runner.workspace}}/neuron
 
-      - name: "Build"
-        working-directory: ${{runner.workspace}}/neuron/target
+      - name: Build
+        working-directory: "${{ env.TARGET_PATH }}"
         run: cmake --build .
 
   Make:
@@ -39,7 +48,7 @@ jobs:
         os: [ ubuntu-latest, macos-latest, windows-latest ]
 
     steps:
-      - name: "Checkout"
+      - name: Checkout
         uses: actions/checkout@v4
 
       - name: "Install ARM Toolchain"
@@ -47,5 +56,5 @@ jobs:
         with:
           release: '10-2020-q4'
 
-      - name: "Build"
+      - name: Build
         run: make

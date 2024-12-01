@@ -5,7 +5,7 @@
 [![neuron: v0.1.0](https://img.shields.io/badge/Version-v0.1.0-blue.svg)](https://github.com/blackboxaudio/neuron)
 [![License](https://img.shields.io/badge/License-MIT-yellow)](https://github.com/blackboxaudio/neuron/blob/develop/LICENSE)
 
-> Collection of C++ audio DSP components 🧠
+> Collection of C++ audio DSP components ⚡
 
 ## Overview
 
