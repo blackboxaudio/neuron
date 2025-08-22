@@ -35,8 +35,6 @@
 
 // UTILITIES
 #include "utilities/arithmetic.h"
-#include "utilities/logger.h"
 #include "utilities/midi.h"
-#include "utilities/timer.h"
 
 #endif
