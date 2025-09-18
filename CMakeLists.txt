@@ -48,6 +48,7 @@ if (NEO_BUILD_TESTS)
         add_neuron_test(filter tests/processors/filters/filter_test.cpp)
         add_neuron_test(arithmetic tests/utilities/arithmetic_test.cpp)
         add_neuron_test(midi tests/utilities/midi_test.cpp)
+        add_neuron_test(smoothed_value tests/utilities/smoothed_value_test.cpp)
     endif ()
 
     enable_testing()

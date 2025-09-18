@@ -36,5 +36,6 @@
 // UTILITIES
 #include "utilities/arithmetic.h"
 #include "utilities/midi.h"
+#include "utilities/smoothed_value.h"
 
 #endif

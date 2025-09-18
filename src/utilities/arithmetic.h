@@ -111,4 +111,10 @@ namespace neuron {
         return numerator / denominator;
     }
 
+    template<typename T>
+    inline bool isApproximatelyEqual(T a, T b)
+    {
+        return std::abs(a - b) <= std::numeric_limits<T>::epsilon();
+    }
+
 }
