@@ -37,6 +37,31 @@ namespace neuron {
         LINEAR,
     };
 
+    template<typename T>
+    struct Epsilon {
+        static constexpr T value = T{1e-5};
+    };
+
+    template<>
+    struct Epsilon<float> {
+        static constexpr float value = 1e-5f;
+    };
+
+    template<>
+    struct Epsilon<double> {
+        static constexpr double value = 1e-9;
+    };
+
+    template<>
+    struct Epsilon<int> {
+        static constexpr int value = 0;
+    };
+
+    template<>
+    struct Epsilon<long> {
+        static constexpr long value = 0;
+    };
+
     /**
      * Constricts a number between a lower and upper bound.
      *
@@ -112,9 +137,11 @@ namespace neuron {
     }
 
     template<typename T>
-    inline bool isApproximatelyEqual(T a, T b)
+    inline bool isApproximatelyEqual(T a, T b, T relativeEpsilon = neuron::Epsilon<T>::value) noexcept
     {
-        return std::abs(a - b) <= std::numeric_limits<T>::epsilon();
+        T diff = std::abs(a - b);
+        T largest = std::max(std::abs(a), std::abs(b));
+        return diff <= relativeEpsilon * largest;
     }
 
 }
