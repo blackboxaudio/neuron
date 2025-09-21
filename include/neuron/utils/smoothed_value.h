@@ -16,12 +16,16 @@ namespace neuron {
     template<>
     class SmoothedValue<Linear> {
     public:
-        SmoothedValue() : m_currentValue(0.0f), m_targetValue(0.0f)
+        SmoothedValue()
+            : m_currentValue(0.0f)
+            , m_targetValue(0.0f)
         {
             UpdateIncrement();
         }
 
-        SmoothedValue(float initialValue) : m_currentValue(initialValue), m_targetValue(initialValue)
+        SmoothedValue(float initialValue)
+            : m_currentValue(initialValue)
+            , m_targetValue(initialValue)
         {
             UpdateIncrement();
         }
@@ -98,12 +102,16 @@ namespace neuron {
     template<>
     class SmoothedValue<Multiplicative> {
     public:
-        SmoothedValue() : m_currentValue(1.0f), m_targetValue(1.0f)
+        SmoothedValue()
+            : m_currentValue(1.0f)
+            , m_targetValue(1.0f)
         {
             UpdateIncrement();
         }
 
-        SmoothedValue(float initialValue) : m_currentValue(initialValue), m_targetValue(initialValue)
+        SmoothedValue(float initialValue)
+            : m_currentValue(initialValue)
+            , m_targetValue(initialValue)
         {
             UpdateIncrement();
         }
@@ -131,9 +139,8 @@ namespace neuron {
             }
 
             m_currentValue *= std::exp(m_increment);
-            if ((m_increment > 0.0f && m_currentValue > m_targetValue) ||
-                (m_increment < 0.0f && m_currentValue < m_targetValue)) {
-                    m_currentValue = m_targetValue;
+            if ((m_increment > 0.0f && m_currentValue > m_targetValue) || (m_increment < 0.0f && m_currentValue < m_targetValue)) {
+                m_currentValue = m_targetValue;
             }
 
             return m_currentValue;

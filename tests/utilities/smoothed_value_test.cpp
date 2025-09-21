@@ -1,19 +1,21 @@
-#include <gtest/gtest.h>
 #include "neuron.h"
 #include <cmath>
+#include <gtest/gtest.h>
 
 using namespace neuron;
 
 class LinearSmoothedValueTest : public ::testing::Test {
 protected:
-    void SetUp() override {
+    void SetUp() override
+    {
         // Default test parameters
         sampleRate = 44100.0;
         rampLengthMs = 100.0; // 100ms ramp
     }
 
     // Helper function for floating point comparisons
-    bool IsApproximatelyEqual(float a, float b, float tolerance = 1e-6f) {
+    bool IsApproximatelyEqual(float a, float b, float tolerance = 1e-6f)
+    {
         return std::abs(a - b) < tolerance;
     }
 
@@ -23,14 +25,16 @@ protected:
 
 class MultiplicativeSmoothedValueTest : public ::testing::Test {
 protected:
-    void SetUp() override {
+    void SetUp() override
+    {
         // Default test parameters
         sampleRate = 44100.0;
         rampLengthMs = 100.0; // 100ms ramp
     }
 
     // Helper function for floating point comparisons
-    bool IsApproximatelyEqual(float a, float b, float tolerance = 1e-6f) {
+    bool IsApproximatelyEqual(float a, float b, float tolerance = 1e-6f)
+    {
         return std::abs(a - b) < tolerance;
     }
 
@@ -41,20 +45,23 @@ protected:
 // LINEAR =============================================================================================================
 
 // Test default constructor
-TEST_F(LinearSmoothedValueTest, DefaultConstructor) {
+TEST_F(LinearSmoothedValueTest, DefaultConstructor)
+{
     LinearSmoothedValue sv;
     EXPECT_FLOAT_EQ(sv.GetNextValue(), 0.0f);
 }
 
 // Test constructor with initial value
-TEST_F(LinearSmoothedValueTest, ConstructorWithInitialValue) {
+TEST_F(LinearSmoothedValueTest, ConstructorWithInitialValue)
+{
     const float initialValue = 5.0f;
     LinearSmoothedValue sv(initialValue);
     EXPECT_FLOAT_EQ(sv.GetNextValue(), initialValue);
 }
 
 // Test Reset with valid parameters
-TEST_F(LinearSmoothedValueTest, ResetWithValidParameters) {
+TEST_F(LinearSmoothedValueTest, ResetWithValidParameters)
+{
     LinearSmoothedValue sv(1.0f);
     sv.Reset(sampleRate, rampLengthMs);
 
@@ -67,7 +74,8 @@ TEST_F(LinearSmoothedValueTest, ResetWithValidParameters) {
 }
 
 // Test Reset with invalid parameters
-TEST_F(LinearSmoothedValueTest, ResetWithInvalidParameters) {
+TEST_F(LinearSmoothedValueTest, ResetWithInvalidParameters)
+{
     LinearSmoothedValue sv(1.0f);
     sv.SetTargetValue(2.0f);
 
@@ -82,13 +90,14 @@ TEST_F(LinearSmoothedValueTest, ResetWithInvalidParameters) {
     float valueAfter2 = sv.GetNextValue();
 
     // Values should continue progressing toward target
-    EXPECT_GT(valueAfter1, valueBefore);  // Still progressing
-    EXPECT_GT(valueAfter2, valueAfter1);  // Still progressing
-    EXPECT_LT(valueAfter2, 2.0f);         // Haven't reached target yet
+    EXPECT_GT(valueAfter1, valueBefore); // Still progressing
+    EXPECT_GT(valueAfter2, valueAfter1); // Still progressing
+    EXPECT_LT(valueAfter2, 2.0f); // Haven't reached target yet
 }
 
 // Test SetTargetValue
-TEST_F(LinearSmoothedValueTest, SetTargetValue) {
+TEST_F(LinearSmoothedValueTest, SetTargetValue)
+{
     LinearSmoothedValue sv(0.0f);
     sv.Reset(sampleRate, rampLengthMs);
 
@@ -103,7 +112,8 @@ TEST_F(LinearSmoothedValueTest, SetTargetValue) {
 }
 
 // Test GetNextValue reaches target eventually
-TEST_F(LinearSmoothedValueTest, GetNextValueReachesTarget) {
+TEST_F(LinearSmoothedValueTest, GetNextValueReachesTarget)
+{
     LinearSmoothedValue sv(0.0f);
     sv.Reset(sampleRate, 50.0);
     sv.SetTargetValue(1.0f);
@@ -119,7 +129,8 @@ TEST_F(LinearSmoothedValueTest, GetNextValueReachesTarget) {
 }
 
 // Test smoothing with negative values
-TEST_F(LinearSmoothedValueTest, SmoothingWithNegativeValues) {
+TEST_F(LinearSmoothedValueTest, SmoothingWithNegativeValues)
+{
     LinearSmoothedValue sv(5.0f);
     sv.Reset(sampleRate, rampLengthMs);
     sv.SetTargetValue(-5.0f);
@@ -133,7 +144,8 @@ TEST_F(LinearSmoothedValueTest, SmoothingWithNegativeValues) {
 }
 
 // Test Skip functionality
-TEST_F(LinearSmoothedValueTest, SkipSamples) {
+TEST_F(LinearSmoothedValueTest, SkipSamples)
+{
     LinearSmoothedValue sv1(0.0f);
     LinearSmoothedValue sv2(0.0f);
 
@@ -156,7 +168,8 @@ TEST_F(LinearSmoothedValueTest, SkipSamples) {
 }
 
 // Test when ramp length is zero
-TEST_F(LinearSmoothedValueTest, ZeroRampLength) {
+TEST_F(LinearSmoothedValueTest, ZeroRampLength)
+{
     LinearSmoothedValue sv(1.0f);
     sv.Reset(sampleRate, 0.0);
     sv.SetTargetValue(5.0f);
@@ -165,7 +178,8 @@ TEST_F(LinearSmoothedValueTest, ZeroRampLength) {
 }
 
 // Test very short ramp length
-TEST_F(LinearSmoothedValueTest, VeryShortRampLength) {
+TEST_F(LinearSmoothedValueTest, VeryShortRampLength)
+{
     LinearSmoothedValue sv(0.0f);
     sv.Reset(sampleRate, 0.1);
     sv.SetTargetValue(1.0f);
@@ -179,7 +193,8 @@ TEST_F(LinearSmoothedValueTest, VeryShortRampLength) {
 }
 
 // Test multiple target changes
-TEST_F(LinearSmoothedValueTest, MultipleTargetChanges) {
+TEST_F(LinearSmoothedValueTest, MultipleTargetChanges)
+{
     LinearSmoothedValue sv(0.0f);
     sv.Reset(sampleRate, 50.0);
 
@@ -201,7 +216,8 @@ TEST_F(LinearSmoothedValueTest, MultipleTargetChanges) {
 }
 
 // Test same target value
-TEST_F(LinearSmoothedValueTest, SameTargetValue) {
+TEST_F(LinearSmoothedValueTest, SameTargetValue)
+{
     LinearSmoothedValue sv(5.0f);
     sv.Reset(sampleRate, rampLengthMs);
     sv.SetTargetValue(5.0f);
@@ -211,7 +227,8 @@ TEST_F(LinearSmoothedValueTest, SameTargetValue) {
 }
 
 // Test large sample rate
-TEST_F(LinearSmoothedValueTest, LargeSampleRate) {
+TEST_F(LinearSmoothedValueTest, LargeSampleRate)
+{
     LinearSmoothedValue sv(0.0f);
     sv.Reset(192000.0, 100.0);
     sv.SetTargetValue(1.0f);
@@ -227,17 +244,19 @@ TEST_F(LinearSmoothedValueTest, LargeSampleRate) {
 // MULTIPLICATIVE =====================================================================================================
 
 // Test constructor with initial value (multiplicative can't start from zero)
-TEST_F(MultiplicativeSmoothedValueTest, ConstructorWithInitialValue) {
+TEST_F(MultiplicativeSmoothedValueTest, ConstructorWithInitialValue)
+{
     const float initialValue = 5.0f;
     MultiplicativeSmoothedValue sv(initialValue);
     EXPECT_FLOAT_EQ(sv.GetNextValue(), initialValue);
 }
 
 // Test basic multiplicative behavior - exponential curve
-TEST_F(MultiplicativeSmoothedValueTest, ExponentialCurve) {
+TEST_F(MultiplicativeSmoothedValueTest, ExponentialCurve)
+{
     MultiplicativeSmoothedValue sv(1.0f);
-    sv.Reset(sampleRate, 100.0);  // 100ms ramp
-    sv.SetTargetValue(8.0f);  // 3 octaves (2^3 = 8)
+    sv.Reset(sampleRate, 100.0); // 100ms ramp
+    sv.SetTargetValue(8.0f); // 3 octaves (2^3 = 8)
 
     float value1 = sv.GetNextValue();
     float value2 = sv.GetNextValue();
@@ -254,10 +273,11 @@ TEST_F(MultiplicativeSmoothedValueTest, ExponentialCurve) {
 }
 
 // Test frequency doubling (octave) - with more realistic tolerance
-TEST_F(MultiplicativeSmoothedValueTest, FrequencyOctave) {
-    MultiplicativeSmoothedValue sv(440.0f);  // A4
+TEST_F(MultiplicativeSmoothedValueTest, FrequencyOctave)
+{
+    MultiplicativeSmoothedValue sv(440.0f); // A4
     sv.Reset(sampleRate, 50.0);
-    sv.SetTargetValue(880.0f);  // A5 (one octave up)
+    sv.SetTargetValue(880.0f); // A5 (one octave up)
 
     // Check that we get exponential progression
     float prevValue = 440.0f;
@@ -269,18 +289,19 @@ TEST_F(MultiplicativeSmoothedValueTest, FrequencyOctave) {
     }
 
     // Eventually gets close to target - use more relaxed tolerance
-    for (int i = 0; i < 5000; ++i) {  // More samples to ensure convergence
+    for (int i = 0; i < 5000; ++i) { // More samples to ensure convergence
         sv.GetNextValue();
     }
     float finalValue = sv.GetNextValue();
-    EXPECT_TRUE(IsApproximatelyEqual(finalValue, 880.0f, 0.01f));  // 1% tolerance
+    EXPECT_TRUE(IsApproximatelyEqual(finalValue, 880.0f, 0.01f)); // 1% tolerance
 }
 
 // Test dB conversion - another common audio use case
-TEST_F(MultiplicativeSmoothedValueTest, DecibelConversion) {
-    MultiplicativeSmoothedValue sv(1.0f);    // 0 dB
+TEST_F(MultiplicativeSmoothedValueTest, DecibelConversion)
+{
+    MultiplicativeSmoothedValue sv(1.0f); // 0 dB
     sv.Reset(sampleRate, 100.0);
-    sv.SetTargetValue(3.16228f);  // Approximately 10 dB (10^(10/20))
+    sv.SetTargetValue(3.16228f); // Approximately 10 dB (10^(10/20))
 
     float value1 = sv.GetNextValue();
     float value2 = sv.GetNextValue();
@@ -291,21 +312,23 @@ TEST_F(MultiplicativeSmoothedValueTest, DecibelConversion) {
 }
 
 // Test zero handling - multiplicative can't reach zero
-TEST_F(MultiplicativeSmoothedValueTest, ZeroHandling) {
+TEST_F(MultiplicativeSmoothedValueTest, ZeroHandling)
+{
     MultiplicativeSmoothedValue sv(1.0f);
     sv.Reset(sampleRate, rampLengthMs);
-    sv.SetTargetValue(0.0f);  // Invalid target for multiplicative
+    sv.SetTargetValue(0.0f); // Invalid target for multiplicative
 
     // Should not progress since target is zero
     float value1 = sv.GetNextValue();
     float value2 = sv.GetNextValue();
 
-    EXPECT_FLOAT_EQ(value1, 1.0f);  // Should remain at current value
+    EXPECT_FLOAT_EQ(value1, 1.0f); // Should remain at current value
     EXPECT_FLOAT_EQ(value2, 1.0f);
 }
 
 // Test starting from zero - should handle gracefully
-TEST_F(MultiplicativeSmoothedValueTest, StartingFromZero) {
+TEST_F(MultiplicativeSmoothedValueTest, StartingFromZero)
+{
     MultiplicativeSmoothedValue sv(0.0f);
     sv.Reset(sampleRate, rampLengthMs);
     sv.SetTargetValue(10.0f);
@@ -319,10 +342,11 @@ TEST_F(MultiplicativeSmoothedValueTest, StartingFromZero) {
 }
 
 // Test SetTargetValue
-TEST_F(MultiplicativeSmoothedValueTest, SetTargetValue) {
+TEST_F(MultiplicativeSmoothedValueTest, SetTargetValue)
+{
     MultiplicativeSmoothedValue sv(2.0f);
     sv.Reset(sampleRate, rampLengthMs);
-    sv.SetTargetValue(32.0f);  // 4 octaves (2^4 * 2 = 32)
+    sv.SetTargetValue(32.0f); // 4 octaves (2^4 * 2 = 32)
 
     float value1 = sv.GetNextValue();
     float value2 = sv.GetNextValue();
@@ -333,22 +357,24 @@ TEST_F(MultiplicativeSmoothedValueTest, SetTargetValue) {
 }
 
 // Test GetNextValue gets close to target
-TEST_F(MultiplicativeSmoothedValueTest, GetNextValueReachesTarget) {
+TEST_F(MultiplicativeSmoothedValueTest, GetNextValueReachesTarget)
+{
     MultiplicativeSmoothedValue sv(1.0f);
     sv.Reset(sampleRate, 50.0);
     sv.SetTargetValue(4.0f);
 
     float lastValue = 1.0f;
-    for (int i = 0; i < 5000; ++i) {  // More samples
+    for (int i = 0; i < 5000; ++i) { // More samples
         lastValue = sv.GetNextValue();
     }
 
     // Use percentage-based tolerance for multiplicative
-    EXPECT_TRUE(IsApproximatelyEqual(lastValue, 4.0f, 0.01f));  // 1% tolerance
+    EXPECT_TRUE(IsApproximatelyEqual(lastValue, 4.0f, 0.01f)); // 1% tolerance
 }
 
 // Test Skip functionality
-TEST_F(MultiplicativeSmoothedValueTest, SkipSamples) {
+TEST_F(MultiplicativeSmoothedValueTest, SkipSamples)
+{
     MultiplicativeSmoothedValue sv1(1.0f);
     MultiplicativeSmoothedValue sv2(1.0f);
 
@@ -371,7 +397,8 @@ TEST_F(MultiplicativeSmoothedValueTest, SkipSamples) {
 }
 
 // Test when ramp length is zero
-TEST_F(MultiplicativeSmoothedValueTest, ZeroRampLength) {
+TEST_F(MultiplicativeSmoothedValueTest, ZeroRampLength)
+{
     MultiplicativeSmoothedValue sv(2.0f);
     sv.Reset(sampleRate, 0.0);
     sv.SetTargetValue(8.0f);
@@ -380,22 +407,24 @@ TEST_F(MultiplicativeSmoothedValueTest, ZeroRampLength) {
 }
 
 // Test very short ramp length - adjust expectations
-TEST_F(MultiplicativeSmoothedValueTest, VeryShortRampLength) {
+TEST_F(MultiplicativeSmoothedValueTest, VeryShortRampLength)
+{
     MultiplicativeSmoothedValue sv(1.0f);
-    sv.Reset(sampleRate, 0.1);  // Very short ramp
+    sv.Reset(sampleRate, 0.1); // Very short ramp
     sv.SetTargetValue(2.0f);
 
     float value = 1.0f;
-    for (int i = 0; i < 20; ++i) {  // More iterations for very short ramp
+    for (int i = 0; i < 20; ++i) { // More iterations for very short ramp
         value = sv.GetNextValue();
     }
 
     // For very short ramps, expect to get reasonably close
-    EXPECT_TRUE(IsApproximatelyEqual(value, 2.0f, 0.05f));  // 5% tolerance
+    EXPECT_TRUE(IsApproximatelyEqual(value, 2.0f, 0.05f)); // 5% tolerance
 }
 
 // Test multiple target changes - with realistic tolerances
-TEST_F(MultiplicativeSmoothedValueTest, MultipleTargetChanges) {
+TEST_F(MultiplicativeSmoothedValueTest, MultipleTargetChanges)
+{
     MultiplicativeSmoothedValue sv(1.0f);
     sv.Reset(sampleRate, 50.0);
 
@@ -405,20 +434,21 @@ TEST_F(MultiplicativeSmoothedValueTest, MultipleTargetChanges) {
     }
 
     float valueBeforeChange = sv.GetNextValue();
-    sv.SetTargetValue(0.5f);  // Going down
+    sv.SetTargetValue(0.5f); // Going down
     float valueAfterChange = sv.GetNextValue();
 
-    EXPECT_LT(valueAfterChange, valueBeforeChange);  // Should start decreasing
+    EXPECT_LT(valueAfterChange, valueBeforeChange); // Should start decreasing
 
     for (int i = 0; i < 5000; ++i) {
         sv.GetNextValue();
     }
     float finalValue = sv.GetNextValue();
-    EXPECT_TRUE(IsApproximatelyEqual(finalValue, 0.5f, 0.01f));  // 1% tolerance
+    EXPECT_TRUE(IsApproximatelyEqual(finalValue, 0.5f, 0.01f)); // 1% tolerance
 }
 
 // Test same target value
-TEST_F(MultiplicativeSmoothedValueTest, SameTargetValue) {
+TEST_F(MultiplicativeSmoothedValueTest, SameTargetValue)
+{
     MultiplicativeSmoothedValue sv(5.0f);
     sv.Reset(sampleRate, rampLengthMs);
     sv.SetTargetValue(5.0f);
@@ -428,10 +458,11 @@ TEST_F(MultiplicativeSmoothedValueTest, SameTargetValue) {
 }
 
 // Test decreasing values (important for multiplicative)
-TEST_F(MultiplicativeSmoothedValueTest, DecreasingValues) {
+TEST_F(MultiplicativeSmoothedValueTest, DecreasingValues)
+{
     MultiplicativeSmoothedValue sv(8.0f);
     sv.Reset(sampleRate, rampLengthMs);
-    sv.SetTargetValue(2.0f);  // Decreasing
+    sv.SetTargetValue(2.0f); // Decreasing
 
     float value1 = sv.GetNextValue();
     float value2 = sv.GetNextValue();
@@ -442,7 +473,8 @@ TEST_F(MultiplicativeSmoothedValueTest, DecreasingValues) {
 }
 
 // Test large sample rate
-TEST_F(MultiplicativeSmoothedValueTest, LargeSampleRate) {
+TEST_F(MultiplicativeSmoothedValueTest, LargeSampleRate)
+{
     MultiplicativeSmoothedValue sv(1.0f);
     sv.Reset(192000.0, 100.0);
     sv.SetTargetValue(2.0f);
@@ -452,17 +484,18 @@ TEST_F(MultiplicativeSmoothedValueTest, LargeSampleRate) {
 
     EXPECT_GT(value1, 1.0f);
     EXPECT_GT(value2, value1);
-    EXPECT_LT(value1, 1.01f);  // Should be a very small increment
+    EXPECT_LT(value1, 1.01f); // Should be a very small increment
 }
 
 // Test musical interval - with more realistic expectations
-TEST_F(MultiplicativeSmoothedValueTest, MusicalInterval) {
-    MultiplicativeSmoothedValue sv(440.0f);  // A4
-    sv.Reset(sampleRate, 120.0);  // 120ms for 12 steps
-    sv.SetTargetValue(880.0f);  // A5
+TEST_F(MultiplicativeSmoothedValueTest, MusicalInterval)
+{
+    MultiplicativeSmoothedValue sv(440.0f); // A4
+    sv.Reset(sampleRate, 120.0); // 120ms for 12 steps
+    sv.SetTargetValue(880.0f); // A5
 
     // Just run for the expected duration plus some buffer
-    int totalSamples = static_cast<int>((150.0 / 1000.0) * sampleRate);  // 150ms buffer
+    int totalSamples = static_cast<int>((150.0 / 1000.0) * sampleRate); // 150ms buffer
     for (int i = 0; i < totalSamples; ++i) {
         sv.GetNextValue();
     }
@@ -470,5 +503,5 @@ TEST_F(MultiplicativeSmoothedValueTest, MusicalInterval) {
     float finalValue = sv.GetNextValue();
 
     // Check that we get reasonably close to 880Hz (within 1%)
-    EXPECT_TRUE(IsApproximatelyEqual(finalValue, 880.0f, 8.8f));  // ~1% tolerance
+    EXPECT_TRUE(IsApproximatelyEqual(finalValue, 880.0f, 8.8f)); // ~1% tolerance
 }

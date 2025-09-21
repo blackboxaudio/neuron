@@ -39,7 +39,7 @@ namespace neuron {
 
     template<typename T>
     struct Epsilon {
-        static constexpr T value = T{1e-5};
+        static constexpr T value = T { 1e-5 };
     };
 
     template<>

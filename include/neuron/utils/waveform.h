@@ -1,7 +1,7 @@
 #pragma once
 
-#include "neuron/utils/arithmetic.h"
 #include "neuron/core/sample.h"
+#include "neuron/utils/arithmetic.h"
 
 namespace neuron {
 
