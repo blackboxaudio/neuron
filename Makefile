@@ -7,15 +7,15 @@ SRC_DIR = src
 # Header only modules are listed commented out
 # below the others.
 
-GENERATOR_MOD_DIR = generators
+GENERATOR_MOD_DIR = dsp/generators
 GENERATOR_MODULES = \
 oscillator \
 
-MODULATOR_MOD_DIR = modulators
+MODULATOR_MOD_DIR = dsp/modulators
 MODULATOR_MODULES = \
 adsr \
 
-PROCESSOR_MOD_DIR = processors
+PROCESSOR_MOD_DIR = dsp/processors
 PROCESSOR_MODULES = \
 filter \
 saturator \
