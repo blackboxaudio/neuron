@@ -1,16 +1,11 @@
 TARGET = libneuron
 
-MODULE_DIR = src
+INCLUDE_DIR = include
+SRC_DIR = src
 
 # Each Module Directory is listed below with it's modules.
 # Header only modules are listed commented out
 # below the others.
-
-ABSTRACTIONS_MOD_DIR = abstractions
-ABSTRACTIONS_MODULES = \
-
-AUDIO_MOD_DIR = audio
-AUDIO_MODULES = \
 
 GENERATOR_MOD_DIR = generators
 GENERATOR_MODULES = \
@@ -20,26 +15,19 @@ MODULATOR_MOD_DIR = modulators
 MODULATOR_MODULES = \
 adsr \
 
-PROCESSOR_EFFECTS_MOD_DIR = processors/effects
-PROCESSOR_EFFECTS_MODULES = \
+PROCESSOR_MOD_DIR = processors
+PROCESSOR_MODULES = \
+filter \
 saturator \
 wavefolder \
-
-PROCESSOR_FILTERS_MOD_DIR = processors/filters
-PROCESS_FILTERS_MODULES = \
-filter \
-
-UTILITY_MOD_DIR = utilities
-UTILITY_MODULES = \
 
 ######################################
 # source
 ######################################
 
-CPP_SOURCES += $(addsuffix .cpp, $(MODULE_DIR)/$(GENERATOR_MOD_DIR)/$(GENERATOR_MODULES))
-CPP_SOURCES += $(addsuffix .cpp, $(MODULE_DIR)/$(MODULATOR_MOD_DIR)/$(MODULATOR_MODULES))
-CPP_SOURCES += $(addsuffix .cpp, $(MODULE_DIR)/$(PROCESSOR_EFFECTS_MOD_DIR)/$(PROCESSOR_EFFECTS_MODULES))
-CPP_SOURCES += $(addsuffix .cpp, $(MODULE_DIR)/$(PROCESSOR_FILTERS_MOD_DIR)/$(PROCESS_FILTERS_MODULES))
+CPP_SOURCES += $(addsuffix .cpp, $(SRC_DIR)/$(GENERATOR_MOD_DIR)/$(GENERATOR_MODULES))
+CPP_SOURCES += $(addsuffix .cpp, $(SRC_DIR)/$(MODULATOR_MOD_DIR)/$(MODULATOR_MODULES))
+CPP_SOURCES += $(addsuffix .cpp, $(SRC_DIR)/$(PROCESSOR_MOD_DIR)/$(PROCESSOR_MODULES))
 
 ######################################
 # building variables
@@ -112,14 +100,8 @@ C_DEFS =  \
 -DSTM32H750xx
 
 C_INCLUDES = \
--I$(MODULE_DIR) \
--I$(MODULE_DIR)/$(ABSTRACTIONS_MOD_DIR) \
--I$(MODULE_DIR)/$(AUDIO_MOD_DIR) \
--I$(MODULE_DIR)/$(GENERATOR_MOD_DIR) \
--I$(MODULE_DIR)/$(MODULATOR_MOD_DIR) \
--I$(MODULE_DIR)/$(PROCESSOR_EFFECTS_MOD_DIR) \
--I$(MODULE_DIR)/$(PROCESSOR_FILTERS_MOD_DIR) \
--I$(MODULE_DIR)/$(UTILITY_MOD_DIR) \
+-I$(INCLUDE_DIR) \
+-I$(SRC_DIR) \
 
 # compile gcc flags
 ASFLAGS = $(MCU) $(AS_DEFS) $(AS_INCLUDES) $(OPT) -Wall -fdata-sections -ffunction-sections
