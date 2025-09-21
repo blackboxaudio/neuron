@@ -42,7 +42,7 @@ void Oscillator::AttachParameterToSourceImpl(OscillatorParameter parameter, std:
 
 void Oscillator::Reset(float phase)
 {
-    float clampedPhase = clamp(phase, 0.0f, (float)WAVETABLE_SIZE);
+    float clampedPhase = clamp(phase, 0.0f, static_cast<float>(WAVETABLE_SIZE));
     m_phase = clampedPhase;
     if (m_follower != nullptr) {
         m_follower->Reset(clampedPhase);
@@ -52,7 +52,7 @@ void Oscillator::Reset(float phase)
 void Oscillator::SetFrequency(float frequency)
 {
     p_frequency = frequency;
-    m_phaseIncrement = p_frequency * (float)WAVETABLE_SIZE / (float)m_context.sampleRate;
+    m_phaseIncrement = p_frequency * static_cast<float>(WAVETABLE_SIZE) / static_cast<float>(m_context.sampleRate);
 }
 
 void Oscillator::SetWaveform(Waveform waveform)
@@ -75,7 +75,7 @@ void Oscillator::DetachFollower()
 void Oscillator::PopulateWavetable()
 {
     for (size_t idx = 0; idx < WAVETABLE_SIZE; idx++) {
-        float phase = (float)idx * PI * 2.0f / (float)WAVETABLE_SIZE;
+        float phase = static_cast<float>(idx) * PI * 2.0f / static_cast<float>(WAVETABLE_SIZE);
         m_wavetable[idx] = sin(phase);
     }
 }
@@ -83,8 +83,8 @@ void Oscillator::PopulateWavetable()
 void Oscillator::IncrementPhase()
 {
     m_phase += m_phaseIncrement;
-    if (m_phase >= (float)WAVETABLE_SIZE) {
-        m_phase -= (float)WAVETABLE_SIZE;
+    if (m_phase >= static_cast<float>(WAVETABLE_SIZE)) {
+        m_phase -= static_cast<float>(WAVETABLE_SIZE);
         if (m_follower != nullptr) {
             m_follower->Reset(m_phase);
         }
@@ -95,7 +95,7 @@ Sample Oscillator::Lerp()
 {
     size_t truncatedIdx = m_phase;
     size_t nextIdx = (truncatedIdx + 1) % WAVETABLE_SIZE;
-    float nextIdxWeight = m_phase - (float)truncatedIdx;
+    float nextIdxWeight = m_phase - static_cast<float>(truncatedIdx);
     float truncatedIdxWeight = 1.0f - nextIdxWeight;
 
     return (m_wavetable[truncatedIdx] * truncatedIdxWeight) + (m_wavetable[nextIdx] * nextIdxWeight);

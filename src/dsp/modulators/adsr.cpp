@@ -13,7 +13,7 @@ AdsrEnvelopeModulator::AdsrEnvelopeModulator(Context& context, AdsrEnvelope enve
 
 float AdsrEnvelopeModulator::ModulateImpl()
 {
-    float position = (float)m_samplesSinceLastStage * (1000.0f / (float)m_context.sampleRate);
+    float position = static_cast<float>(m_samplesSinceLastStage) * (1000.0f / static_cast<float>(m_context.sampleRate));
 
     /**
      * NOTE: The modulation value is calculated based on the current stage of the modulator.
@@ -117,8 +117,8 @@ void AdsrEnvelopeModulator::Update(float stageDuration, AdsrStage nextStage, boo
         m_samplesSinceLastStage++;
     }
 
-    float msPerSample = 1000.0f / (float)m_context.sampleRate;
-    if ((float)m_samplesSinceLastStage * msPerSample >= stageDuration) {
+    float msPerSample = 1000.0f / static_cast<float>(m_context.sampleRate);
+    if (static_cast<float>(m_samplesSinceLastStage) * msPerSample >= stageDuration) {
         m_samplesSinceLastStage = 0;
         m_stage = nextStage;
     }

@@ -34,7 +34,7 @@ TEST(oscillator_suite, reset_test)
     EXPECT_FLOAT_EQ(osc.Generate(), 0.0f);
     EXPECT_FLOAT_EQ(osc.Generate(), 0.06264372f);
 
-    osc.Reset((float)WAVETABLE_SIZE / 2.0f);
+    osc.Reset(static_cast<float>(WAVETABLE_SIZE) / 2.0f);
     EXPECT_NEAR(osc.Generate(), 0.0f, 1e-5f);
     EXPECT_NEAR(osc.Generate(), -0.06264372f, 1e-5f);
 }
