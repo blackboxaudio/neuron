@@ -5,7 +5,6 @@ option(NEO_BUILD_TESTS "Build unit tests" OFF)
 
 project(neuron VERSION 0.1.0 LANGUAGES CXX)
 
-file(GLOB_RECURSE LIST_DIRECTORIES INCLUDE_DIRS "src/*")
 file(GLOB_RECURSE SRC_FILES "src/*.cpp")
 
 add_library(neuron STATIC ${SRC_FILES})
@@ -25,33 +24,36 @@ else()
             CXX_STANDARD_REQUIRED)
 endif ()
 
+target_include_directories(neuron
+        PUBLIC
+            $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
+            $<INSTALL_INTERFACE:include>
+        PRIVATE
+            ${CMAKE_CURRENT_SOURCE_DIR}/src)
+
 if (NEO_BUILD_TESTS)
     function(add_neuron_test name src)
         add_executable("${name}_test_exe" ${src})
-        target_include_directories("${name}_test_exe" PRIVATE ${INCLUDE_DIRS})
-        target_link_libraries("${name}_test_exe" neuron)
-        target_link_libraries("${name}_test_exe" gtest gtest_main)
+        target_link_libraries("${name}_test_exe" PRIVATE neuron gtest gtest_main)
         add_test(NAME "${name}_test" COMMAND "${name}_test_exe")
     endfunction()
 
     add_subdirectory(vendor/googletest)
 
     if (NEO_PLUGIN_SUPPORT)
-        add_neuron_test(parameter_atomic tests/abstractions/parameter_test_atomic.cpp)
+        add_neuron_test(parameter_atomic tests/core/parameter_test_atomic.cpp)
     else ()
-        add_neuron_test(parameter tests/abstractions/parameter_test.cpp)
-        add_neuron_test(waveform tests/audio/waveform_test.cpp)
-        add_neuron_test(oscillator tests/generators/oscillator_test.cpp)
-        add_neuron_test(adsr tests/modulators/adsr_test.cpp)
-        add_neuron_test(saturator tests/processors/effects/saturator_test.cpp)
-        add_neuron_test(wavefolder tests/processors/effects/wavefolder_test.cpp)
-        add_neuron_test(filter tests/processors/filters/filter_test.cpp)
-        add_neuron_test(arithmetic tests/utilities/arithmetic_test.cpp)
-        add_neuron_test(midi tests/utilities/midi_test.cpp)
-        add_neuron_test(smoothed_value tests/utilities/smoothed_value_test.cpp)
+        add_neuron_test(parameter tests/core/parameter_test.cpp)
+        add_neuron_test(waveform tests/utils/waveform_test.cpp)
+        add_neuron_test(oscillator tests/dsp/generators/oscillator_test.cpp)
+        add_neuron_test(adsr tests/dsp/modulators/adsr_test.cpp)
+        add_neuron_test(saturator tests/dsp/processors/saturator_test.cpp)
+        add_neuron_test(wavefolder tests/dsp/processors/wavefolder_test.cpp)
+        add_neuron_test(filter tests/dsp/processors/filter_test.cpp)
+        add_neuron_test(arithmetic tests/utils/arithmetic_test.cpp)
+        add_neuron_test(midi tests/utils/midi_test.cpp)
+        add_neuron_test(smoothed_value tests/utils/smoothed_value_test.cpp)
     endif ()
 
     enable_testing()
 endif ()
-
-target_include_directories(neuron PUBLIC ${CMAKE_CURRENT_LIST_DIR}/src PRIVATE ${INCLUDE_DIRS})
