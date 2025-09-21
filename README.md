@@ -1,7 +1,7 @@
 # `neuron`
 
-[![Test](https://github.com/blackboxaudio/neuron/actions/workflows/ci.test.yml/badge.svg)](https://github.com/blackboxaudio/neuron/actions/workflows/ci.test.yml)
 [![Build](https://github.com/blackboxaudio/neuron/actions/workflows/ci.build.yml/badge.svg)](https://github.com/blackboxaudio/neuron/actions/workflows/ci.build.yml)
+[![Test](https://github.com/blackboxaudio/neuron/actions/workflows/ci.test.yml/badge.svg)](https://github.com/blackboxaudio/neuron/actions/workflows/ci.test.yml)
 [![neuron: v0.1.0](https://img.shields.io/badge/Version-v0.1.0-blue.svg)](https://github.com/blackboxaudio/neuron)
 [![License](https://img.shields.io/badge/License-MIT-yellow)](https://github.com/blackboxaudio/neuron/blob/develop/LICENSE)
 
@@ -69,11 +69,11 @@ make
 ## Using the Library
 
 ```c++
-#include "neuron.h"
+#include "neuron/neuron.h"
 
 // Create a DSP context (sample rate,
 // number of channels, buffer size).
-static Context context {
+static neuron::Context context {
     44100,
     1,
     128,
@@ -81,12 +81,12 @@ static Context context {
 
 // Create an oscillator with an initial
 // frequency of 440Hz.
-static Oscillator osc(context, 440.0f);
+static neuron::Oscillator osc(context, 440.0f);
 
 // Write to the buffer with samples
 // generated from the oscillator
 for(size_t idx = 0; idx < 128; idx++) {
-    buffer[idx] = (float)osc.Generate();
+    buffer[idx] = osc.Generate();
 }
 ```
 
