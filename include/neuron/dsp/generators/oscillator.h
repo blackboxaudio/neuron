@@ -1,11 +1,11 @@
 #pragma once
 
-#include "abstractions/generator.h"
-#include "abstractions/neuron.h"
-#include "abstractions/parameter.h"
-#include "audio/context.h"
-#include "audio/waveform.h"
-#include "utilities/arithmetic.h"
+#include "neuron/core/base.h"
+#include "neuron/core/context.h"
+#include "neuron/core/parameter.h"
+#include "neuron/dsp/generators/generator.h"
+#include "neuron/utils/arithmetic.h"
+#include "neuron/utils/waveform.h"
 
 namespace neuron {
 

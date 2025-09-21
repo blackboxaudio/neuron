@@ -1,5 +1,5 @@
-#include "processors/filters/filter.h"
-#include "utilities/arithmetic.h"
+#include "neuron/dsp/processors/filter.h"
+#include "neuron/utils/arithmetic.h"
 
 using namespace neuron;
 

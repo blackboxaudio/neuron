@@ -1,6 +1,6 @@
 #pragma once
 
-#include "audio/sample.h"
+#include "neuron/core/sample.h"
 
 namespace neuron {
 

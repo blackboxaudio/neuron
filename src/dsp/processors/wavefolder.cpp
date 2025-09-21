@@ -1,5 +1,5 @@
-#include "processors/effects/wavefolder.h"
-#include "utilities/arithmetic.h"
+#include "neuron/dsp/processors/wavefolder.h"
+#include "neuron/utils/arithmetic.h"
 
 using namespace neuron;
 

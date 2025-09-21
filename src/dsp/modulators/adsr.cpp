@@ -1,4 +1,4 @@
-#include "modulators/adsr.h"
+#include "neuron/dsp/modulators/adsr.h"
 
 using namespace neuron;
 

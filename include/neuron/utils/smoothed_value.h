@@ -1,7 +1,8 @@
 #pragma once
 
+#include "neuron/utils/arithmetic.h"
+
 #include <cmath>
-#include "arithmetic.h"
 
 namespace neuron {
     enum SmoothingType {

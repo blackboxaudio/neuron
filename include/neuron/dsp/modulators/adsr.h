@@ -1,9 +1,9 @@
 #pragma once
 
-#include "abstractions/modulator.h"
-#include "abstractions/neuron.h"
-#include "abstractions/parameter.h"
-#include "audio/context.h"
+#include "neuron/core/base.h"
+#include "neuron/core/context.h"
+#include "neuron/core/parameter.h"
+#include "neuron/dsp/modulators/modulator.h"
 
 namespace neuron {
 

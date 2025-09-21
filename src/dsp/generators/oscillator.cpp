@@ -1,6 +1,6 @@
-#include <cstddef>
+#include "neuron/dsp/generators/oscillator.h"
 
-#include "generators/oscillator.h"
+#include <cstddef>
 
 using namespace neuron;
 

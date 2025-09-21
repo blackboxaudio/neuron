@@ -1,5 +1,5 @@
-#include "processors/effects/saturator.h"
-#include "utilities/arithmetic.h"
+#include "neuron/dsp/processors/saturator.h"
+#include "neuron/utils/arithmetic.h"
 
 using namespace neuron;
 

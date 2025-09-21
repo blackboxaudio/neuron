@@ -1,8 +1,8 @@
 #pragma once
 
-#include "abstractions/neuron.h"
-#include "abstractions/parameter.h"
-#include "abstractions/processor.h"
+#include "neuron/core/base.h"
+#include "neuron/core/parameter.h"
+#include "neuron/dsp/processors/processor.h"
 
 namespace neuron {
 

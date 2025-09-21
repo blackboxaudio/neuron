@@ -5,7 +5,6 @@ option(NEO_BUILD_TESTS "Build unit tests" OFF)
 
 project(neuron VERSION 0.1.0 LANGUAGES CXX)
 
-file(GLOB_RECURSE LIST_DIRECTORIES INCLUDE_DIRS "src/*")
 file(GLOB_RECURSE SRC_FILES "src/*.cpp")
 
 add_library(neuron STATIC ${SRC_FILES})
@@ -25,12 +24,17 @@ else()
             CXX_STANDARD_REQUIRED)
 endif ()
 
+target_include_directories(neuron
+        PUBLIC
+            $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
+            $<INSTALL_INTERFACE:include>
+        PRIVATE
+            ${CMAKE_CURRENT_SOURCE_DIR}/src)
+
 if (NEO_BUILD_TESTS)
     function(add_neuron_test name src)
         add_executable("${name}_test_exe" ${src})
-        target_include_directories("${name}_test_exe" PRIVATE ${INCLUDE_DIRS})
-        target_link_libraries("${name}_test_exe" neuron)
-        target_link_libraries("${name}_test_exe" gtest gtest_main)
+        target_link_libraries("${name}_test_exe" PRIVATE neuron gtest gtest_main)
         add_test(NAME "${name}_test" COMMAND "${name}_test_exe")
     endfunction()
 
@@ -53,5 +57,3 @@ if (NEO_BUILD_TESTS)
 
     enable_testing()
 endif ()
-
-target_include_directories(neuron PUBLIC ${CMAKE_CURRENT_LIST_DIR}/src PRIVATE ${INCLUDE_DIRS})

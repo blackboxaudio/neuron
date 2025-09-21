@@ -1,6 +1,6 @@
 #pragma once
 
-#include "utilities/arithmetic.h"
+#include "neuron/utils/arithmetic.h"
 
 namespace neuron {
 
