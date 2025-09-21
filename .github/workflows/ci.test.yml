@@ -10,7 +10,37 @@ defaults:
     shell: bash
 
 jobs:
-  GoogleTest:
+  Plugin:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+        with:
+          submodules: recursive
+
+      - name: Set Environment Variables
+        run: |
+          TARGET_PATH=${{ runner.workspace }}/neuron/target/test
+          echo "TARGET_PATH=$TARGET_PATH" >> $GITHUB_ENV
+
+      - name: Prepare
+        run: |
+          mkdir -p "${{ env.TARGET_PATH }}"
+
+      - name: Generate Makefile
+        working-directory: "${{ env.TARGET_PATH }}"
+        run: cmake -DCMAKE_BUILD_TYPE=Release -DNEO_BUILD_TESTS=ON -DNEO_PLUGIN_SUPPORT=ON ../../
+
+      - name: Build
+        working-directory: "${{ env.TARGET_PATH }}"
+        run: make
+
+      - name: Test
+        working-directory: "${{ env.TARGET_PATH }}"
+        run: ctest
+
+
+  Standard:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Repository

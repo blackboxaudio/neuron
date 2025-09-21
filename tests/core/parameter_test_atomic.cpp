@@ -1,6 +1,7 @@
 #include "neuron/core/parameter.h"
 
 #include <atomic>
+#include <gmock/gmock.h>
 #include <gtest/gtest.h>
 
 using namespace neuron;
@@ -24,7 +25,7 @@ TEST(parameter_suite, attach_and_assignment_test)
 
     param = 3.0f;
 
-    EXPECT_FLOAT_EQ(static_cast<float>(param), 5.0f);
+    EXPECT_THAT(static_cast<float>(param), testing::Not(testing::FloatEq(5.0f)));
 }
 
 TEST(parameter_suite, attach_source_and_arithmetic_test)

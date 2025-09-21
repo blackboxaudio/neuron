@@ -47,8 +47,9 @@ namespace neuron {
             return m_parameter->load();
         }
 
-        Parameter& operator=(T /* value */)
+        Parameter& operator=(T value)
         {
+            m_parameter->store(value);
             return *this;
         }
 
