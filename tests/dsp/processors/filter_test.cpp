@@ -1,6 +1,7 @@
-#include <gtest/gtest.h>
+#include "neuron/dsp/generators/oscillator.h"
+#include "neuron/dsp/processors/filter.h"
 
-#include "neuron.h"
+#include <gtest/gtest.h>
 
 using namespace neuron;
 

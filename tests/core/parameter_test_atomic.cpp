@@ -1,7 +1,7 @@
+#include "neuron/core/parameter.h"
+
 #include <atomic>
 #include <gtest/gtest.h>
-
-#include "neuron.h"
 
 using namespace neuron;
 

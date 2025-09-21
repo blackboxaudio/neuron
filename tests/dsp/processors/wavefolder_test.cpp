@@ -1,6 +1,6 @@
-#include <gtest/gtest.h>
+#include "neuron/dsp/processors/wavefolder.h"
 
-#include "neuron.h"
+#include <gtest/gtest.h>
 
 using namespace neuron;
 

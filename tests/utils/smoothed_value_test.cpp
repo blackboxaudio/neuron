@@ -1,4 +1,5 @@
-#include "neuron.h"
+#include "neuron/utils/smoothed_value.h"
+
 #include <cmath>
 #include <gtest/gtest.h>
 

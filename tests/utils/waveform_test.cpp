@@ -1,6 +1,6 @@
-#include <gtest/gtest.h>
+#include "neuron/utils/waveform.h"
 
-#include "neuron.h"
+#include <gtest/gtest.h>
 
 using namespace neuron;
 

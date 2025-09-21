@@ -1,6 +1,6 @@
-#include <gtest/gtest.h>
+#include "neuron/core/parameter.h"
 
-#include "neuron.h"
+#include <gtest/gtest.h>
 
 using namespace neuron;
 

@@ -1,6 +1,6 @@
-#include <gtest/gtest.h>
+#include "neuron/utils/midi.h"
 
-#include "neuron.h"
+#include <gtest/gtest.h>
 
 using namespace neuron;
 
