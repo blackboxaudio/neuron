@@ -7,7 +7,6 @@
 #include "neuron/core/sample.h"
 #include "neuron/dsp/processors/processor.h"
 
-
 namespace neuron {
 
     const float FILTER_CUTOFF_FREQ_MIN = 20.0f;
