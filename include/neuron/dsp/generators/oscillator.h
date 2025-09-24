@@ -1,10 +1,10 @@
 #pragma once
 
 #include "neuron/core/base.h"
+#include "neuron/core/buffer.h"
 #include "neuron/core/context.h"
 #include "neuron/core/parameter.h"
 #include "neuron/dsp/generators/generator.h"
-#include "neuron/utils/arithmetic.h"
 #include "neuron/utils/waveform.h"
 
 namespace neuron {
@@ -71,7 +71,7 @@ namespace neuron {
 
     protected:
         friend class Generator<Oscillator>;
-        Sample GenerateImpl();
+        void GenerateImpl(Buffer<Sample>& output);
 
 #ifdef NEO_PLUGIN_SUPPORT
         friend class Neuron<Oscillator, OscillatorParameter>;

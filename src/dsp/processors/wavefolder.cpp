@@ -10,22 +10,23 @@ Wavefolder::Wavefolder()
 {
 }
 
-Sample Wavefolder::ProcessImpl(Sample input)
+void Wavefolder::ProcessImpl(Buffer<Sample>& input, Buffer<Sample>& output)
 {
-    float output = input * p_inputGain;
-    while (output > p_threshold || output < -p_threshold) {
-        if (output > p_threshold) {
-            output = p_threshold - (output - p_threshold);
-        } else if (output < -p_threshold) {
-            output = -p_threshold - (output + p_threshold);
+    Sample negativeThreshold = -p_threshold * p_symmetry;
+
+    for (int i = 0; i < input.size(); i++) {
+        Sample value = input[i] * p_inputGain;
+
+        while (value > p_threshold) {
+            value = 2.0f * p_threshold - value;
         }
-    }
 
-    if (input < 0.0f) {
-        output = input * (1.0f - p_symmetry) + output * p_symmetry;
-    }
+        while (value < negativeThreshold) {
+            value = 2.0f * negativeThreshold - value;
+        }
 
-    return clamp(output, -1.0f, 1.0f);
+        output[i] = clamp(value, -1.0f, 1.0f);
+    }
 }
 
 #ifdef NEO_PLUGIN_SUPPORT

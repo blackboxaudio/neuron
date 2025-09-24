@@ -18,13 +18,13 @@ Oscillator::~Oscillator()
     m_follower = nullptr;
 }
 
-Sample Oscillator::GenerateImpl()
+void Oscillator::GenerateImpl(Buffer<Sample>& output)
 {
-    Sample value = Lerp();
-
-    IncrementPhase();
-
-    return SineToWaveform(value, m_waveform);
+    for (int i = 0; i < output.size(); i++) {
+        Sample value = Lerp();
+        IncrementPhase();
+        output[i] = SineToWaveform(value, m_waveform);
+    }
 }
 
 #ifdef NEO_PLUGIN_SUPPORT

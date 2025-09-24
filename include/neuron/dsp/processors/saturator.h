@@ -1,6 +1,7 @@
 #pragma once
 
 #include "neuron/core/base.h"
+#include "neuron/core/buffer.h"
 #include "neuron/core/parameter.h"
 #include "neuron/core/sample.h"
 #include "neuron/dsp/processors/processor.h"
@@ -55,7 +56,7 @@ namespace neuron {
 
     protected:
         friend class Processor<Saturator>;
-        Sample ProcessImpl(Sample input);
+        void ProcessImpl(Buffer<Sample>& input, Buffer<Sample>& output);
 
 #ifdef NEO_PLUGIN_SUPPORT
         friend class Neuron<Saturator, SaturatorParameter>;

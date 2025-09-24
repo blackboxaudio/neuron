@@ -17,12 +17,10 @@ namespace neuron {
         ~Generator() = default;
 
         /**
-         * Generates a sample of some audio signal, depending
+         * Generates a buffer of some audio signal, depending
          * on the type of generator, G.
-         *
-         * @return Sample
          */
-        Sample Generate()
+        void Generate(Buffer<Sample>& output)
         {
             return static_cast<G*>(this)->GenerateImpl();
         }

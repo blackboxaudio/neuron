@@ -12,6 +12,7 @@
 
 // CORE
 #include "neuron/core/base.h"
+#include "neuron/core/buffer.h"
 #include "neuron/core/context.h"
 #include "neuron/core/parameter.h"
 #include "neuron/core/sample.h"

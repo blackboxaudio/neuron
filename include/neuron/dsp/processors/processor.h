@@ -17,13 +17,11 @@ namespace neuron {
         ~Processor() = default;
 
         /**
-         * Processes a sample of some audio signal.
-         *
-         * @return Sample
+         * Processes a buffer representing a single channel of audio samples.
          */
-        Sample Process(Sample input)
+        void Process(Buffer<Sample>& input, Buffer<Sample>& output)
         {
-            return static_cast<P*>(this)->ProcessImpl(input);
+            static_cast<P*>(this)->ProcessImpl(input, output);
         }
     };
 

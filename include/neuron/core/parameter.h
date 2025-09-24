@@ -82,8 +82,8 @@ namespace neuron {
          * CAUTION: This empty value is used as a safe initializer for the pointer,
          * which is what is used by the JUCE library.
          */
-        std::atomic<T> m_initial_source { 0.0f };
-        std::atomic<T>* m_parameter = &m_initial_source;
+        std::atomic<T> m_initialSource { 0.0f };
+        std::atomic<T>* m_parameter = &m_initialSource;
     };
 
 #else

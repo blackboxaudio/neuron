@@ -9,14 +9,16 @@ Saturator::Saturator()
 {
 }
 
-Sample Saturator::ProcessImpl(Sample input)
+void Saturator::ProcessImpl(Buffer<Sample>& input, Buffer<Sample>& output)
 {
-    float output = tanh(input * p_saturation);
-    if (input < 0.0f) {
-        output = (input * (1.0f - p_symmetry)) + (output * p_symmetry);
+    Sample oneMinusSymmetry = 1.0f - p_symmetry;
+    for (int i = 0; i < input.size(); i++) {
+        Sample value = tanh(input[i] * p_saturation);
+        if (value < 0.0f) {
+            value = input[i] * oneMinusSymmetry + value * p_symmetry;
+        }
+        output[i] = clamp(value, -1.0f, 1.0f);
     }
-
-    return clamp(output, -1.0f, 1.0f);
 }
 
 #ifdef NEO_PLUGIN_SUPPORT

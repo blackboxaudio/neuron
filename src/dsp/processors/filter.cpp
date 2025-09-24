@@ -11,11 +11,14 @@ Filter::Filter(Context& context, float cutoffFrequency)
     SetCutoffFrequency(cutoffFrequency);
 }
 
-Sample Filter::ProcessImpl(Sample input)
+void Filter::ProcessImpl(Buffer<Sample>& input, Buffer<Sample>& output)
 {
-    float output = m_alpha * input + (1.0f - m_alpha) * m_previousOutput;
-    m_previousOutput = output;
-    return output;
+    const Sample oneMinusAlpha = 1.0f - m_alpha;
+    for (int i = 0; i < input.size(); i++) {
+        Sample value = input[i] * m_alpha + oneMinusAlpha * m_previousOutput;
+        m_previousOutput = value;
+        output[i] = value;
+    }
 }
 
 #ifdef NEO_PLUGIN_SUPPORT
