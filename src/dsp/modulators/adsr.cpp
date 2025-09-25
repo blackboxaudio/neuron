@@ -11,7 +11,7 @@ AdsrEnvelopeModulator::AdsrEnvelopeModulator(Context& context, AdsrEnvelope enve
 {
 }
 
-float AdsrEnvelopeModulator::ModulateImpl()
+void AdsrEnvelopeModulator::GenerateModulationValuesImpl()
 {
     float position = static_cast<float>(m_samplesSinceLastStage) * (1000.0f / static_cast<float>(m_context.sampleRate));
 
@@ -45,7 +45,7 @@ float AdsrEnvelopeModulator::ModulateImpl()
             value = 0.0f;
     }
 
-    return value;
+    m_modulationValues[0] = value;
 }
 
 #ifdef NEO_PLUGIN_SUPPORT

@@ -8,6 +8,7 @@ Oscillator::Oscillator(Context& context, float frequency, Waveform waveform)
     : m_context(context)
     , m_waveform(waveform)
     , p_frequency(frequency)
+    , p_frequencyModulationDepth(0.0f)
 {
     PopulateWavetable();
     SetFrequency(frequency);
@@ -20,12 +21,54 @@ Oscillator::~Oscillator()
 
 void Oscillator::GenerateImpl(Buffer<Sample>& output)
 {
+    auto freqModValues = m_frequencyModulator.GetModulationValues();
     for (int i = 0; i < output.size(); i++) {
         Sample value = Lerp();
         IncrementPhase();
         output[i] = SineToWaveform(value, m_waveform);
     }
 }
+
+void Oscillator::SetContextImpl(const Context& context)
+{
+    m_context = context;
+    SetFrequency(p_frequency);
+}
+
+template<class M>
+void Oscillator::AttachModulatorImpl(OscillatorParameter parameter, Modulator<M>* modulator)
+{
+    switch (parameter) {
+        case OscillatorParameter::OSC_FREQUENCY:
+            m_frequencyModulator = ModulationSource(modulator);
+            break;
+        default:
+            break;
+    }
+}
+
+void Oscillator::DetachModulatorImpl(OscillatorParameter parameter)
+{
+    switch (parameter) {
+        case OscillatorParameter::OSC_FREQUENCY:
+            m_frequencyModulator.Detach();
+            break;
+        default:
+            break;
+    }
+}
+
+void Oscillator::SetModulationDepthImpl(OscillatorParameter parameter, float depth)
+{
+    switch (parameter) {
+        case OscillatorParameter::OSC_FREQUENCY:
+            p_frequencyModulationDepth = depth;
+            break;
+        default:
+            break;
+    }
+}
+
 
 #ifdef NEO_PLUGIN_SUPPORT
 void Oscillator::AttachParameterToSourceImpl(OscillatorParameter parameter, std::atomic<float>* source)

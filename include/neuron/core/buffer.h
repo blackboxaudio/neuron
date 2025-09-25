@@ -1,7 +1,5 @@
 #pragma once
 
-#include <cstddef>
-
 /**
  * A lightweight view into a contiguous block of data, acting
  * as a non-owning reference to memory.

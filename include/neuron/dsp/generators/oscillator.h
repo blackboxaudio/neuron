@@ -73,8 +73,13 @@ namespace neuron {
         friend class Generator<Oscillator>;
         void GenerateImpl(Buffer<Sample>& output);
 
-#ifdef NEO_PLUGIN_SUPPORT
         friend class Neuron<Oscillator, OscillatorParameter>;
+        void SetContextImpl(const Context& context);
+        template<class M>
+        void AttachModulatorImpl(OscillatorParameter parameter, Modulator<M>* modulator);
+        void DetachModulatorImpl(OscillatorParameter parameter);
+        void SetModulationDepthImpl(OscillatorParameter parameter, float depth);
+#ifdef NEO_PLUGIN_SUPPORT
         void AttachParameterToSourceImpl(OscillatorParameter parameter, std::atomic<float>* source);
 #endif
 
@@ -89,6 +94,8 @@ namespace neuron {
         Waveform m_waveform;
 
         Parameter<float> p_frequency;
+        Parameter<float> p_frequencyModulationDepth;
+        ModulationSource m_frequencyModulator;
 
         float m_phase = 0.0f;
         float m_phaseIncrement = 0.0f;

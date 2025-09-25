@@ -101,7 +101,7 @@ namespace neuron {
 
     protected:
         friend class Modulator<AdsrEnvelopeModulator>;
-        float ModulateImpl();
+        void GenerateModulationValuesImpl();
 
 #ifdef NEO_PLUGIN_SUPPORT
         friend class Neuron<AdsrEnvelopeModulator, AdsrParameter>;
