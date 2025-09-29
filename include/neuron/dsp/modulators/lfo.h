@@ -34,7 +34,7 @@ namespace neuron {
             switch (parameter) {
                 case LfoParameter::LFO_FREQUENCY:
                     m_frequencyModulator = ModulationSource(modulator);
-                break;
+                    break;
                 default:
                     break;
             }

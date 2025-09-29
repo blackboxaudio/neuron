@@ -29,8 +29,7 @@ void Lfo::ModulateImpl()
             m_modulationValues[i],
             freqModValues[i],
             p_frequencyModulationDepth,
-            m_context.sampleRate
-        );
+            m_context.sampleRate);
     }
 }
 
@@ -46,7 +45,7 @@ void Lfo::DetachModulatorImpl(LfoParameter parameter)
     switch (parameter) {
         case LfoParameter::LFO_FREQUENCY:
             m_frequencyModulator.Detach();
-        break;
+            break;
         default:
             break;
     }
@@ -57,7 +56,7 @@ void Lfo::SetModulationDepthImpl(LfoParameter parameter, float depth)
     switch (parameter) {
         case LfoParameter::LFO_FREQUENCY:
             p_frequencyModulationDepth = depth;
-        break;
+            break;
         default:
             break;
     }
@@ -69,7 +68,7 @@ void Lfo::AttachParameterToSourceImpl(LfoParameter parameter, std::atomic<float>
     switch (parameter) {
         case LfoParameter::LFO_FREQUENCY:
             p_frequency.AttachSource(source);
-        break;
+            break;
         default:
             break;
     }

@@ -17,10 +17,9 @@ namespace neuron {
          * Initializes the modulator with a zero-filled buffer.
          */
         Modulator()
-            : m_modulationValues{}
+            : m_modulationValues {}
             , m_bufferView(m_modulationValues, 0)
         {
-
         }
 
         /**
@@ -83,7 +82,8 @@ namespace neuron {
             , m_get_modulation_values_fn([](const void* ptr) noexcept -> const Buffer<float>& {
                 return static_cast<const Modulator<M>*>(ptr)->GetModulationValues();
             })
-        {}
+        {
+        }
 
         ModulationSource(const ModulationSource&) = default;
         ModulationSource& operator=(const ModulationSource&) = default;

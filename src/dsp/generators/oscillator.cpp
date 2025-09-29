@@ -54,8 +54,7 @@ void Oscillator::GenerateImpl(Buffer<Sample>& output)
             output[i],
             freqModValues[i],
             p_frequencyModulationDepth,
-            m_context.sampleRate
-        );
+            m_context.sampleRate);
         if (wasCycleCompleted && m_follower != nullptr) {
             m_follower->Reset(m_wavetable.GetPhase());
         }

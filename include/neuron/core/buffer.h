@@ -9,8 +9,16 @@ namespace neuron {
     template<typename DataType>
     class Buffer {
     public:
-        constexpr Buffer() noexcept : m_data(nullptr), m_size(0) {}
-        constexpr Buffer(DataType* data, int size) noexcept : m_data(data), m_size(size) {}
+        constexpr Buffer() noexcept
+            : m_data(nullptr)
+            , m_size(0)
+        {
+        }
+        constexpr Buffer(DataType* data, int size) noexcept
+            : m_data(data)
+            , m_size(size)
+        {
+        }
 
         constexpr DataType& operator[](int index) noexcept { return m_data[index]; }
         constexpr const DataType& operator[](int index) const noexcept { return m_data[index]; }
@@ -30,7 +38,6 @@ namespace neuron {
     private:
         DataType* m_data;
         int m_size;
-
     };
 
 }

@@ -69,7 +69,7 @@ namespace neuron {
             switch (parameter) {
                 case OscillatorParameter::OSC_FREQUENCY:
                     m_frequencyModulator = ModulationSource(modulator);
-                break;
+                    break;
                 default:
                     break;
             }

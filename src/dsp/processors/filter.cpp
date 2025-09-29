@@ -49,7 +49,7 @@ void Filter::DetachModulatorImpl(FilterParameter parameter)
     switch (parameter) {
         case FilterParameter::FILTER_CUTOFF_FREQUENCY:
             m_cutoffFrequencyModulator.Detach();
-        break;
+            break;
         default:
             break;
     }
@@ -60,7 +60,7 @@ void Filter::SetModulationDepthImpl(FilterParameter parameter, float depth)
     switch (parameter) {
         case FilterParameter::FILTER_CUTOFF_FREQUENCY:
             p_cutoffFrequencyModulationDepth = depth;
-        break;
+            break;
         default:
             break;
     }
