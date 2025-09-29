@@ -25,19 +25,18 @@
 // DSP (Modulators)
 #include "neuron/dsp/modulators/modulator.h"
 
-#include "neuron/dsp/modulators/adsr.h"
+#include "neuron/dsp/modulators/lfo.h"
 
 // DSP (Processors)
 #include "neuron/dsp/processors/processor.h"
 
 #include "neuron/dsp/processors/filter.h"
-#include "neuron/dsp/processors/saturator.h"
-#include "neuron/dsp/processors/wavefolder.h"
 
 // UTILS
 #include "neuron/utils/arithmetic.h"
 #include "neuron/utils/midi.h"
 #include "neuron/utils/smoothed_value.h"
 #include "neuron/utils/waveform.h"
+#include "neuron/utils/wavetable.h"
 
 #endif

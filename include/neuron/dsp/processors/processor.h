@@ -5,7 +5,7 @@
 namespace neuron {
 
     /**
-     * Describes a DSP component that does some processing on
+     * Describes a neuron that does some processing on
      * an input signal to produce an output signal.
      */
     template<class P>

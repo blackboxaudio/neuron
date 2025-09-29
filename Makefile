@@ -13,13 +13,11 @@ oscillator \
 
 MODULATOR_MOD_DIR = dsp/modulators
 MODULATOR_MODULES = \
-adsr \
+lfo \
 
 PROCESSOR_MOD_DIR = dsp/processors
 PROCESSOR_MODULES = \
 filter \
-saturator \
-wavefolder \
 
 ######################################
 # source

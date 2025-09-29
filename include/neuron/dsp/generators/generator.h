@@ -5,7 +5,7 @@
 namespace neuron {
 
     /**
-     * Describes a DSP component that generates a signal without
+     * Describes a neuron that generates a signal without
      * processing an input signal.
      */
     template<class G>
@@ -22,7 +22,7 @@ namespace neuron {
          */
         void Generate(Buffer<Sample>& output)
         {
-            return static_cast<G*>(this)->GenerateImpl();
+            return static_cast<G*>(this)->GenerateImpl(output);
         }
     };
 

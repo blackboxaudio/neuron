@@ -1,16 +1,12 @@
 #include "neuron/dsp/generators/oscillator.h"
 
-#include <cstddef>
-
 using namespace neuron;
 
-Oscillator::Oscillator(Context& context, float frequency, Waveform waveform)
-    : m_context(context)
-    , m_waveform(waveform)
+Oscillator::Oscillator(float frequency, Waveform waveform)
+    : m_wavetable(waveform, frequency)
     , p_frequency(frequency)
     , p_frequencyModulationDepth(0.0f)
 {
-    PopulateWavetable();
     SetFrequency(frequency);
 }
 
@@ -19,32 +15,57 @@ Oscillator::~Oscillator()
     m_follower = nullptr;
 }
 
-void Oscillator::GenerateImpl(Buffer<Sample>& output)
+void Oscillator::Reset(float phase)
 {
-    auto freqModValues = m_frequencyModulator.GetModulationValues();
-    for (int i = 0; i < output.size(); i++) {
-        Sample value = Lerp();
-        IncrementPhase();
-        output[i] = SineToWaveform(value, m_waveform);
+    m_wavetable.Reset(phase);
+    if (m_follower != nullptr) {
+        m_follower->Reset(phase);
     }
 }
 
-void Oscillator::SetContextImpl(const Context& context)
+void Oscillator::SetFrequency(float frequency)
+{
+    p_frequency = frequency;
+    m_wavetable.SetFrequency(frequency, m_context.sampleRate);
+}
+
+void Oscillator::SetWaveform(Waveform waveform)
+{
+    m_wavetable.SetWaveform(waveform);
+}
+
+void Oscillator::AttachFollower(Oscillator* follower)
+{
+    if (follower != nullptr && follower != this) {
+        m_follower = follower;
+    }
+}
+
+void Oscillator::DetachFollower()
+{
+    m_follower = nullptr;
+}
+
+void Oscillator::GenerateImpl(Buffer<Sample>& output)
+{
+    Buffer<float> freqModValues = m_frequencyModulator.GetModulationValues();
+    for (int i = 0; i < output.size(); i++) {
+        bool wasCycleCompleted = m_wavetable.GetNextSample(
+            output[i],
+            freqModValues[i],
+            p_frequencyModulationDepth,
+            m_context.sampleRate
+        );
+        if (wasCycleCompleted && m_follower != nullptr) {
+            m_follower->Reset(m_wavetable.GetPhase());
+        }
+    }
+}
+
+void Oscillator::SetContextImpl(Context context)
 {
     m_context = context;
     SetFrequency(p_frequency);
-}
-
-template<class M>
-void Oscillator::AttachModulatorImpl(OscillatorParameter parameter, Modulator<M>* modulator)
-{
-    switch (parameter) {
-        case OscillatorParameter::OSC_FREQUENCY:
-            m_frequencyModulator = ModulationSource(modulator);
-            break;
-        default:
-            break;
-    }
 }
 
 void Oscillator::DetachModulatorImpl(OscillatorParameter parameter)
@@ -69,8 +90,7 @@ void Oscillator::SetModulationDepthImpl(OscillatorParameter parameter, float dep
     }
 }
 
-
-#ifdef NEO_PLUGIN_SUPPORT
+#if NEO_PLUGIN_SUPPORT
 void Oscillator::AttachParameterToSourceImpl(OscillatorParameter parameter, std::atomic<float>* source)
 {
     switch (parameter) {
@@ -82,64 +102,3 @@ void Oscillator::AttachParameterToSourceImpl(OscillatorParameter parameter, std:
     }
 }
 #endif
-
-void Oscillator::Reset(float phase)
-{
-    float clampedPhase = clamp(phase, 0.0f, static_cast<float>(WAVETABLE_SIZE));
-    m_phase = clampedPhase;
-    if (m_follower != nullptr) {
-        m_follower->Reset(clampedPhase);
-    }
-}
-
-void Oscillator::SetFrequency(float frequency)
-{
-    p_frequency = frequency;
-    m_phaseIncrement = p_frequency * static_cast<float>(WAVETABLE_SIZE) / static_cast<float>(m_context.sampleRate);
-}
-
-void Oscillator::SetWaveform(Waveform waveform)
-{
-    m_waveform = waveform;
-}
-
-void Oscillator::AttachFollower(Oscillator* follower)
-{
-    if (follower != nullptr && follower != this) {
-        m_follower = follower;
-    }
-}
-
-void Oscillator::DetachFollower()
-{
-    m_follower = nullptr;
-}
-
-void Oscillator::PopulateWavetable()
-{
-    for (size_t idx = 0; idx < WAVETABLE_SIZE; idx++) {
-        float phase = static_cast<float>(idx) * PI * 2.0f / static_cast<float>(WAVETABLE_SIZE);
-        m_wavetable[idx] = sin(phase);
-    }
-}
-
-void Oscillator::IncrementPhase()
-{
-    m_phase += m_phaseIncrement;
-    if (m_phase >= static_cast<float>(WAVETABLE_SIZE)) {
-        m_phase -= static_cast<float>(WAVETABLE_SIZE);
-        if (m_follower != nullptr) {
-            m_follower->Reset(m_phase);
-        }
-    }
-}
-
-Sample Oscillator::Lerp()
-{
-    size_t truncatedIdx = m_phase;
-    size_t nextIdx = (truncatedIdx + 1) % WAVETABLE_SIZE;
-    float nextIdxWeight = m_phase - static_cast<float>(truncatedIdx);
-    float truncatedIdxWeight = 1.0f - nextIdxWeight;
-
-    return (m_wavetable[truncatedIdx] * truncatedIdxWeight) + (m_wavetable[nextIdx] * nextIdxWeight);
-}

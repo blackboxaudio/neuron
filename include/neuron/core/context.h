@@ -8,7 +8,7 @@ namespace neuron {
      * that use the sample rate to calculate phase positions.
      */
     struct Context {
-        double sampleRate;
+        float sampleRate;
         int numChannels;
         int blockSize;
     };
@@ -17,6 +17,6 @@ namespace neuron {
      * The common default context, using a sample rate of 44.1kHz, stereo
      * channel configuration, and a buffer size of 16 samples.
      */
-    static Context DEFAULT_CONTEXT = { 44100.0, 2, 16 };
+    static Context DEFAULT_CONTEXT = { 44100.0f, 2, 16 };
 
 }

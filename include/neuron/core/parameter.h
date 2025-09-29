@@ -1,12 +1,12 @@
 #pragma once
 
-#ifdef NEO_PLUGIN_SUPPORT
+#if NEO_PLUGIN_SUPPORT
 #include <atomic>
 #endif
 
 namespace neuron {
 
-#ifdef NEO_PLUGIN_SUPPORT
+#if NEO_PLUGIN_SUPPORT
     /**
      * A read-only parameter used by a DSP component to allow more
      * control and flexibility in shaping its sound.

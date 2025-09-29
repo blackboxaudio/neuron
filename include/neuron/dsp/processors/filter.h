@@ -24,36 +24,34 @@ namespace neuron {
     public:
         /**
          * Creates a filter processor.
-         *
-         * @param context The DSP context to be used by the filter.
-         * @param cutoffFrequency The initial cutoff frequency of the filter.
-         * @return Filter
          */
-        explicit Filter(Context& context = DEFAULT_CONTEXT,
-            float cutoffFrequency = FILTER_CUTOFF_FREQ_MAX);
+        explicit Filter(float cutoffFrequency = FILTER_CUTOFF_FREQ_MAX);
 
         /**
          * Sets the filter's cutoff frequency.
-         *
-         * @param frequency The new cutoff frequency.
          */
         void SetCutoffFrequency(float frequency);
-
-        Parameter<float> p_cutoffFrequency;
 
     protected:
         friend class Processor<Filter>;
         void ProcessImpl(Buffer<Sample>& input, Buffer<Sample>& output);
 
-#ifdef NEO_PLUGIN_SUPPORT
         friend class Neuron<Filter, FilterParameter>;
+        void SetContextImpl(Context context);
+        template<class M>
+        void AttachModulatorImpl(FilterParameter parameter, Modulator<M>* modulator);
+        void DetachModulatorImpl(FilterParameter parameter);
+        void SetModulationDepthImpl(FilterParameter parameter, float depth);
+#if NEO_PLUGIN_SUPPORT
         void AttachParameterToSourceImpl(FilterParameter parameter, std::atomic<float>* source);
 #endif
 
     private:
         void CalculateAlpha();
 
-        Context& m_context;
+        Parameter<float> p_cutoffFrequency;
+        Parameter<float> p_cutoffFrequencyModulationDepth;
+        ModulationSource m_cutoffFrequencyModulator;
 
         float m_alpha;
         Sample m_previousOutput;
