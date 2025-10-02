@@ -3,7 +3,7 @@
 using namespace neuron;
 
 Lfo::Lfo(float frequency, Waveform waveform)
-    : m_wavetable(waveform, frequency)
+    : m_wavetable(waveform, frequency, FrequencyRange::MOD)
     , p_frequency(frequency)
     , p_frequencyModulationDepth(0.0f)
 {
@@ -35,7 +35,6 @@ void Lfo::ModulateImpl()
 
 void Lfo::SetContextImpl(Context context)
 {
-    m_context = context;
     SetBufferSize(context.blockSize);
     SetFrequency(p_frequency);
 }

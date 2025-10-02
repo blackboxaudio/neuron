@@ -3,7 +3,7 @@
 using namespace neuron;
 
 Oscillator::Oscillator(float frequency, Waveform waveform)
-    : m_wavetable(waveform, frequency)
+    : m_wavetable(waveform, frequency, FrequencyRange::AUDIO)
     , p_frequency(frequency)
     , p_frequencyModulationDepth(0.0f)
 {
@@ -61,9 +61,8 @@ void Oscillator::GenerateImpl(Buffer<Sample>& output)
     }
 }
 
-void Oscillator::SetContextImpl(Context context)
+void Oscillator::SetContextImpl(Context /* context */)
 {
-    m_context = context;
     SetFrequency(p_frequency);
 }
 

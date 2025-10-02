@@ -27,6 +27,7 @@ namespace neuron {
          */
         void SetContext(Context context)
         {
+            m_context = context;
             static_cast<N*>(this)->SetContextImpl(context);
         }
 

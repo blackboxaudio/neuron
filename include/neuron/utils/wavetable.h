@@ -5,13 +5,19 @@
 
 namespace neuron {
 
+    enum class FrequencyRange {
+        MOD, // 0.01Hz to 20Hz
+        AUDIO, // 20Hz to Nyquist (usually 22kHz)
+    };
+
     class Wavetable {
     public:
-        static constexpr int WAVETABLE_SIZE = 256;
+        static constexpr int WAVETABLE_SIZE = 2048;
 
-        explicit Wavetable(Waveform waveform = Waveform::SINE, float frequency = 440.0f)
+        explicit Wavetable(Waveform waveform = Waveform::SINE, float frequency = 440.0f, FrequencyRange range = FrequencyRange::AUDIO)
             : m_waveform(waveform)
             , m_baseFrequency(frequency)
+            , m_frequencyRange(range)
         {
             PopulateWavetable();
         }
@@ -50,7 +56,8 @@ namespace neuron {
         {
             output = SineToWaveform(InterpolateSample(), m_waveform);
 
-            float modFrequency = m_baseFrequency * (1.0f * frequencyMod * modDepth);
+            float modFactor = 1.0f + (frequencyMod * modDepth);
+            float modFrequency = ClampFrequency(m_baseFrequency * modFactor, sampleRate);
             float phaseIncrement = modFrequency * static_cast<float>(WAVETABLE_SIZE) / sampleRate;
 
             bool wasCycleCompleted = false;
@@ -77,11 +84,30 @@ namespace neuron {
         Sample InterpolateSample() const
         {
             int truncatedIndex = static_cast<int>(m_phase);
-            int nextIndex = (truncatedIndex + 1) % WAVETABLE_SIZE;
+            int nextIndex = (truncatedIndex + 1) & (WAVETABLE_SIZE - 1);
             float nextIndexWeight = m_phase - static_cast<float>(truncatedIndex);
             float truncatedIndexWeight = 1.0f - nextIndexWeight;
 
             return m_wavetable[truncatedIndex] * truncatedIndexWeight + m_wavetable[nextIndex] * nextIndexWeight;
+        }
+
+        float ClampFrequency(float frequency, float sampleRate)
+        {
+            float minFreq, maxFreq;
+
+            switch (m_frequencyRange) {
+                case FrequencyRange::MOD:
+                    minFreq = 0.01f;
+                    maxFreq = sampleRate * (1.0f / 256.0f);
+                    break;
+                case FrequencyRange::AUDIO:
+                default:
+                    minFreq = 20.0f;
+                    maxFreq = std::min(sampleRate / 2.01f, 22000.0f);
+                    break;
+            }
+
+            return neuron::clamp(frequency, minFreq, maxFreq);
         }
 
         Sample m_wavetable[WAVETABLE_SIZE];
@@ -90,6 +116,8 @@ namespace neuron {
         float m_phase = 0.0f;
         float m_basePhaseIncrement = 0.0f;
         float m_baseFrequency = 440.0f;
+
+        FrequencyRange m_frequencyRange;
     };
 
 }
