@@ -17,6 +17,11 @@
 #include "neuron/core/parameter.h"
 #include "neuron/core/sample.h"
 
+// DSP (Effectors)
+#include "neuron/dsp/effectors/effector.h"
+
+#include "neuron/dsp/effectors/filter.h"
+
 // DSP (Generators)
 #include "neuron/dsp/generators/generator.h"
 
@@ -26,11 +31,6 @@
 #include "neuron/dsp/modulators/modulator.h"
 
 #include "neuron/dsp/modulators/lfo.h"
-
-// DSP (Processors)
-#include "neuron/dsp/processors/processor.h"
-
-#include "neuron/dsp/processors/filter.h"
 
 // UTILS
 #include "neuron/utils/arithmetic.h"

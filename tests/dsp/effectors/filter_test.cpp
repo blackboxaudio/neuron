@@ -1,5 +1,5 @@
 #include "neuron/dsp/generators/oscillator.h"
-#include "neuron/dsp/processors/filter.h"
+#include "neuron/dsp/effectors/filter.h"
 
 #include <gtest/gtest.h>
 
@@ -15,7 +15,7 @@ TEST(filter_suite, basic_test)
 
     int numSamples = 32;
     while (numSamples--) {
-        float result = filter.Process(oscillator.Generate());
+        float result = filter.Effect(oscillator.Generate());
         EXPECT_NEAR(result, 0.0f, 1e-1);
     }
 }

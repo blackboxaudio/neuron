@@ -5,7 +5,7 @@
 #include "neuron/core/context.h"
 #include "neuron/core/parameter.h"
 #include "neuron/core/sample.h"
-#include "neuron/dsp/processors/processor.h"
+#include "neuron/dsp/effectors/effector.h"
 
 namespace neuron {
 
@@ -20,10 +20,10 @@ namespace neuron {
      * The Filter class applies a simple low-pass filter
      * to audio signals.
      */
-    class Filter : public Processor<Filter>, public Neuron<Filter, FilterParameter> {
+    class Filter : public Effector<Filter>, public Neuron<Filter, FilterParameter> {
     public:
         /**
-         * Creates a filter processor.
+         * Creates a filter effector.
          */
         explicit Filter(float cutoffFrequency = FILTER_CUTOFF_FREQ_MAX);
 
@@ -33,8 +33,8 @@ namespace neuron {
         void SetCutoffFrequency(float frequency);
 
     protected:
-        friend class Processor<Filter>;
-        void ProcessImpl(Buffer<Sample>& input, Buffer<Sample>& output);
+        friend class Effector<Filter>;
+        void EffectImpl(Buffer<Sample>& input, Buffer<Sample>& output);
 
         friend class Neuron<Filter, FilterParameter>;
         void SetContextImpl(Context context);

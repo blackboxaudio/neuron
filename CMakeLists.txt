@@ -48,7 +48,7 @@ if (NEO_BUILD_TESTS)
     add_neuron_test(parameter tests/core/parameter_test.cpp)
 
     add_neuron_test(oscillator tests/dsp/generators/oscillator_test.cpp)
-    add_neuron_test(filter tests/dsp/processors/filter_test.cpp)
+    add_neuron_test(filter tests/dsp/effectors/filter_test.cpp)
 
     add_neuron_test(arithmetic tests/utils/arithmetic_test.cpp)
     add_neuron_test(midi tests/utils/midi_test.cpp)

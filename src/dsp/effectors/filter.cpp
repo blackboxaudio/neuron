@@ -1,4 +1,4 @@
-#include "neuron/dsp/processors/filter.h"
+#include "neuron/dsp/effectors/filter.h"
 #include "neuron/utils/arithmetic.h"
 
 using namespace neuron;
@@ -17,7 +17,7 @@ void Filter::SetCutoffFrequency(float frequency)
     CalculateAlpha();
 }
 
-void Filter::ProcessImpl(Buffer<Sample>& input, Buffer<Sample>& output)
+void Filter::EffectImpl(Buffer<Sample>& input, Buffer<Sample>& output)
 {
     const Sample oneMinusAlpha = 1.0f - m_alpha;
     for (int i = 0; i < input.size(); i++) {
