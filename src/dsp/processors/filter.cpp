@@ -27,7 +27,7 @@ void Filter::ProcessImpl(Buffer<Sample>& input, Buffer<Sample>& output)
     }
 }
 
-void Filter::SetContextImpl(Context /* context */) { }
+void Filter::SetContextImpl(Context /* context */) {}
 
 template<class M>
 void Filter::AttachModulatorImpl(FilterParameter parameter, Modulator<M>* modulator)
