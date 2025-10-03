@@ -5,7 +5,7 @@ option(NEO_BUILD_TESTS "Build unit tests" OFF)
 
 project(neuron VERSION 0.1.0 LANGUAGES CXX)
 
-file(GLOB_RECURSE SRC_FILES "src/*.cpp")
+file(GLOB_RECURSE SRC_FILES "src/**/*.cpp")
 
 add_library(neuron STATIC ${SRC_FILES})
 

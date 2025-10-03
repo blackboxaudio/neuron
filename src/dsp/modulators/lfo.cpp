@@ -23,19 +23,13 @@ void Lfo::SetWaveform(Waveform waveform)
 
 void Lfo::ModulateImpl()
 {
-    Buffer<float> freqModValues = m_frequencyModulator.GetModulationValues();
-    for (int i = 0; i < m_context.blockSize; i++) {
-        m_wavetable.GetNextSample(
-            m_modulationValues[i],
-            freqModValues[i],
-            p_frequencyModulationDepth,
-            m_context.sampleRate);
-    }
+    float freqModValue = m_frequencyModulator.GetModulationValue();
+    m_wavetable.GetNextSample(m_modulationValue, freqModValue, p_frequencyModulationDepth, m_context.sampleRate);
+    m_wavetable.AdvancePhaseByBlock(freqModValue, p_frequencyModulationDepth, m_context.sampleRate, m_context.blockSize - 1);
 }
 
 void Lfo::SetContextImpl(Context context)
 {
-    SetBufferSize(context.blockSize);
     SetFrequency(p_frequency);
 }
 

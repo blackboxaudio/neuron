@@ -48,11 +48,11 @@ void Oscillator::DetachFollower()
 
 void Oscillator::GenerateImpl(Buffer<Sample>& output)
 {
-    Buffer<float> freqModValues = m_frequencyModulator.GetModulationValues();
+    float freqModValue = m_frequencyModulator.GetModulationValue();
     for (int i = 0; i < output.size(); i++) {
         bool wasCycleCompleted = m_wavetable.GetNextSample(
             output[i],
-            freqModValues[i],
+            freqModValue,
             p_frequencyModulationDepth,
             m_context.sampleRate);
         if (wasCycleCompleted && m_follower != nullptr) {

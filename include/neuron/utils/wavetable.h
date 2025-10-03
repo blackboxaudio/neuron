@@ -72,6 +72,18 @@ namespace neuron {
 
         float GetPhase() const { return m_phase; }
 
+        void AdvancePhaseByBlock(float frequencyMod, float modDepth, float sampleRate, int numSamples)
+        {
+            float modFactor = 1.0f + (frequencyMod * modDepth);
+            float modFrequency = ClampFrequency(m_baseFrequency * modFactor, sampleRate);
+            float phaseIncrement = modFrequency * static_cast<float>(WAVETABLE_SIZE) / sampleRate;
+
+            m_phase += phaseIncrement * numSamples;
+            while (m_phase >= static_cast<float>(WAVETABLE_SIZE)) {
+                m_phase -= static_cast<float>(WAVETABLE_SIZE);
+            }
+        }
+
     private:
         void PopulateWavetable()
         {

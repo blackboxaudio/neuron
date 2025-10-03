@@ -16,11 +16,7 @@ namespace neuron {
         /**
          * Initializes the modulator with a zero-filled buffer.
          */
-        Modulator()
-            : m_modulationValues {}
-            , m_bufferView(m_modulationValues, 0)
-        {
-        }
+        Modulator() {}
 
         /**
          * Frees any memory allocated by the modulator.
@@ -36,29 +32,13 @@ namespace neuron {
             return static_cast<M*>(this)->ModulateImpl();
         }
 
-        /**
-         * Exposes this modulator's internal values with a view-only buffer.
-         */
-        const Buffer<float>& GetModulationValues() const noexcept
+        const float GetModulationValue() const noexcept
         {
-            return m_bufferView;
+            return m_modulationValue;
         }
 
     protected:
-        /**
-         * Sets the actual size of this modulator's internal buffer. It cannot exceed
-         * the maximum number of values, which is 4096.
-         */
-        void SetBufferSize(int size) noexcept
-        {
-            m_bufferView = Buffer<float>(m_modulationValues, std::min(size, MAX_BUFFER_SIZE));
-        }
-
-        static constexpr int MAX_BUFFER_SIZE = 4096;
-        float m_modulationValues[MAX_BUFFER_SIZE];
-
-    private:
-        Buffer<float> m_bufferView;
+        float m_modulationValue = 0.0f;
     };
 
     /**
@@ -79,8 +59,8 @@ namespace neuron {
         template<class M>
         ModulationSource(Modulator<M>* modulator)
             : m_ptr(modulator)
-            , m_get_modulation_values_fn([](const void* ptr) noexcept -> const Buffer<float>& {
-                return static_cast<const Modulator<M>*>(ptr)->GetModulationValues();
+            , m_get_modulation_value_fn([](const void* ptr) noexcept -> const float {
+                return static_cast<const Modulator<M>*>(ptr)->GetModulationValue();
             })
         {
         }
@@ -94,17 +74,13 @@ namespace neuron {
          */
         bool IsValid() const noexcept { return m_ptr != nullptr; }
 
-        /**
-         * Exposes this modulator's internal values with a view-only buffer.
-         */
-        const Buffer<float>& GetModulationValues() const noexcept
+        const float GetModulationValue() const noexcept
         {
-            if (m_ptr && m_get_modulation_values_fn) {
-                return m_get_modulation_values_fn(m_ptr);
+            if (m_ptr && m_get_modulation_value_fn) {
+                return m_get_modulation_value_fn(m_ptr);
             }
 
-            static constexpr Buffer<float> empty;
-            return empty;
+            return 0.0f;
         }
 
         /**
@@ -113,12 +89,12 @@ namespace neuron {
         void Detach() noexcept
         {
             m_ptr = nullptr;
-            m_get_modulation_values_fn = nullptr;
+            m_get_modulation_value_fn = nullptr;
         }
 
     private:
         void* m_ptr = nullptr;
-        const Buffer<float>& (*m_get_modulation_values_fn)(const void*) noexcept = nullptr;
+        const float (*m_get_modulation_value_fn)(const void*) noexcept = nullptr;
     };
 
 }
