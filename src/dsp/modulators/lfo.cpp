@@ -2,12 +2,12 @@
 
 using namespace neuron;
 
-Lfo::Lfo(float frequency, Waveform waveform)
+Lfo::Lfo(Context context, float frequency, Waveform waveform)
     : m_wavetable(waveform, frequency, FrequencyRange::MOD)
     , p_frequency(frequency)
     , p_frequencyModulationDepth(0.0f)
 {
-    SetFrequency(frequency);
+    SetContext(context);
 }
 
 void Lfo::SetFrequency(float frequency)

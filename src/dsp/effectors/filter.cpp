@@ -3,12 +3,12 @@
 
 using namespace neuron;
 
-Filter::Filter(float cutoffFrequency)
+Filter::Filter(Context context, float cutoffFrequency)
     : p_cutoffFrequency(cutoffFrequency)
     , p_cutoffFrequencyModulationDepth(0.0f)
     , m_previousOutput(0.0f)
 {
-    SetCutoffFrequency(cutoffFrequency);
+    SetContext(context);
 }
 
 void Filter::SetCutoffFrequency(float frequency)
@@ -19,26 +19,30 @@ void Filter::SetCutoffFrequency(float frequency)
 
 void Filter::EffectImpl(Buffer<Sample>& input, Buffer<Sample>& output)
 {
-    const Sample oneMinusAlpha = 1.0f - m_alpha;
+    float alpha = m_alpha;
+
+    if (m_cutoffFrequencyModulator.IsValid()) {
+        float modValue = m_cutoffFrequencyModulator.GetModulationValue();
+        float range = FILTER_CUTOFF_FREQ_MAX - FILTER_CUTOFF_FREQ_MIN;
+        float modulatedCutoff = p_cutoffFrequency + modValue * p_cutoffFrequencyModulationDepth * range;
+        modulatedCutoff = clamp(modulatedCutoff, FILTER_CUTOFF_FREQ_MIN, FILTER_CUTOFF_FREQ_MAX);
+
+        float cutoffResponse = 1.0f / (2.0f * PI * modulatedCutoff);
+        float deltaTime = 1.0f / static_cast<float>(m_context.sampleRate);
+        alpha = deltaTime / (cutoffResponse + deltaTime);
+    }
+
+    const Sample oneMinusAlpha = 1.0f - alpha;
     for (int i = 0; i < input.size(); i++) {
-        Sample value = input[i] * m_alpha + oneMinusAlpha * m_previousOutput;
+        Sample value = input[i] * alpha + oneMinusAlpha * m_previousOutput;
         m_previousOutput = value;
         output[i] = value;
     }
 }
 
-void Filter::SetContextImpl(Context /* context */) {}
-
-template<class M>
-void Filter::AttachModulatorImpl(FilterParameter parameter, Modulator<M>* modulator)
+void Filter::SetContextImpl(Context /* context */)
 {
-    switch (parameter) {
-        case FilterParameter::FILTER_CUTOFF_FREQUENCY:
-            m_cutoffFrequencyModulator = ModulationSource(modulator);
-            break;
-        default:
-            break;
-    }
+    CalculateAlpha();
 }
 
 void Filter::DetachModulatorImpl(FilterParameter parameter)

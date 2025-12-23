@@ -1,23 +1,38 @@
 #!/bin/bash
 
-printf "Formatting code...\n"
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+source "$SCRIPT_DIR/utils.sh" || exit 1
 
-find include/ -iname '*.h' | xargs clang-format -i -style=file
-if [ $? -ne 0 ]; then
-    printf "Failed to format source code\n"
-    exit 1
-fi
+show_help() {
+    cat << 'EOF'
+Usage: format.sh [OPTIONS]
 
-find src/ -iname '*.h' -o -iname '*.cpp' | xargs clang-format -i -style=file
-if [ $? -ne 0 ]; then
-    printf "Failed to format source code\n"
-    exit 1
-fi
+Format C++ source code using clang-format.
 
-find tests/ -iname '*.h' -o -iname '*.cpp' | xargs clang-format -i -style=file
-if [ $? -ne 0 ]; then
-    printf "Failed to format test code\n"
-    exit 1
-fi
+Formats files in:
+    - include/
+    - src/
+    - tests/
+EOF
+    help_common_options
+}
 
-printf "Done.\n"
+parse_common_flags "$@"
+
+format_directory() {
+    local dir=$1
+    local label=$2
+
+    step "Formatting $label"
+    if ! find "$dir" -iname '*.h' -o -iname '*.cpp' | xargs clang-format -i -style=file; then
+        die "Failed to format $label"
+    fi
+}
+
+header "Formatting C++ Code"
+
+format_directory "include/" "headers"
+format_directory "src/" "source"
+format_directory "tests/" "tests"
+
+success "All files formatted"

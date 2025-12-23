@@ -14,7 +14,7 @@ namespace neuron {
 
     class Lfo : public Modulator<Lfo>, public Neuron<Lfo, LfoParameter> {
     public:
-        explicit Lfo(float frequency = 1.0f, Waveform waveform = Waveform::SINE);
+        explicit Lfo(Context context, float frequency = 1.0f, Waveform waveform = Waveform::SINE);
 
         ~Lfo() = default;
 

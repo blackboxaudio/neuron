@@ -2,12 +2,12 @@
 
 using namespace neuron;
 
-Oscillator::Oscillator(float frequency, Waveform waveform)
+Oscillator::Oscillator(Context context, float frequency, Waveform waveform)
     : m_wavetable(waveform, frequency, FrequencyRange::AUDIO)
     , p_frequency(frequency)
     , p_frequencyModulationDepth(0.0f)
 {
-    SetFrequency(frequency);
+    SetContext(context);
 }
 
 Oscillator::~Oscillator()

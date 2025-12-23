@@ -1,40 +1,81 @@
 #!/bin/bash
 
-convertsecs() {
-    ((m = (${1} % 3600) / 60))
-    ((s = ${1} % 60))
-    printf "%02dm %02ds\n" $m $s
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+source "$SCRIPT_DIR/utils.sh" || exit 1
+
+show_help() {
+    cat << 'EOF'
+Usage: build.sh [OPTIONS] [CONFIG]
+
+Build the neuron library using CMake.
+
+Arguments:
+    CONFIG               Build configuration: release, debug, or test (default: release)
+
+Options:
+    -r, --remove         Remove previous build directory before building
+EOF
+    help_common_options
 }
+
+# Defaults
+CONFIG="release"
+REMOVE_PREV=false
+
+parse_common_flags "$@"
+set -- "${ARGS[@]}"
+
+for arg in "$@"; do
+    case "$arg" in
+        -r|--remove)
+            REMOVE_PREV=true
+            ;;
+        release|debug|test)
+            CONFIG="$arg"
+            ;;
+        *)
+            die "Unknown option: $arg"
+            ;;
+    esac
+done
+
+# Validate config
+if [[ "$CONFIG" != "debug" ]] && [[ "$CONFIG" != "release" ]] && [[ "$CONFIG" != "test" ]]; then
+    die "Invalid build configuration: $CONFIG (must be release, debug, or test)"
+fi
 
 START_TIME=$(date +%s)
 
-CONFIG=${1:-release}
-if [ $CONFIG != "debug" ] && [ $CONFIG != "release" ] && [ $CONFIG != "test" ]; then
-    echo "Invalid build configuration"
-    exit 1
+header "Building Neuron ($CONFIG)"
+
+# Setup build directory
+TARGET_DIR="$PWD/target/$CONFIG"
+
+if [[ "$REMOVE_PREV" == true ]] && [[ -d "$TARGET_DIR" ]]; then
+    step "Removing previous build"
+    rm -rf "$TARGET_DIR"
 fi
 
-# CAUTION: Assumes this script is run from the root repository directory
-TARGET_DIR=$PWD/target/$CONFIG
-
-rm -rf "$TARGET_DIR"
 mkdir -p "$TARGET_DIR"
-cd $TARGET_DIR
+cd "$TARGET_DIR" || die "Failed to change to build directory"
 
-CMAKE_FLAGS=$([ $CONFIG == "test" ] && echo "-DBUILD_TESTS=ON")
-cmake $CMAKE_FLAGS ../../
-if [ $? -ne 0 ]; then
-    printf "Failed to generate build files\n"
-    exit 1
+# Configure CMake flags
+CMAKE_FLAGS=""
+if [[ "$CONFIG" == "test" ]]; then
+    CMAKE_FLAGS="-DNEO_BUILD_TESTS=ON"
 fi
 
-make
-if [ $? -ne 0 ]; then
-    printf "Failed to compile code\n"
-    exit 1
+# Generate build files
+step "Generating build files"
+if ! run cmake $CMAKE_FLAGS ../../; then
+    die "Failed to generate build files"
 fi
 
-END_TIME=$(date +%s)
-EXEC_TIME=$(convertsecs $(expr $END_TIME - $START_TIME))
+# Compile
+step "Compiling"
+if ! run make; then
+    die "Failed to compile"
+fi
 
-printf "\nDone ($EXEC_TIME)\n"
+success "Build complete"
+print_elapsed "$START_TIME"

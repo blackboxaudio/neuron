@@ -23,7 +23,7 @@ namespace neuron {
         /**
          * Creates an oscillator generator that produces the given waveform at the given frequency.
          */
-        explicit Oscillator(float frequency = 440.0f, Waveform waveform = Waveform::SINE);
+        explicit Oscillator(Context context, float frequency = 440.0f, Waveform waveform = Waveform::SINE);
 
         /**
          * Frees any memory allocated by the oscillator.

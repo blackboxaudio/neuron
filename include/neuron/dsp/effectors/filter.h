@@ -25,7 +25,7 @@ namespace neuron {
         /**
          * Creates a filter effector.
          */
-        explicit Filter(float cutoffFrequency = FILTER_CUTOFF_FREQ_MAX);
+        explicit Filter(Context context, float cutoffFrequency = FILTER_CUTOFF_FREQ_MAX);
 
         /**
          * Sets the filter's cutoff frequency.
@@ -39,7 +39,16 @@ namespace neuron {
         friend class Neuron<Filter, FilterParameter>;
         void SetContextImpl(Context context);
         template<class M>
-        void AttachModulatorImpl(FilterParameter parameter, Modulator<M>* modulator);
+        void AttachModulatorImpl(FilterParameter parameter, Modulator<M>* modulator)
+        {
+            switch (parameter) {
+                case FilterParameter::FILTER_CUTOFF_FREQUENCY:
+                    m_cutoffFrequencyModulator = ModulationSource(modulator);
+                    break;
+                default:
+                    break;
+            }
+        }
         void DetachModulatorImpl(FilterParameter parameter);
         void SetModulationDepthImpl(FilterParameter parameter, float depth);
 #if NEO_PLUGIN_SUPPORT

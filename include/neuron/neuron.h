@@ -20,7 +20,11 @@
 // DSP (Effectors)
 #include "neuron/dsp/effectors/effector.h"
 
+#include "neuron/dsp/effectors/channel_router.h"
+#include "neuron/dsp/effectors/dc_blocker.h"
 #include "neuron/dsp/effectors/filter.h"
+#include "neuron/dsp/effectors/gain.h"
+#include "neuron/dsp/effectors/panner.h"
 
 // DSP (Generators)
 #include "neuron/dsp/generators/generator.h"
