@@ -12,23 +12,35 @@
 
 // CORE
 #include "neuron/core/base.h"
+#include "neuron/core/buffer.h"
 #include "neuron/core/context.h"
 #include "neuron/core/parameter.h"
 #include "neuron/core/sample.h"
 
+// DSP (Effectors)
+#include "neuron/dsp/effectors/effector.h"
+
+#include "neuron/dsp/effectors/channel_router.h"
+#include "neuron/dsp/effectors/dc_blocker.h"
+#include "neuron/dsp/effectors/filter.h"
+#include "neuron/dsp/effectors/gain.h"
+#include "neuron/dsp/effectors/panner.h"
+
 // DSP (Generators)
 #include "neuron/dsp/generators/generator.h"
+
+#include "neuron/dsp/generators/oscillator.h"
 
 // DSP (Modulators)
 #include "neuron/dsp/modulators/modulator.h"
 
-// DSP (Processors)
-#include "neuron/dsp/processors/processor.h"
+#include "neuron/dsp/modulators/lfo.h"
 
 // UTILS
 #include "neuron/utils/arithmetic.h"
 #include "neuron/utils/midi.h"
 #include "neuron/utils/smoothed_value.h"
 #include "neuron/utils/waveform.h"
+#include "neuron/utils/wavetable.h"
 
 #endif

@@ -28,6 +28,11 @@ namespace neuron {
     const float EULER = 2.71828182845904523536028747135266250f;
 
     /**
+     * The unique real number such that the exponential function equals 2.
+     */
+    const float NATURAL_LOG_2 = 0.69314718055994530941723212145818f;
+
+    /**
      * Depicts different mathematical curves, e.g. exponential,
      * linear, logarithmic.
      */
@@ -142,6 +147,25 @@ namespace neuron {
         T diff = std::abs(a - b);
         T largest = std::max(std::abs(a), std::abs(b));
         return diff <= relativeEpsilon * largest;
+    }
+
+    template<typename T>
+    inline T pow2(T x)
+    {
+        T clamped = neuron::clamp(x, -2.0f, 2.0f);
+
+        int intPart = static_cast<int>(std::floor(clamped));
+        float fracPart = clamped - static_cast<float>(intPart);
+
+        float intResult = static_cast<float>(1 << std::max(0, intPart));
+        if (intPart < 0) {
+            intResult = 1.0f / static_cast<float>(1 << (-intPart));
+        }
+
+        float ln2Frac = fracPart * NATURAL_LOG_2;
+        float fracResult = 1.0f + ln2Frac + (ln2Frac * ln2Frac * 0.5f);
+
+        return intResult + fracResult;
     }
 
 }

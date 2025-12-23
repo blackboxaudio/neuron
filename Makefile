@@ -7,27 +7,25 @@ SRC_DIR = src
 # Header only modules are listed commented out
 # below the others.
 
+EFFECTOR_MOD_DIR = dsp/effectors
+EFFECTOR_MODULES = \
+filter \
+
 GENERATOR_MOD_DIR = dsp/generators
 GENERATOR_MODULES = \
 oscillator \
 
 MODULATOR_MOD_DIR = dsp/modulators
 MODULATOR_MODULES = \
-adsr \
-
-PROCESSOR_MOD_DIR = dsp/processors
-PROCESSOR_MODULES = \
-filter \
-saturator \
-wavefolder \
+lfo \
 
 ######################################
 # source
 ######################################
 
+CPP_SOURCES += $(addsuffix .cpp, $(SRC_DIR)/$(EFFECTOR_MOD_DIR)/$(EFFECTOR_MODULES))
 CPP_SOURCES += $(addsuffix .cpp, $(SRC_DIR)/$(GENERATOR_MOD_DIR)/$(GENERATOR_MODULES))
 CPP_SOURCES += $(addsuffix .cpp, $(SRC_DIR)/$(MODULATOR_MOD_DIR)/$(MODULATOR_MODULES))
-CPP_SOURCES += $(addsuffix .cpp, $(SRC_DIR)/$(PROCESSOR_MOD_DIR)/$(PROCESSOR_MODULES))
 
 ######################################
 # building variables

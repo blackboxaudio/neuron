@@ -1,7 +1,5 @@
 #pragma once
 
-#include <cstddef>
-
 namespace neuron {
 
     /**
@@ -10,15 +8,15 @@ namespace neuron {
      * that use the sample rate to calculate phase positions.
      */
     struct Context {
-        size_t sampleRate;
-        size_t numChannels;
-        size_t blockSize;
+        float sampleRate;
+        int numChannels;
+        int blockSize;
     };
 
     /**
      * The common default context, using a sample rate of 44.1kHz, stereo
      * channel configuration, and a buffer size of 16 samples.
      */
-    static Context DEFAULT_CONTEXT = { 44100, 2, 16 };
+    static Context DEFAULT_CONTEXT = { 44100.0f, 2, 16 };
 
 }

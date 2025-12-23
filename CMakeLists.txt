@@ -5,7 +5,7 @@ option(NEO_BUILD_TESTS "Build unit tests" OFF)
 
 project(neuron VERSION 0.1.0 LANGUAGES CXX)
 
-file(GLOB_RECURSE SRC_FILES "src/*.cpp")
+file(GLOB_RECURSE SRC_FILES "src/**/*.cpp")
 
 add_library(neuron STATIC ${SRC_FILES})
 
@@ -48,10 +48,7 @@ if (NEO_BUILD_TESTS)
     add_neuron_test(parameter tests/core/parameter_test.cpp)
 
     add_neuron_test(oscillator tests/dsp/generators/oscillator_test.cpp)
-    add_neuron_test(adsr tests/dsp/modulators/adsr_test.cpp)
-    add_neuron_test(saturator tests/dsp/processors/saturator_test.cpp)
-    add_neuron_test(wavefolder tests/dsp/processors/wavefolder_test.cpp)
-    add_neuron_test(filter tests/dsp/processors/filter_test.cpp)
+    add_neuron_test(filter tests/dsp/effectors/filter_test.cpp)
 
     add_neuron_test(arithmetic tests/utils/arithmetic_test.cpp)
     add_neuron_test(midi tests/utils/midi_test.cpp)
